@@ -28,7 +28,6 @@ public class MenuManager : MonoBehaviour
 	private bool gameMenuIsUp;
 
     #region Menu Access Methods
-
 	public bool CanToggleGameMenu()
     {
 		return canToggleGameMenu;
@@ -53,7 +52,8 @@ public class MenuManager : MonoBehaviour
 	{
 		if (activeMenuPanel == PlayerSettingsPanel && !changesSaved)
         {
-			RevertMenuSettingsFromScript();
+			//Revert back to un-changed script variables
+			AssertMenuSettingsFromScript();
         }
         else
         {
@@ -70,6 +70,11 @@ public class MenuManager : MonoBehaviour
 
 		previousMenuPanel = panelHolder;
 	}
+
+    public void InitializeMenusText()
+    {
+        //Will initialize all menu texts with the proper information from the scripts
+    }
     #endregion
     #region Internal Menu Mehods
     private void DisplayMenuPanel(GameObject menuPanel)
@@ -88,11 +93,11 @@ public class MenuManager : MonoBehaviour
 	}
 	#endregion
 	#region Settings Menu Methods
-	private void RevertMenuSettingsFromScript()
+	public void AssertMenuSettingsFromScript()
 	{
-		//Will reset sliders, text, numbers, etc. back to the un-changed settings in the script
+		//Will set sliders, text, numbers, etc. to the settings in the script
 	}
-	private void AssertMenuSettingsToScript()
+	public void AssertMenuSettingsToScript()
     {
 		//Will take the sliders, texts, numbers, etc. and assign those settings to the variable in the script
     }

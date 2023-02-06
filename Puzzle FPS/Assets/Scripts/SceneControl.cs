@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SceneControl : MonoBehaviour
+{
+    public void LoadMainMenuScene()
+    {
+        //Load 1st scene in build order which should be made sure is the main menu scene. Can also do this by name once that is stuctrued but could be slower
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+    }
+
+    public void LoadFirstLevel()
+    {
+        //Unload Main Menu Scene
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneAt(1))
+            SceneManager.UnloadSceneAsync(1);
+
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+
+        SceneManager.sceneLoaded += OnPlayLevelLoaded;
+    }
+
+    private void OnPlayLevelLoaded(Scene s, LoadSceneMode mode)
+    {
+        //If the level with the player actively in it is loaded
+        if (SceneManager.GetSceneByBuildIndex(2).isLoaded)
+        {
+            GameManager.instance.SetupPlayerAndCamera();
+        }
+        else
+        {
+            return;
+        }
+    }
+}
