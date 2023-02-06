@@ -50,14 +50,15 @@ public class MenuManager : MonoBehaviour
 	}
 	public void OpenPreviousMenuPanel()
 	{
+		//Simple if for settings panel changes instead of separate method
 		if (activeMenuPanel == PlayerSettingsPanel && !changesSaved)
         {
 			//Revert back to un-changed script variables
-			AssertMenuSettingsFromScript();
+			AssertMenuTextFromPlayerPreferences();
         }
         else
         {
-			AssertMenuSettingsToScript();
+			AssertMenuTextToPlayerPreferences();
         }
 		//Temp object for active menu
 		GameObject panelHolder;
@@ -93,14 +94,18 @@ public class MenuManager : MonoBehaviour
 	}
 	#endregion
 	#region Settings Menu Methods
-	public void AssertMenuSettingsFromScript()
+	public void AssertMenuTextToPlayerPreferences()
 	{
-		//Will set sliders, text, numbers, etc. to the settings in the script
+		//Will assign the values of sliders, text, numbers, etc. to the settings in the script
 	}
-	public void AssertMenuSettingsToScript()
-    {
-		//Will take the sliders, texts, numbers, etc. and assign those settings to the variable in the script
-    }
+	public void AssertMenuTextFromPlayerPreferences()
+	{
+		//Will set menu sliders, text, numbers, etc. from the active settings in the script
+	}
+	public void AssertMenuTextFromPlayerPreferencesDefault()
+	{
+		//Will set menu sliders, text, numbers, etc. from the default settings in the script
+	}
 	#endregion
 	#region Specific Menu Methods
 	public void DisplayMainMenu()

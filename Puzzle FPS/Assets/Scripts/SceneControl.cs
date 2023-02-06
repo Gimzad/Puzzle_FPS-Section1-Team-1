@@ -21,7 +21,12 @@ public class SceneControl : MonoBehaviour
 
         SceneManager.sceneLoaded += OnPlayLevelLoaded;
     }
-
+    public void SceneRestart_Game()
+    {
+        //If scence currently loaded is a level scene (player with enemies and objectives, which currently is only one test level)
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneAt(2))
+            SceneManager.UnloadSceneAsync(2);
+    }
     private void OnPlayLevelLoaded(Scene s, LoadSceneMode mode)
     {
         //If the level with the player actively in it is loaded
