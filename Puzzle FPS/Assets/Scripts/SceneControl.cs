@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneControl : MonoBehaviour
+public sealed class SceneControl
 {
+    static SceneControl()
+    {
+    }
+    private SceneControl()
+    {
+    }
+    public static SceneControl Instance { get; } = new SceneControl();
+
     public void LoadMainMenuScene()
     {
         //Load 1st scene in build order which should be made sure is the main menu scene. Can also do this by name once that is stuctrued but could be slower
@@ -27,12 +35,16 @@ public class SceneControl : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneAt(2))
             SceneManager.UnloadSceneAsync(2);
     }
+    public void SceneRestart_CurrentScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     private void OnPlayLevelLoaded(Scene s, LoadSceneMode mode)
     {
         //If the level with the player actively in it is loaded
         if (SceneManager.GetSceneByBuildIndex(2).isLoaded)
         {
-            GameManager.instance.SetupPlayerAndCamera();
+            GameManager.Instance.SetupPlayerAndCamera();
         }
         else
         {

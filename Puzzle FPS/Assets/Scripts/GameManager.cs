@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
     [Header("Components")]
     [SerializeField]
     PlayerController playerController;
@@ -26,9 +26,7 @@ public class GameManager : MonoBehaviour
     int enemiesRemaining;
 
 	#region Management Tools
-	private MenuManager menuManagerInstance;
 	private HUDManager hUDManagerInstance;
-	private SceneControl sceneControlInstance;
 	#endregion
 	#region GM Access Methods
 	public PlayerController PlayerController()
@@ -46,14 +44,12 @@ public class GameManager : MonoBehaviour
     #endregion
 	private void Awake()
 	{
-		menuManagerInstance = GetComponent<MenuManager>();
 		hUDManagerInstance = GetComponent<HUDManager>();
-		sceneControlInstance = GetComponent<SceneControl>();
 	}
 
 	void Start()
 	{
-		Begin();
+		//Begin();
 	}
     private void LateUpdate()
     {
@@ -73,33 +69,33 @@ public class GameManager : MonoBehaviour
 		isPaused = true;
 		playStarted = false;
 		//Deactivate any menus up from a possible last play
-		menuManagerInstance.DeactivateAllMenus();
-		menuManagerInstance.InitializeMenusText();
+		MenuManager.Instance.DeactivateAllMenus();
+		MenuManager.Instance.InitializeMenusText();
 
-		sceneControlInstance.LoadMainMenuScene();
+		SceneControl.Instance.LoadMainMenuScene();
 
 		//Set menu to default
-		menuManagerInstance.AssertMenuTextFromPlayerPreferencesDefault();
+		MenuManager.Instance.AssertMenuTextFromPlayerPreferencesDefault();
 
 		//Kind of a lazy way right now to reset the preferences to default as well as the menus.
 		//Less computation can be achieved by simply calling a function in preferences that resets the variables without parsing from the menu values
 
 		//Assign default to active preferences
-		menuManagerInstance.AssertMenuTextToPlayerPreferences();
+		MenuManager.Instance.AssertMenuTextToPlayerPreferences();
 
-		menuManagerInstance.DisplayMainMenu();
+		MenuManager.Instance.DisplayMainMenu();
 	}
 
 	public void InitializePlay()
 	{
-		menuManagerInstance.DeactivateAllMenus();
-		sceneControlInstance.LoadFirstLevel();
+		MenuManager.Instance.DeactivateAllMenus();
+		SceneControl.Instance.LoadFirstLevel();
 
 	}
 	void RestartGame()
 	{
 		//Call to scene control to handle unloading anything we are currently in
-		sceneControlInstance.SceneRestart_Game();
+		SceneControl.Instance.SceneRestart_Game();
 		//This call loads the main menu scene and menus
 		Begin();
 
@@ -109,7 +105,7 @@ public class GameManager : MonoBehaviour
 		Cursor.lockState =  CursorLockMode.Confined;
 	}
 
-	void RestartLevel()
+	public void RestartLevel()
     {
 		//Placeholder function to restart a level without going all the way back to the main menu
     }
@@ -119,7 +115,7 @@ public class GameManager : MonoBehaviour
 	{
 		playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-		menuManagerInstance.AssertMenuTextFromPlayerPreferencesDefault();
+		MenuManager.Instance.AssertMenuTextFromPlayerPreferencesDefault();
 
 		playerCamera = Camera.main.GetComponent<CameraControl>();
 
@@ -130,30 +126,28 @@ public class GameManager : MonoBehaviour
 	{
 		//Will take the active values from Player Preferences and assign those settings to the variables used in the player controller script
 	}
-	void HandleInGameMenuInput()
-	{
-		if (menuManagerInstance.CanToggleGameMenu())
-			if (Input.GetKeyDown(PlayerPreferences.Instance.PLAYERMENUKEY))
-			{
-				if (isPaused && menuManagerInstance.GameMenuIsUp())
-				{
-					//playerCamera.LockCamera = true;
-					menuManagerInstance.DisplayGameMenu();
-					isPaused = true;
-					Time.timeScale = 0f;
-					Cursor.lockState = CursorLockMode.Confined;
-					Cursor.visible = true;
 
-				}
-				else if (!isPaused && !menuManagerInstance.GameMenuIsUp())
-				{
-					//playerCamera.LockCamera = false;
-					menuManagerInstance.CloseGameMenu();
-					isPaused = false;
-					Time.timeScale = 1f;
-					Cursor.lockState = CursorLockMode.Locked;
-					Cursor.visible = false;
-				}
-			}
+	public void ToggleGameMenu()
+    {
+		if (isPaused && MenuManager.Instance.GameMenuIsUp())
+		{
+			//playerCamera.LockCamera = true;
+			MenuManager.Instance.DisplayGameMenu();
+			isPaused = true;
+			Time.timeScale = 0f;
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.visible = true;
+
+		}
+		else if (!isPaused && !MenuManager.Instance.GameMenuIsUp())
+		{
+			//playerCamera.LockCamera = false;
+			MenuManager.Instance.CloseGameMenu();
+			isPaused = false;
+			Time.timeScale = 1f;
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+		}
 	}
+
 }

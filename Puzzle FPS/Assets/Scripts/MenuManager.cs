@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+	public static MenuManager Instance;
+
 	[Header("UI Panels")]
     public GameObject MainMenuPanel;
 	public GameObject PlayerSettingsPanel;
@@ -27,7 +29,19 @@ public class MenuManager : MonoBehaviour
 	[SerializeField]
 	private bool gameMenuIsUp;
 
-    #region Menu Access Methods
+	#region Run-Time Methods
+	void HandleInGameMenuInput()
+	{
+		//Using the menu manager here to toggle the menus, but in game manager because it affects the timescale and pausestate.
+		if (canToggleGameMenu)
+			if (Input.GetKeyDown(PlayerPreferences.Instance.PLAYERMENUKEY))
+			{
+				GameManager.Instance.ToggleGameMenu();
+			}
+	}
+	#endregion
+
+	#region Menu Access Methods
 	public bool CanToggleGameMenu()
     {
 		return canToggleGameMenu;
