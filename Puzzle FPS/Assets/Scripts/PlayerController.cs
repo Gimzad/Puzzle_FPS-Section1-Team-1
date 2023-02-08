@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] int moveSpeed;
     [SerializeField] int jumpMax;
-    [SerializeField] int jumpSpeed;
+    [SerializeField] float jumpSpeed;
     [SerializeField] int playerGravity;
 
     int jumpsCurr;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             (transform.forward * Input.GetAxis("Vertical")));
         controller.Move(move * Time.deltaTime * moveSpeed);
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && jumpsCurr <= jumpMax)
         {
             jumpsCurr++;
             playerVelocity.y = jumpSpeed;
