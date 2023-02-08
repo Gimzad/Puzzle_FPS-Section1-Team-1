@@ -29,8 +29,9 @@ public class PlayerController : MonoBehaviour
 
     void movement()
     {
-        if (controller.isGrounded)
+        if (controller.isGrounded && playerVelocity.y < 0)
         {
+            playerVelocity.y = 0;
             jumpsCurr = 0;
 
         }
