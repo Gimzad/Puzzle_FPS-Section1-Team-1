@@ -319,6 +319,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7980205201380558816, guid: db7f4f5129324bd4fae2b5654de0c09a, type: 3}
+      propertyPath: sensHor
+      value: 420
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980205201380558816, guid: db7f4f5129324bd4fae2b5654de0c09a, type: 3}
+      propertyPath: sensVer
+      value: 420
+      objectReference: {fileID: 0}
     - target: {fileID: 7980205201441396441, guid: db7f4f5129324bd4fae2b5654de0c09a, type: 3}
       propertyPath: m_Name
       value: Player
