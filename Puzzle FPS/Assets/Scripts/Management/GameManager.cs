@@ -6,7 +6,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+	[Header("Core Objects")]
+	[SerializeField]
+	GameObject PlayerPrefab;
 
+	GameObject playerObject;
     [Header("Game Components")]
     [SerializeField]
     PlayerController playerController;
@@ -35,7 +39,11 @@ public class GameManager : MonoBehaviour
     {
         return isPaused;
     }
-    public int EnemiesRemaining()
+	public bool PlayStarted()
+	{
+		return playStarted;
+	}
+	public int EnemiesRemaining()
     {
         return enemiesRemaining;
     }
@@ -59,29 +67,25 @@ public class GameManager : MonoBehaviour
     }
 	#region Public Methods
 
-	public void SetupPlayerAndCamera()
-	{
-		playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-		AssertPlayerPreferencesToScript();
-
-		playerCamera = Camera.main.GetComponent<CameraControl>();
-
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
-	}
 	public void InitializePlay()
 	{
 		MenuManager.Instance.DeactivateAllMenus();
 		SceneControl.Instance.LoadFirstLevel();
 		SetupPlayerAndCamera();
 		HUDManager.Instance.ShowHUD();
-
+		playStarted = true;
 	}
-	public void RestartLevel()
+	public void SetupPlayerAndCamera()
 	{
-		//Placeholder function to restart a level without going all the way back to the main menu
-		SceneControl.Instance.SceneRestart_CurrentScene();
+		playerObject = Instantiate(PlayerPrefab);
+		playerController = PlayerPrefab.GetComponent<PlayerController>();
+		playerCamera = Camera.main.GetComponent<CameraControl>();
+
+		AssertPlayerPreferencesToScript();
+		Cursor.lockState = CursorLockMode.Locked;
+		playerCamera.ToggleCursorVisibility();
+		MenuManager.Instance.CanToggleGameMenu = true;
 	}
 	public void AssertPlayerPreferencesToScript()
 	{
@@ -89,6 +93,41 @@ public class GameManager : MonoBehaviour
 		//used in the player and camera scripts
 		//Should be called right before the player is dropped in and gains control of the player.
 		//Script values should be assigned from preferences, controls should be enabled and cursor hidden
+		playerController.MoveSpeed = PlayerPreferences.Instance.MoveSpeed;
+		playerController.JumpMax = PlayerPreferences.Instance.JumpMax;
+		playerController.JumpSpeed = PlayerPreferences.Instance.JumpSpeed;
+		playerController.PlayerGravity = PlayerPreferences.Instance.PlayerGravityStrength;
+
+		playerCamera.HorizontalSensitivity = PlayerPreferences.Instance.SensitivityHorizontal;
+		playerCamera.VeritcalSensitivity = PlayerPreferences.Instance.SensitivityVertical;
+		playerCamera.VeticalLockMin = PlayerPreferences.Instance.VerticalLockMin;
+		playerCamera.VeticalLockMax = PlayerPreferences.Instance.VerticalLockMax;
+		playerCamera.InvertX = PlayerPreferences.Instance.InvertX;
+
+	}
+	public void RestartLevel()
+	{
+		Destroy(playerObject);
+		Debug.Log("Restarting Level");
+		//Restart a level without going all the way back to the main menu
+		SceneControl.Instance.SceneRestart_CurrentScene();
+
+		//reload player and variable settings
+		InitializePlay();
+	}
+
+	public void RestartGame()
+	{
+		playerCamera.ToggleCursorVisibility();
+		Destroy(playerObject);
+
+		//Call to scene control to handle unloading anything we are currently in
+		SceneControl.Instance.SceneRestart_Game();
+
+		//This call loads the main menu scene and menus
+		BeginGame();
+
+		Cursor.lockState = CursorLockMode.Confined;
 	}
 	public void ToggleGameMenu()
 	{
@@ -98,7 +137,7 @@ public class GameManager : MonoBehaviour
 			isPaused = false;
 			Time.timeScale = 1f;
 			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+			playerCamera.ToggleCursorVisibility();
 
 		}
 		else
@@ -107,25 +146,12 @@ public class GameManager : MonoBehaviour
 			isPaused = true;
 			Time.timeScale = 0f;
 			Cursor.lockState = CursorLockMode.Confined;
-			Cursor.visible = true;
+			playerCamera.ToggleCursorVisibility();
 		}
 	}
-
-	public void RestartGame()
-	{
-		//Call to scene control to handle unloading anything we are currently in
-		SceneControl.Instance.SceneRestart_Game();
-		//This call loads the main menu scene and menus
-		BeginGame();
-
-		if (!Cursor.visible)
-			Cursor.visible = true;
-
-		Cursor.lockState = CursorLockMode.Confined;
-	}
-    #endregion
-    #region Private Methods
-    void BeginGame()
+	#endregion
+	#region Private Methods
+	void BeginGame()
 	{
 		isPaused = true;
 		playStarted = false;

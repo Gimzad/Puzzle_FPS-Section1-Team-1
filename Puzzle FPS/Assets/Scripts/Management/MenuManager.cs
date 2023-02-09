@@ -31,9 +31,10 @@ public class MenuManager : MonoBehaviour
 	private bool gameMenuIsUp;
 
 	#region Menu Access Methods
-	public bool CanToggleGameMenu()
+	public bool CanToggleGameMenu
 	{
-		return canToggleGameMenu;
+		get { return canToggleGameMenu; }
+		set { canToggleGameMenu = value; }
 	}
 	public bool GameMenuIsUp()
 	{
@@ -51,9 +52,10 @@ public class MenuManager : MonoBehaviour
 		//here temorarily till menu and loading is set up
 		canToggleGameMenu = true;
     }
-	private void Update()
+	private void LateUpdate()
 	{
-		HandleInGameMenuInput();
+		if (GameManager.Instance.PlayStarted())
+			HandleInGameMenuInput();
 	}
 	#region Run-Time Methods
 	void HandleInGameMenuInput()
@@ -75,7 +77,10 @@ public class MenuManager : MonoBehaviour
 		if (PlayerSettingsPanel.activeInHierarchy)
 			PlayerSettingsPanel.SetActive(false);
 		if (GameMenuPanel.activeInHierarchy)
-			GameMenuPanel.SetActive(false);	
+		{
+			GameMenuPanel.SetActive(false);
+			gameMenuIsUp = false;
+		}
 	}
 	public void OpenPreviousMenuPanel()
 	{

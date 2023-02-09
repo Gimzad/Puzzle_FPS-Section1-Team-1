@@ -6,17 +6,38 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
 
-    [SerializeField] int moveSpeed;
+    [SerializeField] float moveSpeed;
     [SerializeField] int jumpMax;
     [SerializeField] float jumpSpeed;
-    [SerializeField] int playerGravity;
+    [SerializeField] float playerGravity;
 
     [SerializeField] float shootRate;
 
     int jumpsCurr;
     Vector3 move;
     Vector3 playerVelocity;
-
+    #region Public Access Methods
+    public float MoveSpeed
+    {
+        get { return moveSpeed; }
+        set { moveSpeed = value; }
+    }
+    public int JumpMax
+    {
+        get { return jumpMax; }
+        set { jumpMax = value; }
+    }
+    public float JumpSpeed
+    {
+        get { return jumpSpeed; }
+        set { jumpSpeed = value; }
+    }
+    public float PlayerGravity
+    {
+        get { return playerGravity; }
+        set { playerGravity = value; }
+    }
+    #endregion
     // Start is called before the first frame update
     void Start()
     {

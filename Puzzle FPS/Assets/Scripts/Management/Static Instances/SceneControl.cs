@@ -23,19 +23,23 @@ public sealed class SceneControl
     {
         //Unload Main Menu Scene
         if (SceneManager.GetSceneByName("Main Menu").isLoaded)
+        {
             SceneManager.UnloadSceneAsync("Main Menu");
-
+        }
         SceneManager.LoadSceneAsync("Test Level", LoadSceneMode.Additive);
     }
     public void SceneRestart_Game()
     {
         //If scence currently loaded is a level scene (player with enemies and objectives, which currently is only one test level)
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("TestLevel"))
+        if (SceneManager.GetSceneByName("Test Level").isLoaded)
+        {
             SceneManager.UnloadSceneAsync("Test Level");
+        }
         //Game manager will make call to BeginGame() again which loads main menu
     }
     public void SceneRestart_CurrentScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //Current Scene should be the one loaded after the paersistent one (1)
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1));
     }
 }

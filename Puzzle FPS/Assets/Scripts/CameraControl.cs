@@ -14,7 +14,33 @@ public class CameraControl : MonoBehaviour
     [SerializeField] bool invertX;
 
     float xRotation;
-
+    #region Public Access Methods
+    public int HorizontalSensitivity
+    {
+        get { return sensHor; }
+        set { sensHor = value; }
+    }
+    public int VeritcalSensitivity
+    {
+        get { return sensVer; }
+        set { sensVer = value; }
+    }
+    public int VeticalLockMin
+    {
+        get { return lockVerMin; }
+        set { lockVerMin = value; }
+    }
+    public int VeticalLockMax
+    {
+        get { return lockVerMax; }
+        set { lockVerMax = value; }
+    }
+    public bool InvertX
+    {
+        get { return invertX; }
+        set { invertX = value; }
+    }
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -50,5 +76,10 @@ public class CameraControl : MonoBehaviour
 
         //rotate the player on its Y-axis
         transform.parent.Rotate(Vector3.up * mouseX);
+    }
+
+    public void ToggleCursorVisibility()
+    {
+        Cursor.visible = !Cursor.visible;
     }
 }

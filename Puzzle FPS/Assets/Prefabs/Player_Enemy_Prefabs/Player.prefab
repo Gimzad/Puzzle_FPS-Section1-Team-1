@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0006d5ab78072b46bc68faa2088ae1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensHor: 420
-  sensVer: 420
-  lockVerMin: -65
-  lockVerMax: 75
+  sensHor: 0
+  sensVer: 0
+  lockVerMin: 0
+  lockVerMax: 0
   invertX: 0
 --- !u!20 &7980205201380558818
 Camera:
@@ -150,10 +150,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7980205201441396445}
-  moveSpeed: 6
-  jumpMax: 2
-  jumpSpeed: 4.5
-  playerGravity: 10
+  moveSpeed: 0
+  jumpMax: 0
+  jumpSpeed: 0
+  playerGravity: 0
+  shootRate: 0
 --- !u!143 &7980205201441396445
 CharacterController:
   m_ObjectHideFlags: 0

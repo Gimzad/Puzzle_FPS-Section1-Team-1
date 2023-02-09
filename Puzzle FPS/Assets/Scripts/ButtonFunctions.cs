@@ -21,13 +21,15 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void QuitToMenu()
     {
-        
+        GameManager.Instance.RestartGame();
     }
     #endregion
 
     #region Core Menu Buttons
     public void StartLevel()
     {
+        //Get rid of main menu camera
+        Destroy(Camera.main.gameObject);
         GameManager.Instance.InitializePlay();
     }
     public void OpenSettingsPanel()
