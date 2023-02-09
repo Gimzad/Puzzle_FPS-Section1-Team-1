@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     public GameObject MainMenuPanel;
 	public GameObject PlayerSettingsPanel;
 	public GameObject GameMenuPanel;
+	public GameObject CreditsPanel;
 
     #region Internal Variables
     private GameObject previousMenuPanel;
@@ -29,7 +30,19 @@ public class MenuManager : MonoBehaviour
 	[SerializeField]
 	private bool gameMenuIsUp;
 
-    private void Awake()
+	#region Menu Access Methods
+	public bool CanToggleGameMenu()
+	{
+		return canToggleGameMenu;
+	}
+	public bool GameMenuIsUp()
+	{
+		return gameMenuIsUp;
+	}
+	#endregion
+
+
+	private void Awake()
     {
 		Instance = this;
     }
@@ -54,17 +67,6 @@ public class MenuManager : MonoBehaviour
 	}
 	#endregion
 
-	#region Menu Access Methods
-	public bool CanToggleGameMenu()
-    {
-		return canToggleGameMenu;
-    }
-	public bool GameMenuIsUp()
-	{
-		return gameMenuIsUp;
-	}
-	#endregion
-
 	#region Global Menu Methods
 	public void DeactivateAllMenus()
     {
@@ -77,38 +79,56 @@ public class MenuManager : MonoBehaviour
 	}
 	public void OpenPreviousMenuPanel()
 	{
-		//Simple if for settings panel changes instead of separate method
-		if (activeMenuPanel == PlayerSettingsPanel && !changesSaved)
-        {
-			//Revert back to un-changed script variables
-			AssertMenuTextFromPlayerPreferences();
-        }
-        else
-        {
-			AssertMenuTextToPlayerPreferences();
-        }
-		//Temp object for active menu
-		GameObject panelHolder;
+		if (previousMenuPanel == null)
+			return;
+		else
+		{
+			//Simple if for settings panel changes instead of separate method
+			if (activeMenuPanel == PlayerSettingsPanel && !changesSaved)
+			{
+				//Revert back to un-changed script variables
+				AssertMenuTextFromPlayerPreferences();
+			}
+			else
+			{
+				AssertMenuTextToPlayerPreferences();
+			}
+			//Temp object for active menu
+			GameObject panelHolder;
 
-		panelHolder = activeMenuPanel;
-		activeMenuPanel.gameObject.SetActive(false);
+			panelHolder = activeMenuPanel;
+			activeMenuPanel.gameObject.SetActive(false);
 
-		activeMenuPanel = previousMenuPanel;
-		activeMenuPanel.gameObject.SetActive(true);
+			activeMenuPanel = previousMenuPanel;
+			activeMenuPanel.gameObject.SetActive(true);
 
-		previousMenuPanel = panelHolder;
+			previousMenuPanel = panelHolder;
+		}
 	}
 
     public void InitializeMenusText()
     {
-        //Will initialize all menu texts with the proper information from the scripts
-    }
+		//Will initialize all menu texts with the proper information from the scripts like music volume, cmaera settings, etc.
+		//Set menu to default
+		AssertMenuTextFromPlayerPreferencesDefault();
+
+
+		//Kind of a lazy way right now to reset the preferences to default as well as the menus.
+		//Less computation can be achieved by simply calling a function in preferences that resets the variables without parsing from the menu values
+
+		//Assign default to active preferences
+		AssertMenuTextToPlayerPreferences();
+	}
     #endregion
+
     #region Internal Menu Mehods
     private void DisplayMenuPanel(GameObject menuPanel)
 	{
 		if (activeMenuPanel != null)
+		{
 			previousMenuPanel = activeMenuPanel;
+			CloseActiveMenuPanel();
+		}
 		activeMenuPanel = menuPanel;
 		activeMenuPanel.gameObject.SetActive(true);
 
@@ -125,20 +145,22 @@ public class MenuManager : MonoBehaviour
 		}
 	}
 	#endregion
+
 	#region Settings Menu Methods
-	public void AssertMenuTextToPlayerPreferences()
+	private void AssertMenuTextToPlayerPreferences()
 	{
 		//Will assign the values of sliders, text, numbers, etc. to the settings in the script
 	}
-	public void AssertMenuTextFromPlayerPreferences()
+	private void AssertMenuTextFromPlayerPreferences()
 	{
 		//Will set menu sliders, text, numbers, etc. from the active settings in the script
 	}
-	public void AssertMenuTextFromPlayerPreferencesDefault()
+	private void AssertMenuTextFromPlayerPreferencesDefault()
 	{
 		//Will set menu sliders, text, numbers, etc. from the default settings in the script
 	}
 	#endregion
+
 	#region Specific Menu Methods
 	public void DisplayMainMenu()
 	{
@@ -155,10 +177,17 @@ public class MenuManager : MonoBehaviour
 		//Settings menu is up, so prepare boolean for change tracking
 		changesSaved = false;
 	}
+	public void DisplayCreditsMenu()
+	{
+		DisplayMenuPanel(CreditsPanel);
+		//Ensure in-game menu toggling is disabled while main menu is up.
+		canToggleGameMenu = false;
+	}
 
-    #endregion
-    #region In-Game Menu Methods
-    public void DisplayGameMenu()
+	#endregion
+
+	#region In-Game Menu Methods
+	public void DisplayGameMenu()
 	{
 		//Close existing menu if up
 		CloseActiveMenuPanel();

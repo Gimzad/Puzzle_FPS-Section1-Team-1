@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
+    public static HUDManager Instance;
+
     [Header("Panels")]
     public GameObject playerDamageFlashScreen;
 
@@ -12,16 +14,22 @@ public class HUDManager : MonoBehaviour
     public Image playerHPBar;
     public Image reticle;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    #region Public Methods
+
+    public void ShowHUD()
     {
-        
+        playerHPBar.gameObject.SetActive(true);
+        reticle.gameObject.SetActive(true);
     }
+    public void CloseHUD()
+    {
+        playerHPBar.gameObject.SetActive(false);
+        reticle.gameObject.SetActive(false);
+    }
+    #endregion
 }
