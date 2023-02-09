@@ -6,7 +6,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [Header("Components")]
+	[Header("UI Elements")]
+	public GameObject PlayerUI;
+
+    [Header("Game Components")]
     [SerializeField]
     PlayerController playerController;
 	[SerializeField]
@@ -116,7 +119,7 @@ public class GameManager : MonoBehaviour
 	//Script values should be assigned from preferences, controls should be enabled and cursor hidden
 	public void SetupPlayerAndCamera()
 	{
-		//playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+		playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
 		MenuManager.Instance.AssertMenuTextFromPlayerPreferencesDefault();
 
@@ -134,7 +137,6 @@ public class GameManager : MonoBehaviour
     {
 		if (MenuManager.Instance.GameMenuIsUp())
 		{
-			//playerCamera.LockCamera = false;
 			MenuManager.Instance.CloseGameMenu();
 			isPaused = false;
 			Time.timeScale = 1f;
@@ -144,7 +146,6 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-			//playerCamera.LockCamera = true;
 			MenuManager.Instance.DisplayGameMenu();
 			isPaused = true;
 			Time.timeScale = 0f;
