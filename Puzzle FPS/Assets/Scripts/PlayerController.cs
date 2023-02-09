@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [Header("-----Weapon Stats-----")]
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-    [SerializeField] int shootDamage;
+    [SerializeField] int shotDamage;
 
     int jumpsCurrent;
     Vector3 move;
@@ -48,6 +48,21 @@ public class PlayerController : MonoBehaviour
     {
         get { return gravity; }
         set { gravity = value; }
+    }
+    public float ShootRate
+    {
+        get { return shootRate; }
+        set { shootRate = value; }
+    }
+    public int ShootDistance
+    {
+        get { return shootDist; }
+        set { shootDist = value; }
+    }
+    public int ShotDamage
+    {
+        get { return shotDamage; }
+        set { shotDamage = value; }
     }
     #endregion
     // Start is called before the first frame update
@@ -98,7 +113,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider.GetComponent<IDamage>() != null)
             {
-                hit.collider.GetComponent<IDamage>().TakeDamage(shootDamage);
+                hit.collider.GetComponent<IDamage>().TakeDamage(shotDamage);
             }
         }
 

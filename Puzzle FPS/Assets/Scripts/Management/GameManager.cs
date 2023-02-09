@@ -104,6 +104,11 @@ public class GameManager : MonoBehaviour
 		playerController.JumpSpeed = PlayerPreferences.Instance.JumpSpeed;
 		playerController.PlayerGravity = PlayerPreferences.Instance.PlayerGravityStrength;
 
+
+		playerController.ShootRate = PlayerPreferences.Instance.ShootRate;
+		playerController.ShootDistance = PlayerPreferences.Instance.ShootDistance;
+		playerController.ShotDamage = PlayerPreferences.Instance.ShotDamage;
+
 		playerCamera.HorizontalSensitivity = PlayerPreferences.Instance.SensitivityHorizontal;
 		playerCamera.VeritcalSensitivity = PlayerPreferences.Instance.SensitivityVertical;
 		playerCamera.VeticalLockMin = PlayerPreferences.Instance.VerticalLockMin;

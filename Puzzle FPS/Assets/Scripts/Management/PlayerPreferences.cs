@@ -30,9 +30,11 @@ public sealed class PlayerPreferences: MonoBehaviour
 	#endregion
 	#region Weapon Defaults
 	public static float ShootRateDefault = 0.25f;
-    #endregion
-    #region Button Code Defaults
-    public static KeyCode JumpKeyDefault = KeyCode.Space;
+	public static int ShootDistanceDefault;
+	public static int ShotDamageDefault;
+	#endregion
+	#region Button Code Defaults
+	public static KeyCode JumpKeyDefault = KeyCode.Space;
 	public static KeyCode SprintKeyDefault = KeyCode.LeftShift;
 	public static KeyCode MenuKeyDefault = KeyCode.Escape;
 	public static KeyCode FireKeyDefault = KeyCode.Mouse0;
@@ -72,7 +74,11 @@ public sealed class PlayerPreferences: MonoBehaviour
 	[Header("Active Weapon Settings")]
 	#region Weapon Settings
 	[Range(0.1f, 10f)]
-	public float shootRate = ShootRateDefault;
+	public float ShootRate = ShootRateDefault;
+	[Range(1, 25)]
+	public int ShootDistance = ShootDistanceDefault;
+	[Range(1, 10)]
+	public int ShotDamage = ShotDamageDefault;
 	#endregion
 
 	[Header("Active Buttons")]
