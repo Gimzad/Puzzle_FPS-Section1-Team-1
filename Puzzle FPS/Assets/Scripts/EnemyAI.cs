@@ -15,12 +15,13 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int playerFaceSpeed;
 
     [Header("-----Weapon-----")]
+    [SerializeField]
+    bool typeSniper;
     [SerializeField] GameObject bullet;
     [SerializeField] Transform shootPos;
     [SerializeField] float shootRate;
     [SerializeField] float bulletSpeed;
     [SerializeField] int shootDist;
-
 
 
     Vector3 playerDir;
@@ -36,7 +37,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        playerDir = GameManager.Instance.PlayerController().transform.position - transform.position;
+        if (!typeSniper)
+            playerDir = GameManager.Instance.PlayerController().transform.position - transform.position;
 
         if (playerInVisionRange)
         {
