@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 9ebb4fb541412c648be738e0f17613f7
+guid: 73a734c78cb671b419e4748f45ae911d
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: 1827226128182048838
-    second: Take 001
+      74: 214446591440463935
+    second: JumpingJack_loop
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -90,8 +90,8 @@ ModelImporter:
     feetSpacing: 0
     globalScale: 1
     rootMotionBoneName: 
-    hasTranslationDoF: 1
-    hasExtraRoot: 1
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
