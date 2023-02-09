@@ -17,13 +17,19 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("-----Weapon-----")]
     [SerializeField]
     bool typeSniper;
+    [SerializeField]
+    bool typeMelee;
+    [SerializeField] Transform headPos;
+
     [SerializeField] GameObject bullet;
     [SerializeField] Transform shootPos;
     [SerializeField] float shootRate;
     [SerializeField] float bulletSpeed;
     [SerializeField] int shootDist;
+    [SerializeField] int viewAngle;
 
 
+    float angleToPlayer;
     Vector3 playerDir;
     bool isShooting;
     bool playerInVisionRange;
@@ -31,28 +37,43 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.UpdateEnemyCount(1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerDir = GameManager.Instance.PlayerController().transform.position - transform.position;
 
-        if (playerInVisionRange)
+        if (playerInVisionRange && canSeePlayer())
         {
-            if (!typeSniper)
-                agent.SetDestination(GameManager.Instance.PlayerController().transform.position);
             if (agent.remainingDistance < agent.stoppingDistance)
             {
                 FacePlayer();
             }
-
-            if (!isShooting && agent.remainingDistance <= shootDist)
+            if (!isShooting)
             {
                 StartCoroutine(Shoot());
             }
         }
+    }
+
+    bool canSeePlayer()
+    {
+        playerDir = GameManager.Instance.PlayerController().transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+
+        Debug.Log(angleToPlayer);
+        Debug.DrawRay(headPos.position, playerDir);
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            {
+                agent.SetDestination(GameManager.Instance.PlayerController().transform.position);
+                return true;
+            }
+        }
+        return false;
     }
     private void LateUpdate()
     {
@@ -89,6 +110,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         animator.SetTrigger("attacking");
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
+
         bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
 
         yield return new WaitForSeconds(shootRate);
