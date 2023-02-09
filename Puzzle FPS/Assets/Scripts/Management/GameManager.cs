@@ -65,10 +65,15 @@ public class GameManager : MonoBehaviour
 			ManagePlayerTasks();
         }
     }
-	#region Public Methods
+    #region Public Methods
 
-
-	public void InitializePlay()
+    #region Game Goal Methods
+	public void UpdateEnemyCount(int amt)
+    {
+		enemiesRemaining += amt;
+    }
+    #endregion
+    public void InitializePlay()
 	{
 		MenuManager.Instance.DeactivateAllMenus();
 		SceneControl.Instance.LoadFirstLevel();
@@ -105,6 +110,7 @@ public class GameManager : MonoBehaviour
 		playerCamera.InvertX = PlayerPreferences.Instance.InvertX;
 
 	}
+
 	public void RestartLevel()
 	{
 		Destroy(playerObject);
@@ -115,7 +121,6 @@ public class GameManager : MonoBehaviour
 		//reload player and variable settings
 		InitializePlay();
 	}
-
 	public void RestartGame()
 	{
 		playerCamera.ToggleCursorVisibility();
@@ -129,6 +134,7 @@ public class GameManager : MonoBehaviour
 
 		Cursor.lockState = CursorLockMode.Confined;
 	}
+
 	public void ToggleGameMenu()
 	{
 		if (MenuManager.Instance.GameMenuIsUp())
