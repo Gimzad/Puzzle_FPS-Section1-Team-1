@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class EnemyAI : MonoBehaviour, IDamage
 {
     [Header("-----Components-----")]
     [SerializeField] Renderer model;
@@ -18,12 +18,13 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform shootPos;
     [SerializeField] float shootRate;
     [SerializeField] float bulletSpeed;
+    [SerializeField] int shootDist;
 
 
 
     Vector3 playerDir;
     bool isShooting;
-    bool playerInRange;
+    bool playerInVisionRange;
 
     // Start is called before the first frame update
     void Start()
@@ -36,19 +37,19 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         playerDir = GameManager.Instance.PlayerController().transform.position - transform.position;
 
-        if (playerInRange)
+        if (playerInVisionRange)
         {
-            if (!isShooting)
+            agent.SetDestination(GameManager.Instance.PlayerController().transform.position);
+            if (agent.remainingDistance < agent.stoppingDistance)
+            {
+                FacePlayer();
+            }
+
+            if (!isShooting && agent.remainingDistance <= shootDist)
             {
                 StartCoroutine(Shoot());
             }
         }
-        if (agent.remainingDistance < agent.stoppingDistance)
-        {
-            FacePlayer();
-        }
-
-        agent.SetDestination(GameManager.Instance.PlayerController().transform.position);
     }
 
     public void TakeDamage(int dmg)
@@ -91,14 +92,14 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
+            playerInVisionRange = true;
         }
     }
     public void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
+            playerInVisionRange = false;
         }
     }
 }
