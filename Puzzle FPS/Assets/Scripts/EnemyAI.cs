@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.Animations;
 public class EnemyAI : MonoBehaviour, IDamage
 {
     [Header("-----Components-----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Animator animator;
 
     [Header("-----Stats-----")]
     [SerializeField] int hp;
@@ -51,7 +52,10 @@ public class EnemyAI : MonoBehaviour, IDamage
             }
         }
     }
-
+    private void LateUpdate()
+    {
+        UpdateAnimator();
+    }
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
@@ -80,6 +84,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     IEnumerator Shoot()
     {
+        animator.SetTrigger("attacking");
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
@@ -87,7 +92,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
-
+    private void UpdateAnimator()
+    {
+        animator.SetBool("playerInVisionRange", playerInVisionRange);
+        animator.SetFloat("speed", agent.speed);
+    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

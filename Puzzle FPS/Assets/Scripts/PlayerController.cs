@@ -127,6 +127,5 @@ public class PlayerController : MonoBehaviour
     public void UpdatePlayerHPBar()
     {
         HUDManager.Instance.UpdateHPBarFill((float)hp / (float)hpOriginal);
-        Debug.Log((float)hp / (float)hpOriginal);
     }
 }
