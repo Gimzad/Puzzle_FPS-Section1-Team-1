@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 	public void SetupPlayerAndCamera()
 	{
 		playerObject = Instantiate(PlayerPrefab);
-		playerController = PlayerPrefab.GetComponent<PlayerController>();
+		playerController = playerObject.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
 
 		AssertPlayerPreferencesToScript();
@@ -94,12 +94,13 @@ public class GameManager : MonoBehaviour
 	}
 	public void AssertPlayerPreferencesToScript()
 	{
-		//Will take the active values from Player Preferences and assign those settings to the variables
-		//used in the player and camera scripts
-		//Should be called right before the player is dropped in and gains control of the player.
-		//Script values should be assigned from preferences, controls should be enabled and cursor hidden
+        //Will take the active values from Player Preferences and assign those settings to the variables
+        //used in the player and camera scripts
+        //Should be called right before the player is dropped in and gains control of the player.
+        //Script values should be assigned from preferences, controls should be enabled and cursor hidden
+        playerController.HP = PlayerPreferences.Instance.HP;
 		playerController.MoveSpeed = PlayerPreferences.Instance.MoveSpeed;
-		playerController.JumpMax = PlayerPreferences.Instance.JumpMax;
+		playerController.JumpTimes = PlayerPreferences.Instance.JumpMax;
 		playerController.JumpSpeed = PlayerPreferences.Instance.JumpSpeed;
 		playerController.PlayerGravity = PlayerPreferences.Instance.PlayerGravityStrength;
 
@@ -134,29 +135,48 @@ public class GameManager : MonoBehaviour
 
 		Cursor.lockState = CursorLockMode.Confined;
 	}
+	public void LoseGame()
+	{
+		Pause();
 
+		MenuManager.Instance.DisplayLoseMenu();
+	}
+	public void WinGame()
+	{
+		Pause();
+
+		MenuManager.Instance.DisplayWinMenu();
+	}
 	public void ToggleGameMenu()
 	{
 		if (MenuManager.Instance.GameMenuIsUp())
 		{
 			MenuManager.Instance.CloseGameMenu();
-			isPaused = false;
-			Time.timeScale = 1f;
-			Cursor.lockState = CursorLockMode.Locked;
+			UnPause();
 			playerCamera.ToggleCursorVisibility();
 
 		}
 		else
 		{
 			MenuManager.Instance.DisplayGameMenu();
-			isPaused = true;
-			Time.timeScale = 0f;
-			Cursor.lockState = CursorLockMode.Confined;
+			Pause();
 			playerCamera.ToggleCursorVisibility();
 		}
 	}
-	#endregion
-	#region Private Methods
+    #endregion
+    #region Private Methods
+    private void Pause()
+    {
+		isPaused = true;
+		Time.timeScale = 0f;
+		Cursor.lockState = CursorLockMode.Confined;
+	}
+	private void UnPause()
+	{
+		isPaused = false;
+		Time.timeScale = 1f;
+		Cursor.lockState = CursorLockMode.Locked;
+	}
 	void BeginGame()
 	{
 		isPaused = true;

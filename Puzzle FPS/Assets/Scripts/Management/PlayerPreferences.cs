@@ -13,6 +13,7 @@ public sealed class PlayerPreferences: MonoBehaviour
 
 	#region Movement Defaults
 	public static float MoveSpeedDefault = 6f;
+	public static int HPDefault = 10;
 
 	public static int JumpMaxDefault = 2;
 	public static float JumpSpeedDefault = 4.5f;
@@ -48,6 +49,12 @@ public sealed class PlayerPreferences: MonoBehaviour
 	[Range(0, 90)]
 	public float PlayerGravityStrength = PlayerGravityStrengthDefault;
 	#endregion
+	[Header("Active Player Settings")]
+	#region Weapon Settings
+	[Range(0.1f, 10f)]
+	public int HP = HPDefault;
+	#endregion
+
 	[Header("Active Camera Settings")]
 	#region Active Camera Settings
 	[Range(100, 500)]
@@ -61,6 +68,7 @@ public sealed class PlayerPreferences: MonoBehaviour
 
 	public bool InvertX = InvertXDefault;
 	#endregion
+
 	[Header("Active Weapon Settings")]
 	#region Weapon Settings
 	[Range(0.1f, 10f)]

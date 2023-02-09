@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
 	public GameObject PlayerSettingsPanel;
 	public GameObject GameMenuPanel;
 	public GameObject CreditsPanel;
+	public GameObject WinMenu;
+	public GameObject LoseMenu;
 
     #region Internal Variables
     private GameObject previousMenuPanel;
@@ -188,7 +190,18 @@ public class MenuManager : MonoBehaviour
 		//Ensure in-game menu toggling is disabled while main menu is up.
 		canToggleGameMenu = false;
 	}
-
+	public void DisplayWinMenu()
+	{
+		DisplayMenuPanel(WinMenu);
+		//Ensure in-game menu toggling is disabled while main menu is up.
+		canToggleGameMenu = false;
+	}
+	public void DisplayLoseMenu()
+	{
+		DisplayMenuPanel(LoseMenu);
+		//Ensure in-game menu toggling is disabled while main menu is up.
+		canToggleGameMenu = false;
+	}
 	#endregion
 
 	#region In-Game Menu Methods

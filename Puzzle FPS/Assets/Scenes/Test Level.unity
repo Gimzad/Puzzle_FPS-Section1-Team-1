@@ -1194,7 +1194,7 @@ Transform:
   - {fileID: 1089349901}
   - {fileID: 147060042}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &888756810
 PrefabInstance:
@@ -2395,11 +2395,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2707259209319085519, guid: 9bcaef8e47a4bb34ea6cb14a1ed5d1d8, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2707259209319085519, guid: 9bcaef8e47a4bb34ea6cb14a1ed5d1d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.6426077
+      value: 0.15000057
       objectReference: {fileID: 0}
     - target: {fileID: 2707259209319085519, guid: 9bcaef8e47a4bb34ea6cb14a1ed5d1d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2407,7 +2407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2707259209319085519, guid: 9bcaef8e47a4bb34ea6cb14a1ed5d1d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.056864977
+      value: -3.6
       objectReference: {fileID: 0}
     - target: {fileID: 2707259209319085519, guid: 9bcaef8e47a4bb34ea6cb14a1ed5d1d8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2443,32 +2443,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bcaef8e47a4bb34ea6cb14a1ed5d1d8, type: 3}
---- !u!1 &3347483822783608188 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6616263923237580239, guid: 9bcaef8e47a4bb34ea6cb14a1ed5d1d8, type: 3}
-  m_PrefabInstance: {fileID: 3347483822783608187}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3347483822783608189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3347483822783608188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7657ae4dd77897418e843703dfc47e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  agent: {fileID: 0}
-  hp: 0
-  playerFaceSpeed: 0
-  bullet: {fileID: 0}
-  shootPos: {fileID: 0}
-  shootRate: 0
-  bulletSpeed: 0
-  shootDist: 0
 --- !u!1001 &3669942370570681075
 PrefabInstance:
   m_ObjectHideFlags: 0

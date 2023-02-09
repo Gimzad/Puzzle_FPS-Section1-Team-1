@@ -8,19 +8,33 @@ public class HUDManager : MonoBehaviour
     public static HUDManager Instance;
 
     [Header("Panels")]
-    public GameObject playerDamageFlashScreen;
+    public GameObject PlayerDamageFlashScreen;
 
     [Header("Images")]
-    public Image playerHPBar;
+    [SerializeField]
+    private Image playerHPBar;
+    [SerializeField]
+    private Image playerHPFill;
+
     public Image reticle;
 
     void Awake()
     {
         Instance = this;
     }
+    #region Access Methods
 
+    public Image PlayerHPBar
+    {
+        get { return playerHPBar; }
+        set { playerHPBar = value; }
+    }
+    #endregion
     #region Public Methods
-
+    public void UpdateHPBarFill(float amt)
+    {
+        playerHPFill.fillAmount = amt;
+    }
     public void ShowHUD()
     {
         playerHPBar.gameObject.SetActive(true);

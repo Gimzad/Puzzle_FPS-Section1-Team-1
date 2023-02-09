@@ -4,28 +4,40 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("-----Components-----")]
     [SerializeField] CharacterController controller;
-
-    [SerializeField] float moveSpeed;
-    [SerializeField] int jumpMax;
-    [SerializeField] float jumpSpeed;
-    [SerializeField] float playerGravity;
-
+    [Header("-----Player Stats-----")]
+    [Range(5, 10)][SerializeField] int hp;
+    [Range(0, 5)][SerializeField] float moveSpeed;
+    [Range(10, 25)][SerializeField] float jumpSpeed;
+    [Range(0, 3)][SerializeField] int jumpTimes;
+    [Range(15, 45)][SerializeField] float gravity;
+    [Header("-----Weapon Stats-----")]
     [SerializeField] float shootRate;
+    [SerializeField] int shootDist;
+    [SerializeField] int shootDamage;
 
-    int jumpsCurr;
+    int jumpsCurrent;
     Vector3 move;
     Vector3 playerVelocity;
+    bool isShooting;
+    int hpOriginal;
+
     #region Public Access Methods
+    public int HP
+    {
+        get { return hp; }
+        set { hp = value; }
+    }
     public float MoveSpeed
     {
         get { return moveSpeed; }
         set { moveSpeed = value; }
     }
-    public int JumpMax
+    public int JumpTimes
     {
-        get { return jumpMax; }
-        set { jumpMax = value; }
+        get { return jumpTimes; }
+        set { jumpTimes = value; }
     }
     public float JumpSpeed
     {
@@ -34,44 +46,87 @@ public class PlayerController : MonoBehaviour
     }
     public float PlayerGravity
     {
-        get { return playerGravity; }
-        set { playerGravity = value; }
+        get { return gravity; }
+        set { gravity = value; }
     }
     #endregion
     // Start is called before the first frame update
     void Start()
     {
-        
+        hpOriginal = hp;
+        UpdatePlayerHPBar();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        movement();
+        Movement();
+        if (!isShooting && Input.GetButton("Fire"))
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
-    void movement()
+    void Movement()
     {
-        if (controller.isGrounded && playerVelocity.y < 0)
+        if (controller.isGrounded)
         {
             playerVelocity.y = 0;
-            jumpsCurr = 0;
-
+            jumpsCurrent = 0;
         }
 
         move = (transform.right * Input.GetAxis("Horizontal") +
-            (transform.forward * Input.GetAxis("Vertical")));
+            transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * moveSpeed);
 
-        if (Input.GetButtonDown("Jump") && jumpsCurr <= jumpMax)
-        {
-            jumpsCurr++;
-            playerVelocity.y = jumpSpeed;
 
+        if (Input.GetButtonDown("Jump") && jumpsCurrent <= jumpTimes)
+        {
+            jumpsCurrent++;
+            playerVelocity.y = jumpSpeed;
         }
 
-        playerVelocity.y -= playerGravity * Time.deltaTime;
+        playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
+    }
+    IEnumerator Shoot()
+    {
+        isShooting = true;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        {
+            if (hit.collider.GetComponent<IDamage>() != null)
+            {
+                hit.collider.GetComponent<IDamage>().TakeDamage(shootDamage);
+            }
+        }
+
+
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        hp -= dmg;
+        UpdatePlayerHPBar();
+        StartCoroutine(FlashDamage());
+        if (hp <= 0)
+        {
+            GameManager.Instance.LoseGame();
+        }
+    }
+    IEnumerator FlashDamage()
+    {
+        HUDManager.Instance.PlayerDamageFlashScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);
+    }
+
+    public void UpdatePlayerHPBar()
+    {
+        HUDManager.Instance.UpdateHPBarFill((float)hp / (float)hpOriginal);
+        Debug.Log((float)hp / (float)hpOriginal);
     }
 }
