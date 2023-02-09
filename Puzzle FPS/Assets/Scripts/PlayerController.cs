@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpSpeed;
     [SerializeField] int playerGravity;
 
+    [SerializeField] float shootRate;
+
     int jumpsCurr;
     Vector3 move;
     Vector3 playerVelocity;
