@@ -29,6 +29,19 @@ public class MenuManager : MonoBehaviour
 	[SerializeField]
 	private bool gameMenuIsUp;
 
+    private void Awake()
+    {
+		Instance = this;
+    }
+    private void Start()
+    {
+		//here temorarily till menu and loading is set up
+		canToggleGameMenu = true;
+    }
+	private void Update()
+	{
+		HandleInGameMenuInput();
+	}
 	#region Run-Time Methods
 	void HandleInGameMenuInput()
 	{
@@ -96,15 +109,20 @@ public class MenuManager : MonoBehaviour
 	{
 		if (activeMenuPanel != null)
 			previousMenuPanel = activeMenuPanel;
-
-		menuPanel.gameObject.SetActive(true);
 		activeMenuPanel = menuPanel;
+		activeMenuPanel.gameObject.SetActive(true);
+
 	}
 	private void CloseActiveMenuPanel()
 	{
-		previousMenuPanel = activeMenuPanel;
-		activeMenuPanel.gameObject.SetActive(false);
-		activeMenuPanel = null;
+		if (activeMenuPanel == null)
+			return;
+		else
+		{
+			previousMenuPanel = activeMenuPanel;
+			activeMenuPanel.gameObject.SetActive(false);
+			activeMenuPanel = null;
+		}
 	}
 	#endregion
 	#region Settings Menu Methods

@@ -47,7 +47,7 @@ public sealed class PlayerPreferences
 	#region Button Codes
 	public KeyCode PLAYERJUMPKEY = KeyCode.Space;
 	public KeyCode PLAYERSPRINTKEY = KeyCode.LeftShift;
-	public KeyCode PLAYERMENUKEY = KeyCode.M;
+	public KeyCode PLAYERMENUKEY = KeyCode.Escape;
 	public KeyCode PLAYERCLIMBKEY = KeyCode.Mouse0;
     #endregion
 }

@@ -45,10 +45,12 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		hUDManagerInstance = GetComponent<HUDManager>();
+		Instance = this;
 	}
 
 	void Start()
-	{
+	{ 
+		
 		//Begin();
 	}
     private void LateUpdate()
@@ -109,11 +111,12 @@ public class GameManager : MonoBehaviour
     {
 		//Placeholder function to restart a level without going all the way back to the main menu
     }
+
 	//Should be called right before the player is dropped in and gains control of the player.
 	//Script values should be assigned from preferences, controls should be enabled and cursor hidden
 	public void SetupPlayerAndCamera()
 	{
-		playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+		//playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
 		MenuManager.Instance.AssertMenuTextFromPlayerPreferencesDefault();
 
@@ -129,17 +132,7 @@ public class GameManager : MonoBehaviour
 
 	public void ToggleGameMenu()
     {
-		if (isPaused && MenuManager.Instance.GameMenuIsUp())
-		{
-			//playerCamera.LockCamera = true;
-			MenuManager.Instance.DisplayGameMenu();
-			isPaused = true;
-			Time.timeScale = 0f;
-			Cursor.lockState = CursorLockMode.Confined;
-			Cursor.visible = true;
-
-		}
-		else if (!isPaused && !MenuManager.Instance.GameMenuIsUp())
+		if (MenuManager.Instance.GameMenuIsUp())
 		{
 			//playerCamera.LockCamera = false;
 			MenuManager.Instance.CloseGameMenu();
@@ -147,6 +140,16 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 1f;
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
+
+		}
+		else
+		{
+			//playerCamera.LockCamera = true;
+			MenuManager.Instance.DisplayGameMenu();
+			isPaused = true;
+			Time.timeScale = 0f;
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.visible = true;
 		}
 	}
 
