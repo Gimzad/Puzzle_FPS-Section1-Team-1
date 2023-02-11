@@ -59,15 +59,17 @@ public class GameManager : MonoBehaviour
 	}
 
 	void Start()
-	{ 
-		BeginGame();
+	{
+		//BeginGame();
+		InitializePlay();
 	}
     private void LateUpdate()
     {
-        if (playStarted)
+        /*if (playStarted)
         {
 			ManagePlayerTasks();
         }
+		*/
     }
     #region Public Methods
 
@@ -79,8 +81,9 @@ public class GameManager : MonoBehaviour
     #endregion
     public void InitializePlay()
 	{
-		MenuManager.Instance.DeactivateAllMenus();
-		SceneControl.Instance.LoadFirstLevel();
+		//MenuManager.Instance.DeactivateAllMenus();
+		//SceneControl.Instance.LoadFirstLevel();
+
 		SetupPlayerAndCamera();
 		HUDManager.Instance.ShowHUD();
 		playStarted = true;
