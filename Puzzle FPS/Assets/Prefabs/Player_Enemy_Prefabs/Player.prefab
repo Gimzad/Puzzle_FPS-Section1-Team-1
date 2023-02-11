@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7980205201380558816}
   - component: {fileID: 7980205201380558818}
   - component: {fileID: 7980205201380558813}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 7980205201441396444}
   - component: {fileID: 7980205201441396447}
   - component: {fileID: 7980205201441396446}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -150,14 +150,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7980205201441396445}
-  HP: 10
+  hp: 0
   moveSpeed: 6
   jumpSpeed: 4.5
   jumpTimes: 2
   gravity: 9.8
   shootRate: 0
   shootDist: 0
-  shootDamage: 0
+  shotDamage: 0
 --- !u!143 &7980205201441396445
 CharacterController:
   m_ObjectHideFlags: 0
