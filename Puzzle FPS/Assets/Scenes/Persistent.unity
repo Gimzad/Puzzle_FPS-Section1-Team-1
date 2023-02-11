@@ -178,21 +178,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
-      propertyPath: ShotDamage
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
-      propertyPath: ShootDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
-      propertyPath: SensitivityVertical
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
-      propertyPath: SensitivityHorizontal
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}

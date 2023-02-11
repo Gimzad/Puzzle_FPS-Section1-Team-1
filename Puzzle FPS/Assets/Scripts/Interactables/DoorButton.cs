@@ -18,13 +18,4 @@ public class DoorButton : PuzzleButton
         doorAction.trigger = "Activate";
         doorAction.React(LinkedDoor);
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("Opening Door");
-            Interact();
-        }
-    }
 }

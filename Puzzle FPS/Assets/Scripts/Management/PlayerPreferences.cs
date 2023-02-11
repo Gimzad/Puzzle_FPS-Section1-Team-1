@@ -87,5 +87,6 @@ public sealed class PlayerPreferences: MonoBehaviour
 	public KeyCode PLAYERSPRINTKEY = KeyCode.LeftShift;
 	public KeyCode PLAYERMENUKEY = KeyCode.Escape;
 	public KeyCode PLAYERCLIMBKEY = KeyCode.Mouse0;
+	public KeyCode PLAYERINTERACTKEY = KeyCode.E;
     #endregion
 }

@@ -35,7 +35,11 @@ public class GameManager : MonoBehaviour
     {
         return playerController;
     }
-    public bool IsPaused()
+	public CameraControl CameraControl()
+	{
+		return playerCamera;
+	}
+	public bool IsPaused()
     {
         return isPaused;
     }
