@@ -3,8 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations;
+using System.Linq;
+
 public class EnemyAI : MonoBehaviour, IDamage
 {
+    private enum ZombieState
+    {
+        Walking,
+        Ragdoll
+    }
+
+    private Rigidbody[] _ragdollRigidBodies;
+
     [Header("-----Components-----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
@@ -34,15 +44,18 @@ public class EnemyAI : MonoBehaviour, IDamage
     bool isShooting;
     bool playerInVisionRange;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        _ragdollRigidBodies = GetComponentsInChildren<Rigidbody>();
+        DisableRagdoll();
     }
+    //void Start()
+    //{
+    //}
 
     // Update is called once per frame
     void Update()
     {
-
         if (playerInVisionRange && canSeePlayer())
         {
             if (agent.remainingDistance < agent.stoppingDistance)
@@ -85,7 +98,8 @@ public class EnemyAI : MonoBehaviour, IDamage
         StartCoroutine(FlashDamage());
         if (hp <= 0)
         {
-            Destroy(gameObject);
+            EnableRagdoll();
+            //Destroy(gameObject);
         }
     }
 
@@ -134,5 +148,23 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             playerInVisionRange = false;
         }
+    }
+
+    private void DisableRagdoll()
+    {
+        foreach (var rigidbody in _ragdollRigidBodies)
+        {
+            rigidbody.isKinematic = true;
+        }
+        animator.enabled = true;
+    }
+
+    private void EnableRagdoll()
+    {
+        foreach (var rigidbody in _ragdollRigidBodies)
+        {
+            rigidbody.isKinematic = false;
+        }
+        animator.enabled = false;
     }
 }

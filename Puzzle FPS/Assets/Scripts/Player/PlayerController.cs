@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
-
     int jumpsCurrent;
     Vector3 move;
     Vector3 playerVelocity;
@@ -117,7 +116,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
@@ -127,6 +125,7 @@ public class PlayerController : MonoBehaviour
         hp -= dmg;
         UpdatePlayerHPBar();
         StartCoroutine(FlashDamage());
+
         if (hp <= 0)
         {
             GameManager.Instance.LoseGame();
