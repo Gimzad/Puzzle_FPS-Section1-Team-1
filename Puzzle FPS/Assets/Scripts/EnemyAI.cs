@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
-    private enum ZombieState
-    {
-        Walking,
-        Ragdoll
-    }
 
     private Rigidbody[] _ragdollRigidBodies;
+    EnemyAI enemyAI;
 
     [Header("-----Components-----")]
     [SerializeField] Renderer model;
@@ -39,10 +36,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int viewAngle;
 
 
+    public float timer;
     float angleToPlayer;
     Vector3 playerDir;
     bool isShooting;
     bool playerInVisionRange;
+    bool canDestroyEnemy;
 
     void Awake()
     {
@@ -56,7 +55,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        if (playerInVisionRange && canSeePlayer())
+        if (playerInVisionRange && CanSeePlayer() && animator.enabled == true)
         {
             if (agent.remainingDistance < agent.stoppingDistance)
             {
@@ -67,12 +66,32 @@ public class EnemyAI : MonoBehaviour, IDamage
                 StartCoroutine(Shoot());
             }
         }
+        CanDestroyEnemy();
     }
 
-    bool canSeePlayer()
+    void CanDestroyEnemy()
+    {
+        if (animator.enabled == false)
+        {
+            if (timer > 0f)
+            {
+                timer -= Time.deltaTime;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            timer = 10f;
+        }
+    }
+
+    bool CanSeePlayer()
     {
         playerDir = GameManager.Instance.PlayerController().transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
 
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDir);
@@ -80,7 +99,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (animator.enabled == false)
+            {
+                return false;
+            }
+            else if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.SetDestination(GameManager.Instance.PlayerController().transform.position);
                 return true;
@@ -99,6 +122,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (hp <= 0)
         {
             EnableRagdoll();
+
             //Destroy(gameObject);
         }
     }
@@ -157,6 +181,8 @@ public class EnemyAI : MonoBehaviour, IDamage
             rigidbody.isKinematic = true;
         }
         animator.enabled = true;
+        GetComponent<CapsuleCollider>().enabled = true;
+
     }
 
     private void EnableRagdoll()
@@ -166,5 +192,6 @@ public class EnemyAI : MonoBehaviour, IDamage
             rigidbody.isKinematic = false;
         }
         animator.enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
     }
 }
