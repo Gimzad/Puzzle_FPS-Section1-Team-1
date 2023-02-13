@@ -468,8 +468,28 @@ PrefabInstance:
       value: Zombie Melee
       objectReference: {fileID: 0}
     - target: {fileID: 1554433256280951945, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: speed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554433256280951945, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: shootDist
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554433256280951945, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
       propertyPath: shootRate
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554433256280951945, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: DeathTimer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554433256280951945, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: AttackTimer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554433256280951945, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: bulletSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4544400579131702544, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
       propertyPath: m_Height
@@ -482,6 +502,18 @@ PrefabInstance:
     - target: {fileID: 4544400579131702544, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
       propertyPath: m_Center.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7935703745310420844, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7935703745310420844, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7935703745310420844, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.8333335
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdcd62ec296cc40499c1deae46cea785, type: 3}

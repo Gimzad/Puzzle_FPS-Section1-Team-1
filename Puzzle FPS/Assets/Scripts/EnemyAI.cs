@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("-----Stats-----")]
     [SerializeField] int hp;
     [SerializeField] int playerFaceSpeed;
+    [SerializeField] float speed;
 
     [Header("-----Weapon-----")]
     [SerializeField]
@@ -35,57 +36,55 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int shootDist;
     [SerializeField] int viewAngle;
 
-
-    public float timer;
     float angleToPlayer;
     Vector3 playerDir;
     bool isShooting;
     bool playerInVisionRange;
-    bool canDestroyEnemy;
+
+    [Header("-----Animation-----")]
+    public float DeathTimer;
+    public float AttackTimer;
+    public bool Alive;
+    public bool inAttackRange;
 
     void Awake()
     {
+        Alive = true;
+        agent.speed = speed;
         _ragdollRigidBodies = GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
     }
-    //void Start()
-    //{
-    //}
-
-    // Update is called once per frame
     void Update()
     {
-        if (playerInVisionRange && CanSeePlayer() && animator.enabled == true)
+        if (Alive)
         {
-            if (agent.remainingDistance < agent.stoppingDistance)
+            Debug.Log(inAttackRange);
+            if (playerInVisionRange && CanSeePlayer())
             {
-                FacePlayer();
-            }
-            if (!isShooting)
-            {
-                StartCoroutine(Shoot());
-            }
-        }
-        CanDestroyEnemy();
-    }
-
-    void CanDestroyEnemy()
-    {
-        if (animator.enabled == false)
-        {
-            if (timer > 0f)
-            {
-                timer -= Time.deltaTime;
-            }
-            else
-            {
-                Destroy(gameObject);
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    FacePlayer();
+                }
+                if (inAttackRange)
+                {
+                    if (!isShooting)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                }
             }
         }
         else
         {
-            timer = 10f;
+            StartCoroutine(DestroyEnemy());
         }
+        
+    }
+
+    IEnumerator DestroyEnemy()
+    {
+        yield return new WaitForSeconds(DeathTimer);
+        Destroy(gameObject);
     }
 
     bool CanSeePlayer()
@@ -93,22 +92,24 @@ public class EnemyAI : MonoBehaviour, IDamage
         playerDir = GameManager.Instance.PlayerController().transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
 
-        Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDir);
-
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
-            if (animator.enabled == false)
-            {
-                return false;
-            }
-            else if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.SetDestination(GameManager.Instance.PlayerController().transform.position);
+                if (Mathf.Abs(playerDir.z) <= shootDist)
+                {
+                    inAttackRange = true;
+                }
+                else
+                {
+                    inAttackRange = false;
+                }
                 return true;
             }
         }
+        inAttackRange = false;
         return false;
     }
     private void LateUpdate()
@@ -121,9 +122,8 @@ public class EnemyAI : MonoBehaviour, IDamage
         StartCoroutine(FlashDamage());
         if (hp <= 0)
         {
+            Alive = false;
             EnableRagdoll();
-
-            //Destroy(gameObject);
         }
     }
 
@@ -136,7 +136,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         model.material.color = Color.white;
 
     }
-
     void FacePlayer()
     {
         Quaternion rot = Quaternion.LookRotation(playerDir);
@@ -145,14 +144,25 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     IEnumerator Shoot()
     {
-        animator.SetTrigger("attacking");
         isShooting = true;
+        StartCoroutine(Attack());
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
+    IEnumerator Attack()
+    {
+        agent.speed = 0;
+        if (inAttackRange)
+            animator.SetTrigger("attacking");
+        else
+            yield break;
+
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
 
         bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        yield return new WaitForSeconds(AttackTimer);
 
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+        agent.speed = speed;
     }
     private void UpdateAnimator()
     {
