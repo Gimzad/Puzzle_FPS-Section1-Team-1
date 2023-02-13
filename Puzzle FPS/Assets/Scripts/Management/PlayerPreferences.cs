@@ -83,10 +83,10 @@ public sealed class PlayerPreferences: MonoBehaviour
 
 	[Header("Active Buttons")]
 	#region Button Codes
-	public KeyCode PLAYERJUMPKEY = KeyCode.Space;
-	public KeyCode PLAYERSPRINTKEY = KeyCode.LeftShift;
-	public KeyCode PLAYERMENUKEY = KeyCode.Escape;
-	public KeyCode PLAYERCLIMBKEY = KeyCode.Mouse0;
-	public KeyCode PLAYERINTERACTKEY = KeyCode.E;
+	public string Button_Jump = "Jump";
+	public string Button_Sprint = "Sprint";
+	public string Button_Menu = "Cancel";
+	public string Button_Fire = "Fire";
+	public string Button_Interact = "Interact";
     #endregion
 }

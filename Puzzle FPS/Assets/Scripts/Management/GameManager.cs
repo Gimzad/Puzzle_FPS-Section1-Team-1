@@ -95,11 +95,13 @@ public class GameManager : MonoBehaviour
 		playerCamera = Camera.main.GetComponent<CameraControl>();
 
 		AssertPlayerPreferencesToScript();
+
 		Cursor.lockState = CursorLockMode.Locked;
+
 		playerCamera.ToggleCursorVisibility();
 		MenuManager.Instance.CanToggleGameMenu = true;
 	}
-	public void AssertPlayerPreferencesToScript()
+    public void AssertPlayerPreferencesToScript()
 	{
         //Will take the active values from Player Preferences and assign those settings to the variables
         //used in the player and camera scripts

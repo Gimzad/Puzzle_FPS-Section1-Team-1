@@ -58,7 +58,6 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         if (Alive)
         {
-            Debug.Log(inAttackRange);
             if (playerInVisionRange && CanSeePlayer())
             {
                 if (agent.remainingDistance < agent.stoppingDistance)

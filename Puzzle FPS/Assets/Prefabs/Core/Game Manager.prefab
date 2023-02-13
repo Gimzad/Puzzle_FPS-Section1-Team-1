@@ -2813,24 +2813,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1d7aecc6af7d54484998db48752459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 6
-  JumpMax: 2
+  MoveSpeed: 10
+  JumpMax: 3
   JumpSpeed: 4.5
   PlayerGravityStrength: 9.8
   HP: 10
-  SensitivityHorizontal: 100
-  SensitivityVertical: 100
+  SensitivityHorizontal: 350
+  SensitivityVertical: 350
   VerticalLockMin: -60
   VerticalLockMax: 75
   InvertX: 0
   ShootRate: 0.25
   ShootDistance: 20
   ShotDamage: 2
-  PLAYERJUMPKEY: 32
-  PLAYERSPRINTKEY: 304
-  PLAYERMENUKEY: 27
-  PLAYERCLIMBKEY: 323
-  PLAYERINTERACTKEY: 101
+  Button_Jump: Jump
+  Button_Sprint: Sprint
+  Button_Menu: Cancel
+  Button_Fire: Fire
+  Button_Interact: Interact
 --- !u!1 &3517173843189535153
 GameObject:
   m_ObjectHideFlags: 0

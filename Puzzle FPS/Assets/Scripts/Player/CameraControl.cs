@@ -46,8 +46,6 @@ public class CameraControl : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-
     }
 
     // Update is called once per frame

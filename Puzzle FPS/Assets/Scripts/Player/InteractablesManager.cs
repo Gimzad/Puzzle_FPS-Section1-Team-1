@@ -23,7 +23,7 @@ public class InteractablesManager : MonoBehaviour
 				if (currentInteractable != null)
 				{
 					inputReader.DisplayMessage(interactingHit.collider.gameObject.name); // the line so that the item names appear on screen
-					if (Input.GetKeyDown(PlayerPreferences.Instance.PLAYERINTERACTKEY))
+					if (Input.GetButton(PlayerPreferences.Instance.Button_Interact))
 					{
 						currentInteractable.Interact();
 						inputReader.ClearMessage();

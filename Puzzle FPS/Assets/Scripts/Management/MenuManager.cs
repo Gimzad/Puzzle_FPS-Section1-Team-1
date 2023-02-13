@@ -64,7 +64,7 @@ public class MenuManager : MonoBehaviour
 	{
 		//Using the menu manager here to toggle the menus, but in game manager because it affects the timescale and pausestate.
 		if (canToggleGameMenu)
-			if (Input.GetKeyDown(PlayerPreferences.Instance.PLAYERMENUKEY))
+			if (Input.GetButtonDown(PlayerPreferences.Instance.Button_Menu))
 			{
 				GameManager.Instance.ToggleGameMenu();
 			}
