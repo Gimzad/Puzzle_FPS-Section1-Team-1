@@ -152,10 +152,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     IEnumerator Attack()
     {
         agent.speed = 0;
-        if (inAttackRange)
-            animator.SetTrigger("attacking");
-        else
-            yield break;
+        animator.SetTrigger("attacking");
 
         GameObject bulletClone = Instantiate(bullet, shootPos.position, bullet.transform.rotation);
 
