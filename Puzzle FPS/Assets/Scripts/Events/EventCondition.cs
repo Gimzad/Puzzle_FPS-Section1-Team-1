@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EventCondition : ScriptableObject
+public abstract class EventCondition : MonoBehaviour
 {
-    public string description;
+    public int EventClass;
     protected bool satisfied;
 
     public bool Satisfied { get => satisfied;}
 
     //Updates the satisfied condition according to whatever type of event is implemented
-    public virtual void CheckCompletion()
+    public virtual bool CheckCompletion()
     {
+        return satisfied;
     }
 
     public virtual void ResetCondition()

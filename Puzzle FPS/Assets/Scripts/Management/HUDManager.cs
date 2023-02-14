@@ -9,6 +9,8 @@ public class HUDManager : MonoBehaviour
 
     [Header("Panels")]
     public GameObject PlayerDamageFlashScreen;
+    public GameObject TaskList;
+    public GameObject InputReaderText;
 
     [Header("Images")]
     [SerializeField]
@@ -39,11 +41,15 @@ public class HUDManager : MonoBehaviour
     {
         playerHPBar.gameObject.SetActive(true);
         reticle.gameObject.SetActive(true);
+        TaskList.gameObject.SetActive(true);
+        InputReaderText.gameObject.SetActive(true);
     }
     public void CloseHUD()
     {
         playerHPBar.gameObject.SetActive(false);
         reticle.gameObject.SetActive(false);
+        TaskList.gameObject.SetActive(false);
+        InputReaderText.gameObject.SetActive(false);
     }
     #endregion
 }

@@ -65,11 +65,11 @@ public class GameManager : MonoBehaviour
 	}
     private void LateUpdate()
     {
-        /*if (playStarted)
+        if (playStarted)
         {
 			ManagePlayerTasks();
         }
-		*/
+		
     }
     #region Public Methods
 
@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
 
 		playerCamera.ToggleCursorVisibility();
 		MenuManager.Instance.CanToggleGameMenu = true;
+
+		GameEventManager.Instance.GenerateEvents();
 	}
     public void AssertPlayerPreferencesToScript()
 	{
@@ -213,6 +215,7 @@ public class GameManager : MonoBehaviour
 	private void ManagePlayerTasks()
 	{
 		//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
+		GameEventManager.Instance.UpdateEvents();
 	}
     #endregion
 }

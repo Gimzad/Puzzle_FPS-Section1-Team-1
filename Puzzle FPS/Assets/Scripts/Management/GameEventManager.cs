@@ -9,6 +9,55 @@ public class GameEventManager : MonoBehaviour
 
     public static GameEventManager Instance;
 
+    public GameObject LocationEventTextPrefab;
+    public GameObject EventTextGroup;
+    private void Awake()
+    {
+        Instance = this;
+    }
+    public void GenerateEvents()
+    {
+        foreach(GameEvent gameEvent in GameEvents)
+        {
+            GenerateEventUI(gameEvent);
+        }
+    }
+    private void GenerateEventUI(GameEvent gEvent)
+    {
+        if (gEvent.Conditions != null && gEvent.Conditions.Count != 0) {
+            foreach (EventCondition eCondition in gEvent.Conditions)
+            { 
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
+                {
+                    TaskListUIElement_Location locationUI = Instantiate(LocationEventTextPrefab, EventTextGroup.transform).GetComponent<TaskListUIElement_Location>();
+                    locationUI.EventUIText.text = gEvent.description;
+                    (eCondition as LocationCondition).ConditionUI = locationUI;
+                    (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
+                }
+            }
+        }
+    }
+    public void UpdateEvents()
+    {
+        foreach (GameEvent gameEvent in GameEvents)
+        {
+            if (gameEvent.Conditions != null && gameEvent.Conditions.Count != 0)
+            {
+                UpdateEventUI(gameEvent);
+            }
+        }
+    }
+    private void UpdateEventUI(GameEvent gEvent)
+    {
+        foreach (EventCondition eCondition in gEvent.Conditions)
+        {
+            if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
+            {
+                (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
+            }
+            
+        }
+    }
 
     public void ResetEvents()
     {
@@ -27,7 +76,8 @@ public class GameEventManager : MonoBehaviour
     public static bool CheckEventCompletion(GameEvent gEvent)
     {
         //Check if an Event's conditions are completed
-        return gEvent.CheckEventConditions(gEvent.Conditions);
+        gEvent.UpdateConditionsCompletion(gEvent.Conditions);
+        return gEvent.ReturnEventCompletion(gEvent.Conditions);
     }
     public static bool EventListComplete()
     {

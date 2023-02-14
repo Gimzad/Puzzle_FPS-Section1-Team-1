@@ -17,7 +17,7 @@ public class CollectionCondition : EventCondition
     {
         SpawnCollectables();
     }
-    public override void CheckCompletion()
+    public override bool CheckCompletion()
     {
         if (FoundObjectives.Count != Objectives.Count) 
         { 
@@ -35,6 +35,7 @@ public class CollectionCondition : EventCondition
             }
         }
         satisfied = true;
+        return base.CheckCompletion();
     }
     public override void ResetCondition()
     {
@@ -46,7 +47,9 @@ public class CollectionCondition : EventCondition
     {
         for (int i = 0; i < Objectives.Count; i++)
         {
-            Instantiate(Objectives[i], ObjectiveLocations[i]);
+            Object.Instantiate(Objectives[i], ObjectiveLocations[i]);
+
         }
     }
+
 }

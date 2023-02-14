@@ -18,7 +18,7 @@ public abstract class Reaction : ScriptableObject
 
     //Base reaction for the class to perform an immediate response, overwritten in classes that take time to react instead of an immediate
     //one
-    public void React(MonoBehaviour monoBehaviour)
+    public void React(MonoBehaviour component)
     {
         ImmediateReaction();
     }

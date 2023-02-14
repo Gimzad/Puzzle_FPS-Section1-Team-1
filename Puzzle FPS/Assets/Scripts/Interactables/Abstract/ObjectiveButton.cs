@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectiveButton : PuzzleButton
 {
-    public InteractCondition parentCondition;
+    public InteractionCondition parentCondition;
     public override void Interact()
     {
         ObjectiveInteraction();
