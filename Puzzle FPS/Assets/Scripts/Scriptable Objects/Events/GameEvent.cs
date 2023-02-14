@@ -4,36 +4,52 @@ using UnityEngine;
 
 public class GameEvent : ScriptableObject
 {
+    //Events in the game that presetn description in UI
     public string description;
-
-    public EventCondition[] Conditions;
+    //Each event has a list of EventConditions like Collection, Location, Interaction
+    public List<EventCondition> Conditions;
 
     public void EventReset()
     {
+        //Reset event and all conditions to initial states
         if (Conditions == null)
             return;
 
-        for (int i = 0; i < Conditions.Length; i++)
+        for (int i = 0; i < Conditions.Count; i++)
         {
-            Conditions[i].satisfied = false;
+            Conditions[i].ResetCondition();
         }
     }
-    public static bool CheckCondition(EventCondition requiredCondition, EventCondition[] conditions)
+    public bool CheckConditionState(EventCondition searchCondition, List<EventCondition> conditions, out bool notFound)
     {
-        EventCondition compareCondition = null;
-
-        if (conditions != null && conditions[0] != null)
+        EventCondition storedCondition;
+        if (!conditions.Contains(searchCondition))
         {
-            for (int i = 0; i < conditions.Length; i++)
-            {
-                if (conditions[i] == requiredCondition)
-                    compareCondition = conditions[i];
-            }
-        }
-        //If condition was not found exit
-        if (!compareCondition)
+            notFound = true;
             return false;
-        //else return true if the condition is satisfied
-        return compareCondition.satisfied;
+        }
+        else
+        {
+            notFound = false;
+            int location = conditions.IndexOf(searchCondition);
+            storedCondition = conditions[location];
+        }
+
+        //If condition was not found exit
+        if (!storedCondition.Satisfied)
+            return false;
+        else
+            //else return true if the condition is satisfied
+            return true;
+    }
+    public bool CheckEventConditions(List<EventCondition> conditions)
+    {
+        //Check if an Event's conditions are completed
+        for (int i = 0; i < conditions.Count; i++)
+        {
+            if (conditions[i].Satisfied == false)
+                return false;
+        }
+        return true;
     }
 }

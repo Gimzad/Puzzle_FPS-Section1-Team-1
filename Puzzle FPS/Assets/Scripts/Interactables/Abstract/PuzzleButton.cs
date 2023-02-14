@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class PuzzleButton : MonoBehaviour, Interactable
 {
+    public bool Interacted;
     public virtual void Interact()
     {
     }

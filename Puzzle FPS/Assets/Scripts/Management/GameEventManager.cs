@@ -4,49 +4,45 @@ using UnityEngine;
 
 public class GameEventManager : MonoBehaviour
 {
-    public GameEvent[] GameEvents;
+    //A class with a static instance like GameManager to handle the GameEvents that are created and the conditions for each
+    public List<GameEvent> GameEvents;
 
     public static GameEventManager Instance;
 
 
     public void ResetEvents()
     {
+        //If no events active just back out
         if (GameEvents == null)
             return;
         else
         {
-            for (int i = 0; i < GameEvents.Length; i++)
+            //otherwise call the EventReset
+            for (int i = 0; i < GameEvents.Count; i++)
             {
                 GameEvents[i].EventReset();
             }
         }
     }
-    public static bool CheckEventConditions(EventCondition[] conditions)
-    {
-        for (int i = 0; i < conditions.Length; i++)
-        {
-            if (conditions[i].satisfied == false)
-                return false;
-        }
-        return true;
-    }
     public static bool CheckEventCompletion(GameEvent gEvent)
     {
-        GameEvent[] allEvents = Instance.GameEvents;
-        bool complete = false;
+        //Check if an Event's conditions are completed
+        return gEvent.CheckEventConditions(gEvent.Conditions);
+    }
+    public static bool EventListComplete()
+    {
+        List<GameEvent> allEvents = Instance.GameEvents;
 
         if (allEvents != null && allEvents[0] != null)
         {
-            for (int i = 0; i < allEvents.Length; i++)
+            for (int i = 0; i < allEvents.Count; i++)
             {
-                if (allEvents[i] == gEvent)
-                    complete = CheckEventConditions(gEvent.Conditions);
+                if (!CheckEventCompletion(allEvents[i]))
+                {
+                    return false;
+                }
             }
         }
-
-        if (complete)
-            return true;
-        else
-            return false;
+        return true;
     }
 }
