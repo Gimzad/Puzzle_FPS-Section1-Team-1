@@ -6,6 +6,6 @@ Burgess, Michael (MikeyBurgess9142)
 
 Gurwell, Alex (AL3XG8)
 
-Pallotta, Nicholas
+Pallotta, Nicholas (Gimzad)
 
 Patricelli, John (MrFoxFire)
