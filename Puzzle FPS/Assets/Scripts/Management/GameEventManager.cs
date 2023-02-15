@@ -79,7 +79,7 @@ public class GameEventManager : MonoBehaviour
         gEvent.UpdateConditionsCompletion(gEvent.Conditions);
         return gEvent.ReturnEventCompletion(gEvent.Conditions);
     }
-    public static bool EventListComplete()
+    public bool EventListComplete()
     {
         List<GameEvent> allEvents = Instance.GameEvents;
 

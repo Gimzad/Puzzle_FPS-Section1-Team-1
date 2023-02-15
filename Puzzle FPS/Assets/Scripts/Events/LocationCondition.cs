@@ -9,7 +9,7 @@ public class LocationCondition : EventCondition
 
     public override bool CheckCompletion()
     {
-        if (GameManager.Instance.PlayerController().transform.position == Objective)
+        if (GameManager.Instance.PlayerController().transform.position.ToString() == Objective.ToString())
         {
             satisfied = true;
         }
