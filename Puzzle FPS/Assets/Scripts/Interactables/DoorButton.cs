@@ -8,6 +8,7 @@ public class DoorButton : PuzzleButton
     private Door LinkedDoor;
     public override void Interact()
     {
+        base.Interact();
         ActivateDoor();
     }
 

@@ -21,7 +21,6 @@ public class LocationCondition : EventCondition
     }
     public void UpdateLocationUI(LocationCondition locate)
     {
-        Debug.Log("Satisfied =  " + satisfied);
         locate.ConditionUI.ConditionToggle.isOn = satisfied;
         locate.ConditionUI.ConditionalUIText.text = "Get to: " + locate.Objective.ToString();
         locate.ConditionUI.LocationText.text = "Current Location: " +

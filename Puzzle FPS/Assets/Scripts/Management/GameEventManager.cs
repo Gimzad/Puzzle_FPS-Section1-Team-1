@@ -9,7 +9,8 @@ public class GameEventManager : MonoBehaviour
 
     public static GameEventManager Instance;
 
-    public GameObject LocationEventTextPrefab;
+    public GameObject LocationEventText;
+    public GameObject InteractionEventText;
     public GameObject EventTextGroup;
     private void Awake()
     {
@@ -29,10 +30,17 @@ public class GameEventManager : MonoBehaviour
             { 
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
                 {
-                    TaskListUIElement_Location locationUI = Instantiate(LocationEventTextPrefab, EventTextGroup.transform).GetComponent<TaskListUIElement_Location>();
+                    TaskListUIElement_Location locationUI = Instantiate(LocationEventText, EventTextGroup.transform).GetComponent<TaskListUIElement_Location>();
                     locationUI.EventUIText.text = gEvent.description;
                     (eCondition as LocationCondition).ConditionUI = locationUI;
                     (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
+                }
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Interaction)
+                {
+                    TaskListUIElement_Interaction interactionUI = Instantiate(InteractionEventText, EventTextGroup.transform).GetComponent<TaskListUIElement_Interaction>();
+                    interactionUI.EventUIText.text = gEvent.description;
+                    (eCondition as InteractionCondition).ConditionUI = interactionUI;
+                    (eCondition as InteractionCondition).UpdateInteractionUI((InteractionCondition)eCondition);
                 }
             }
         }
@@ -55,7 +63,10 @@ public class GameEventManager : MonoBehaviour
             {
                 (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
             }
-            
+            if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Interaction)
+            {
+                (eCondition as InteractionCondition).UpdateInteractionUI((InteractionCondition)eCondition);
+            }
         }
     }
 

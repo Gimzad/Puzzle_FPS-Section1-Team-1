@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionCondition : EventCondition
 {
     public PuzzleButton Objective;
+    public TaskListUIElement_Interaction ConditionUI;
 
     public override bool CheckCompletion()
     {
@@ -14,5 +15,10 @@ public class InteractionCondition : EventCondition
             satisfied = false;
 
         return base.CheckCompletion();
+    }
+    public void UpdateInteractionUI(InteractionCondition interaction)
+    {
+        interaction.ConditionUI.ConditionToggle.isOn = satisfied;
+        interaction.ConditionUI.ConditionalUIText.text = "Interact with: " + interaction.Objective.name;
     }
 }
