@@ -295,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6648634051876406711}
   - component: {fileID: 54347961471475729}
-  - component: {fileID: 474916896468802235}
+  - component: {fileID: 1911568028059906575}
   m_Layer: 0
   m_Name: Taks List UI Interaction
   m_TagString: Untagged
@@ -364,7 +364,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 7162228991068297358}
   toggleTransition: 1
   graphic: {fileID: 2642908029185052442}
@@ -373,7 +373,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &474916896468802235
+--- !u!114 &1911568028059906575
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7805358072916256354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 449bc37c6f99cc049996b4aebb294331, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e78d448dfcd0434fba7dd71b1bfa782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EventUIText: {fileID: 2217190677656351601}

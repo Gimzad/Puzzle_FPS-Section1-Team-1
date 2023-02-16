@@ -112,9 +112,11 @@ public class GameManager : MonoBehaviour
 		//Script values should be assigned from preferences, controls should be enabled and cursor hidden
 		playerScript.HP = PlayerPreferences.Instance.HP;
 		playerScript.MoveSpeed = PlayerPreferences.Instance.MoveSpeed;
-		playerScript.JumpTimes = PlayerPreferences.Instance.JumpMax;
+		playerScript.SprintMod = PlayerPreferences.Instance.SprintMod;
+		playerScript.JumpTimes = PlayerPreferences.Instance.JumpTimes;
 		playerScript.JumpSpeed = PlayerPreferences.Instance.JumpSpeed;
 		playerScript.PlayerGravity = PlayerPreferences.Instance.PlayerGravityStrength;
+		playerScript.PlayerForce = PlayerPreferences.Instance.PlayerForceStrength;
 
 
 		playerScript.ShootRate = PlayerPreferences.Instance.ShootRate;

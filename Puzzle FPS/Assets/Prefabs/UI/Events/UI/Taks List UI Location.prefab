@@ -499,7 +499,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 7062115505964791228}
   toggleTransition: 1
   graphic: {fileID: 2722860465430733352}
@@ -507,7 +507,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &4253749098100881327
 MonoBehaviour:
   m_ObjectHideFlags: 0

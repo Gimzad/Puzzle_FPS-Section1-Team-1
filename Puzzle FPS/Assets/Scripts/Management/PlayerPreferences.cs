@@ -13,12 +13,14 @@ public sealed class PlayerPreferences: MonoBehaviour
 
 	#region Movement Defaults
 	public static float MoveSpeedDefault = 6f;
+	public static float SprintModDefault = 1.5f;
 	public static int HPDefault = 10;
 
-	public static int JumpMaxDefault = 2;
-	public static float JumpSpeedDefault = 4.5f;
+	public static int JumpTimesDefault = 1;
+	public static float JumpSpeedDefault = 2.5f;
 
     public static float PlayerGravityStrengthDefault = 9.8f;
+    public static float PlayerForceStrengthDefault = 2f;
 	#endregion
 	#region Camera Defaults
 	public static int SensitivityHorizontalDefault = 400;
@@ -44,12 +46,16 @@ public sealed class PlayerPreferences: MonoBehaviour
 	#region Active Movement Settings
 	[Range(0f, 50)]
 	public float MoveSpeed = MoveSpeedDefault;
+	[Range(1.5f, 2.5f)]
+	public float SprintMod = SprintModDefault;
 	[Range(0f, 5f)]
-	public int JumpMax = JumpMaxDefault;
+	public int JumpTimes = JumpTimesDefault;
 	[Range(0, 10)]
 	public float JumpSpeed = JumpSpeedDefault;
-	[Range(0, 90)]
+	[Range(0, 20f)]
 	public float PlayerGravityStrength = PlayerGravityStrengthDefault;
+	[Range(0.01f, 0.1f)]
+	public float PlayerForceStrength = PlayerForceStrengthDefault;
 	#endregion
 	[Header("Active Player Settings")]
 	#region Weapon Settings

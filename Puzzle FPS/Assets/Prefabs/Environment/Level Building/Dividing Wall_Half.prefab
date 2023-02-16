@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4742864226716473863, guid: 59f131634ef65a340b2d81bc5d7e312b, type: 3}
       propertyPath: m_Name
-      value: Wall (1)
+      value: Dividing Wall_Half
       objectReference: {fileID: 0}
     - target: {fileID: 6692986886616862794, guid: 59f131634ef65a340b2d81bc5d7e312b, type: 3}
       propertyPath: m_RootOrder

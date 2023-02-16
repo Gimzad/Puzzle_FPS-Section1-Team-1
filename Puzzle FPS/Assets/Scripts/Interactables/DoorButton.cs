@@ -15,8 +15,9 @@ public class DoorButton : PuzzleButton
     public void ActivateDoor()
     {
         AnimationReaction doorAction = ScriptableObject.CreateInstance<AnimationReaction>();
+        doorAction.instruction = 0;
         doorAction.animator = LinkedDoor.GetComponent<Animator>();
-        doorAction.trigger = "Activate";
+        doorAction.text = "Activate";
         doorAction.React(LinkedDoor);
     }
 }

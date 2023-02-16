@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class CollectionCondition : EventCondition
 {
+    public string CollectionName;
+
     //public List<CollectionItem> Objectives;
-    public List<CollectionItem> Objectives;
-    public List<CollectionItem> FoundObjectives;
+    public List<GameObject> Objectives;
+    public List<GameObject> FoundObjectives;
 
     //Locations in-level set for spawning of objectives
     [SerializeField]
     List<Transform> ObjectiveLocations;
 
+    public TaskListUI_Collection ConditionUI;
 
     private void Awake()
     {
@@ -21,16 +24,18 @@ public class CollectionCondition : EventCondition
     {
         if (FoundObjectives.Count != Objectives.Count) 
         { 
-            satisfied = false; 
+            satisfied = false;
+            return base.CheckCompletion();
         }
         else
         {
             for (int i = 0; i < Objectives.Count; i++)
             {
-                if (!Objectives.Contains(FoundObjectives[i]))
+                if (!Objectives.Contains(FoundObjectives[i].GetComponent<GameObject>()))
                 {
 
                     satisfied = false;
+                    return base.CheckCompletion();
                 }
             }
         }
@@ -47,9 +52,16 @@ public class CollectionCondition : EventCondition
     {
         for (int i = 0; i < Objectives.Count; i++)
         {
-            Object.Instantiate(Objectives[i], ObjectiveLocations[i]);
+            Instantiate((Objectives[i].GetComponent<CollectibleItem>() as CollectibleItem_WeaponPickup).attachedPickup, ObjectiveLocations[i]);
+            (Objectives[i].GetComponent<CollectibleItem>() as CollectibleItem_WeaponPickup).parentCondition = this;
 
         }
+    }
+    public void UpdateCollectionUI(CollectionCondition collection)
+    {
+        collection.ConditionUI.ConditionToggle.isOn = satisfied;
+        collection.ConditionUI.ConditionalUIText.text = "Collect all of: " + CollectionName;
+        collection.ConditionUI.collectiblesText.text = FoundObjectives.Count.ToString() + "   /   " + Objectives.Count.ToString();
     }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LocationCondition : EventCondition
 {
     public Vector3 Objective;
-    public TaskListUIElement_Location ConditionUI;
+    public TaskListUI_Location ConditionUI;
 
     public override bool CheckCompletion()
     {

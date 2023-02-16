@@ -5,10 +5,17 @@ using UnityEngine;
 public class AnimationReaction : DelayedReaction
 {
     public Animator animator;
-    public string trigger;
+    public string text;
 
     protected override void ImmediateReaction()
     {
-        animator.SetTrigger("Activate");
+        if (instruction == 0)
+        {
+            animator.SetTrigger(text);
+        }
+        else if (instruction == 1)
+        {
+            animator.SetBool(text, true);
+        }
     }
 }

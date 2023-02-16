@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EventCondition : MonoBehaviour
 {
     public int EventClass;
+    public string description;
     protected bool satisfied;
 
     public bool Satisfied { get => satisfied;}

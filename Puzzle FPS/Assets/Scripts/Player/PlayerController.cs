@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     [Range(1.5f, 5f)][SerializeField] float sprintMod;
     [Range(10, 25)][SerializeField] float jumpSpeed;
     [Range(0, 3)][SerializeField] int jumpTimes;
+
     [Range(15, 45)][SerializeField] float gravity;
+    [Range(1, 5)][SerializeField] float playerForce;
 
     [Header("-----Weapon Stats-----")]
     [SerializeField] List<Weapon> weaponList = new List<Weapon>();
@@ -42,6 +44,11 @@ public class PlayerController : MonoBehaviour
         get { return moveSpeed; }
         set { moveSpeed = value; }
     }
+    public float SprintMod
+    {
+        get { return sprintMod; }
+        set { sprintMod = value; }
+    }
     public int JumpTimes
     {
         get { return jumpTimes; }
@@ -56,6 +63,11 @@ public class PlayerController : MonoBehaviour
     {
         get { return gravity; }
         set { gravity = value; }
+    }
+    public float PlayerForce
+    {
+        get { return playerForce; }
+        set { playerForce = value; }
     }
     public float ShootRate
     {
@@ -113,7 +125,20 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
-    void Sprint()
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody rigidBody = hit.collider.attachedRigidbody;
+
+        if (rigidBody != null)
+        {
+            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
+            forceDirection.y = 0;
+            forceDirection.Normalize();
+
+            rigidBody.AddForceAtPosition(forceDirection * playerForce, transform.position, ForceMode.Impulse);
+        }
+    }
+        void Sprint()
     {
         if (Input.GetButtonDown("Sprint"))
         {

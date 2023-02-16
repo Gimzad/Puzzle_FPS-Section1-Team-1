@@ -11,6 +11,7 @@ public class GameEventManager : MonoBehaviour
 
     public GameObject LocationEventText;
     public GameObject InteractionEventText;
+    public GameObject CollectionEventText;
     public GameObject EventTextGroup;
     private void Awake()
     {
@@ -30,17 +31,24 @@ public class GameEventManager : MonoBehaviour
             { 
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
                 {
-                    TaskListUIElement_Location locationUI = Instantiate(LocationEventText, EventTextGroup.transform).GetComponent<TaskListUIElement_Location>();
-                    locationUI.EventUIText.text = gEvent.description;
+                    TaskListUI_Location locationUI = Instantiate(LocationEventText, EventTextGroup.transform).GetComponent<TaskListUI_Location>();
+                    locationUI.EventUIText.text = eCondition.description;
                     (eCondition as LocationCondition).ConditionUI = locationUI;
                     (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
                 }
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Interaction)
                 {
-                    TaskListUIElement_Interaction interactionUI = Instantiate(InteractionEventText, EventTextGroup.transform).GetComponent<TaskListUIElement_Interaction>();
-                    interactionUI.EventUIText.text = gEvent.description;
+                    TaskListUI_Interaction interactionUI = Instantiate(InteractionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Interaction>();
+                    interactionUI.EventUIText.text = eCondition.description;
                     (eCondition as InteractionCondition).ConditionUI = interactionUI;
                     (eCondition as InteractionCondition).UpdateInteractionUI((InteractionCondition)eCondition);
+                }
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Collection)
+                {
+                    TaskListUI_Collection interactionUI = Instantiate(CollectionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Collection>();
+                    interactionUI.EventUIText.text = eCondition.description;
+                    (eCondition as CollectionCondition).ConditionUI = interactionUI;
+                    (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
                 }
             }
         }
@@ -66,6 +74,10 @@ public class GameEventManager : MonoBehaviour
             if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Interaction)
             {
                 (eCondition as InteractionCondition).UpdateInteractionUI((InteractionCondition)eCondition);
+            }
+            if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Collection)
+            {
+                (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
             }
         }
     }

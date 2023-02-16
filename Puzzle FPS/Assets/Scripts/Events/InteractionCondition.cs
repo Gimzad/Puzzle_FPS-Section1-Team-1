@@ -5,7 +5,7 @@ using UnityEngine;
 public class InteractionCondition : EventCondition
 {
     public PuzzleButton Objective;
-    public TaskListUIElement_Interaction ConditionUI;
+    public TaskListUI_Interaction ConditionUI;
 
     public override bool CheckCompletion()
     {
