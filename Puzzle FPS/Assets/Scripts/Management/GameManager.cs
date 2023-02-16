@@ -6,14 +6,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-	[Header("Core Objects")]
-	[SerializeField]
-	GameObject PlayerPrefab;
+	[Header("Player")]
+	public GameObject PlayerPrefab;
+	public GameObject PlayerSpawnPos;
 
-	GameObject playerObject;
+	GameObject Player;
+
     [Header("Game Components")]
     [SerializeField]
-    PlayerController playerController;
+    PlayerController playerScript;
 	[SerializeField]
 	CameraControl playerCamera;
 
@@ -31,9 +32,9 @@ public class GameManager : MonoBehaviour
     int enemiesRemaining;
 
 	#region GM Access Methods
-	public PlayerController PlayerController()
+	public PlayerController PlayerScript()
     {
-        return playerController;
+        return playerScript;
     }
 	public CameraControl CameraControl()
 	{
@@ -90,8 +91,8 @@ public class GameManager : MonoBehaviour
 	}
 	public void SetupPlayerAndCamera()
 	{
-		playerObject = Instantiate(PlayerPrefab);
-		playerController = playerObject.GetComponent<PlayerController>();
+		Player = Instantiate(PlayerPrefab);
+		playerScript = Player.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
 
 		AssertPlayerPreferencesToScript();
@@ -105,20 +106,20 @@ public class GameManager : MonoBehaviour
 	}
     public void AssertPlayerPreferencesToScript()
 	{
-        //Will take the active values from Player Preferences and assign those settings to the variables
-        //used in the player and camera scripts
-        //Should be called right before the player is dropped in and gains control of the player.
-        //Script values should be assigned from preferences, controls should be enabled and cursor hidden
-        playerController.HP = PlayerPreferences.Instance.HP;
-		playerController.MoveSpeed = PlayerPreferences.Instance.MoveSpeed;
-		playerController.JumpTimes = PlayerPreferences.Instance.JumpMax;
-		playerController.JumpSpeed = PlayerPreferences.Instance.JumpSpeed;
-		playerController.PlayerGravity = PlayerPreferences.Instance.PlayerGravityStrength;
+		//Will take the active values from Player Preferences and assign those settings to the variables
+		//used in the player and camera scripts
+		//Should be called right before the player is dropped in and gains control of the player.
+		//Script values should be assigned from preferences, controls should be enabled and cursor hidden
+		playerScript.HP = PlayerPreferences.Instance.HP;
+		playerScript.MoveSpeed = PlayerPreferences.Instance.MoveSpeed;
+		playerScript.JumpTimes = PlayerPreferences.Instance.JumpMax;
+		playerScript.JumpSpeed = PlayerPreferences.Instance.JumpSpeed;
+		playerScript.PlayerGravity = PlayerPreferences.Instance.PlayerGravityStrength;
 
 
-		playerController.ShootRate = PlayerPreferences.Instance.ShootRate;
-		playerController.ShootDistance = PlayerPreferences.Instance.ShootDistance;
-		playerController.ShotDamage = PlayerPreferences.Instance.ShotDamage;
+		playerScript.ShootRate = PlayerPreferences.Instance.ShootRate;
+		playerScript.ShootDistance = PlayerPreferences.Instance.ShootDistance;
+		playerScript.ShotDamage = PlayerPreferences.Instance.ShotDamage;
 
 		playerCamera.HorizontalSensitivity = PlayerPreferences.Instance.SensitivityHorizontal;
 		playerCamera.VeritcalSensitivity = PlayerPreferences.Instance.SensitivityVertical;
@@ -130,7 +131,7 @@ public class GameManager : MonoBehaviour
 
 	public void RestartLevel()
 	{
-		Destroy(playerObject);
+		Destroy(Player);
 		Debug.Log("Restarting Level");
 		//Restart a level without going all the way back to the main menu
 		SceneControl.Instance.SceneRestart_CurrentScene();
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
 	public void RestartGame()
 	{
 		playerCamera.ToggleCursorVisibility();
-		Destroy(playerObject);
+		Destroy(Player);
 
 		//Call to scene control to handle unloading anything we are currently in
 		SceneControl.Instance.SceneRestart_Game();

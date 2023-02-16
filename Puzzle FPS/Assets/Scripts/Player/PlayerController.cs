@@ -6,21 +6,30 @@ public class PlayerController : MonoBehaviour
 {
     [Header("-----Components-----")]
     [SerializeField] CharacterController controller;
+
     [Header("-----Player Stats-----")]
     [Range(5, 10)][SerializeField] int hp;
     [Range(0, 5)][SerializeField] float moveSpeed;
+    [Range(1.5f, 5f)][SerializeField] float sprintMod;
     [Range(10, 25)][SerializeField] float jumpSpeed;
     [Range(0, 3)][SerializeField] int jumpTimes;
     [Range(15, 45)][SerializeField] float gravity;
+
     [Header("-----Weapon Stats-----")]
+    [SerializeField] List<Weapon> weaponList = new List<Weapon>();
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
+    [SerializeField] GameObject weaponModel;
+
+
     int jumpsCurrent;
     Vector3 move;
     Vector3 playerVelocity;
     bool isShooting;
     int hpOriginal;
+
+    public int selectedWeapon;
 
     #region Public Access Methods
     public int HP
@@ -73,7 +82,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement();
-        if (!isShooting && Input.GetButton("Fire"))
+        Sprint();
+        SelectWeapon();
+
+        if (!isShooting && Input.GetButton("Fire") && weaponList.Count > 0)
         {
             StartCoroutine(Shoot());
         }
@@ -81,18 +93,18 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
-        if (controller.isGrounded)
+        if (controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
             jumpsCurrent = 0;
         }
-
         move = (transform.right * Input.GetAxis("Horizontal") +
-            transform.forward * Input.GetAxis("Vertical"));
+               (transform.forward * Input.GetAxis("Vertical")));
+        move = move.normalized;
+
         controller.Move(move * Time.deltaTime * moveSpeed);
 
-
-        if (Input.GetButtonDown("Jump") && jumpsCurrent <= jumpTimes)
+        if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
         {
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
@@ -100,7 +112,17 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
-
+    }
+    void Sprint()
+    {
+        if (Input.GetButtonDown("Sprint"))
+        {
+            moveSpeed *= sprintMod;
+        }
+        else if (Input.GetButtonUp("Sprint"))
+        {
+            moveSpeed /= sprintMod;
+        }
     }
     IEnumerator Shoot()
     {
@@ -141,5 +163,51 @@ public class PlayerController : MonoBehaviour
     public void UpdatePlayerHPBar()
     {
         HUDManager.Instance.UpdateHPBarFill((float)hp / (float)hpOriginal);
+    }
+    public void PickupWeapon(Weapon weapon)
+    {
+        weaponList.Add(weapon);
+
+        shootRate = weapon.ShootRate;
+        shootDist = weapon.ShootDist;
+        shotDamage = weapon.ShotDamage;
+
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.WeaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapon.WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+
+        selectedWeapon = weaponList.Count - 1;
+    }
+    void SelectWeapon()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < weaponList.Count - 1)
+        {
+            selectedWeapon++;
+            ChangeWeapon();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
+        {
+            selectedWeapon--;
+            ChangeWeapon();
+        }
+    }
+
+    void ChangeWeapon()
+    {
+        shootRate = weaponList[selectedWeapon].ShootRate;
+        shootDist = weaponList[selectedWeapon].ShootDist;
+        shotDamage = weaponList[selectedWeapon].ShotDamage;
+
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+    public void PlayerRespawn()
+    {
+        controller.enabled = false;
+        transform.position = GameManager.Instance.PlayerSpawnPos.transform.position;
+
+        hp = hpOriginal;
+        UpdatePlayerHPBar();
+
+        controller.enabled = true;
     }
 }

@@ -17,8 +17,10 @@ public class MenuManager : MonoBehaviour
 	public GameObject WinMenu;
 	public GameObject LoseMenu;
 
-    #region Internal Variables
-    private GameObject previousMenuPanel;
+	public GameObject CheckPointPopup;
+
+	#region Internal Variables
+	private GameObject previousMenuPanel;
 	private GameObject activeMenuPanel;
 	#endregion
 	//Bool for determining if changes made in a menu will be updated to the script,
@@ -64,7 +66,7 @@ public class MenuManager : MonoBehaviour
 	{
 		//Using the menu manager here to toggle the menus, but in game manager because it affects the timescale and pausestate.
 		if (canToggleGameMenu)
-			if (Input.GetButtonDown(PlayerPreferences.Instance.Button_Menu))
+			if (Input.GetButtonDown(PlayerPreferences.Instance.Button_Menu) && activeMenuPanel == null)
 			{
 				GameManager.Instance.ToggleGameMenu();
 			}
@@ -150,6 +152,12 @@ public class MenuManager : MonoBehaviour
 			activeMenuPanel.gameObject.SetActive(false);
 			activeMenuPanel = null;
 		}
+	}
+	public IEnumerator CheckpointDisplay()
+	{
+		CheckPointPopup.SetActive(true);
+		yield return new WaitForSeconds(2);
+		CheckPointPopup.SetActive(false);
 	}
 	#endregion
 

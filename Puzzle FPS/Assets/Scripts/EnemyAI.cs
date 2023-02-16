@@ -95,7 +95,7 @@ public class EnemyAI : MonoBehaviour, IDamage
                     }
                 }
             }
-            else if (agent.destination != GameManager.Instance.PlayerController().transform.position)
+            else if (agent.destination != GameManager.Instance.PlayerScript().transform.position)
             {
                 StartCoroutine(Roam());
             }
@@ -132,7 +132,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     bool CanSeePlayer()
     {
-        playerDir = (GameManager.Instance.PlayerController().transform.position - headPos.position).normalized;
+        playerDir = (GameManager.Instance.PlayerScript().transform.position - headPos.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
 
         RaycastHit hit;
@@ -141,7 +141,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(GameManager.Instance.PlayerController().transform.position);
+                agent.SetDestination(GameManager.Instance.PlayerScript().transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     FacePlayer();

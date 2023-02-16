@@ -9,7 +9,7 @@ public class LocationCondition : EventCondition
 
     public override bool CheckCompletion()
     {
-        if (GameManager.Instance.PlayerController().transform.position.ToString() == Objective.ToString())
+        if (GameManager.Instance.PlayerScript().transform.position.ToString() == Objective.ToString())
         {
             satisfied = true;
         }
@@ -24,6 +24,6 @@ public class LocationCondition : EventCondition
         locate.ConditionUI.ConditionToggle.isOn = satisfied;
         locate.ConditionUI.ConditionalUIText.text = "Get to: " + locate.Objective.ToString();
         locate.ConditionUI.LocationText.text = "Current Location: " +
-            GameManager.Instance.PlayerController().transform.position.ToString();
+            GameManager.Instance.PlayerScript().transform.position.ToString();
     }
 }
