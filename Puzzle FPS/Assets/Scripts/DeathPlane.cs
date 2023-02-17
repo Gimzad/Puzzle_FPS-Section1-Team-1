@@ -42,6 +42,7 @@ public class DeathPlane : MonoBehaviour
     void ActivateDeathPlane()
     {
         GameManager.Instance.PlayerScript().TakeDamage(GameManager.Instance.PlayerScript().HP);
+        playerInZone = false;
     }
 
     //function to be added to make a damage hazard instead of a kill plane WIP

@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
 	public void SetupPlayerAndCamera()
 	{
 		Player = Instantiate(PlayerPrefab);
+		Player.transform.position = PlayerSpawnPos.transform.position;
+		
 		playerScript = Player.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
 
