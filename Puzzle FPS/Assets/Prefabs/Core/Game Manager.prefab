@@ -1916,6 +1916,99 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1475728005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1475728007}
+  - component: {fileID: 1475728006}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1475728007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475728005}
+  m_LocalRotation: {x: 0.006342944, y: -0.7395983, z: 0.6729825, w: 0.006970806}
+  m_LocalPosition: {x: 645.61194, y: -623.61017, z: 387.34454}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3517173842933499634}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 84.6, y: -178.92, z: 0}
+--- !u!108 &1475728006
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475728005}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 0.75
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0.5
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &1486374965
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,9 +2708,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43323387f27908e4fa65cdf83551ef93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameEvents:
-  - {fileID: 11400000, guid: 35a11929989765c4bb08c5a9531d3803, type: 2}
-  EventTextPrefab: {fileID: 7869695253098842960, guid: 26116932e15ae6f42bd0757d25dc12d8, type: 3}
+  GameEvents: []
+  LocationEventText: {fileID: 7869695253098842960, guid: 05d4fda7fe556a24aaef8b99428f8ed5, type: 3}
+  InteractionEventText: {fileID: 7805358072916256354, guid: 21bd6ba2270fcc344a160d8bc7dbef82, type: 3}
+  CollectionEventText: {fileID: 1048726702225621522, guid: 427d76626835b83469f3136057fe4c43, type: 3}
   EventTextGroup: {fileID: 1150679695613747884}
 --- !u!1 &3517173842438553193
 GameObject:
@@ -2930,6 +3024,7 @@ Transform:
   m_Children:
   - {fileID: 5796416679401000864}
   - {fileID: 1357014563432945010}
+  - {fileID: 1475728007}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2946,7 +3041,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 7980205201441396441, guid: db7f4f5129324bd4fae2b5654de0c09a, type: 3}
-  playerController: {fileID: 0}
+  PlayerSpawnPos: {fileID: 0}
+  playerScript: {fileID: 0}
   playerCamera: {fileID: 0}
   isPaused: 0
   playStarted: 0
@@ -2963,10 +3059,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1d7aecc6af7d54484998db48752459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 10
-  JumpMax: 3
+  MoveSpeed: 5
+  SprintMod: 1.5
+  JumpTimes: 1
   JumpSpeed: 4.5
   PlayerGravityStrength: 9.8
+  PlayerForceStrength: 0.01
   HP: 10
   SensitivityHorizontal: 350
   SensitivityVertical: 350
@@ -3042,6 +3140,7 @@ MonoBehaviour:
   CreditsPanel: {fileID: 9138570979633348216}
   WinMenu: {fileID: 947005330}
   LoseMenu: {fileID: 411275413}
+  CheckPointPopup: {fileID: 0}
   canToggleGameMenu: 0
   gameMenuIsUp: 0
 --- !u!114 &3517173843189535159
@@ -4339,7 +4438,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 	}
     private void LateUpdate()
     {
-        if (playStarted)
+        if (playStarted && GameEventManager.Instance.HasEvents())
         {
 			ManagePlayerTasks();
         }
@@ -104,7 +104,8 @@ public class GameManager : MonoBehaviour
 		playerCamera.ToggleCursorVisibility();
 		MenuManager.Instance.CanToggleGameMenu = true;
 
-		GameEventManager.Instance.GenerateEvents();
+		if (GameEventManager.Instance.HasEvents())
+			GameEventManager.Instance.GenerateEvents();
 	}
     public void AssertPlayerPreferencesToScript()
 	{
