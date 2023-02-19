@@ -56,9 +56,9 @@ public class GameEventManager : MonoBehaviour
                 }
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Collection)
                 {
-                    TaskListUI_Collection interactionUI = Instantiate(CollectionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Collection>();
-                    interactionUI.EventUIText.text = eCondition.description;
-                    (eCondition as CollectionCondition).ConditionUI = interactionUI;
+                    TaskListUI_Collection collectionUI = Instantiate(CollectionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Collection>();
+                    collectionUI.EventUIText.text = eCondition.description;
+                    (eCondition as CollectionCondition).ConditionUI = collectionUI;
                     (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
                 }
             }
