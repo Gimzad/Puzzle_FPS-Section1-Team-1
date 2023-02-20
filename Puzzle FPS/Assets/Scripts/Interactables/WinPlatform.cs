@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WinPlatform : MonoBehaviour
+public class WinPlatform : InteractableArea
 {
-    public void OnTriggerEnter(Collider other)
+    public override void InteractWithArea()
     {
-        if (other.CompareTag("Player"))
-        {
-            GameManager.Instance.WinGame();
-        }
+        GameManager.Instance.WinGame();
     }
 }
