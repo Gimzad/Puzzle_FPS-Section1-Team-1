@@ -22,23 +22,12 @@ public class CollectionCondition : EventCondition
     }
     public override bool CheckCompletion()
     {
-        if (FoundObjectives.Count != Objectives.Count) 
-        { 
+        if (FoundObjectives.Count != Objectives.Count)
+        {
             satisfied = false;
             return base.CheckCompletion();
         }
-        else
-        {
-            for (int i = 0; i < Objectives.Count; i++)
-            {
-                if (!Objectives.Contains(FoundObjectives[i].GetComponent<GameObject>()))
-                {
 
-                    satisfied = false;
-                    return base.CheckCompletion();
-                }
-            }
-        }
         satisfied = true;
         return base.CheckCompletion();
     }
@@ -52,7 +41,7 @@ public class CollectionCondition : EventCondition
     {
         for (int i = 0; i < Objectives.Count; i++)
         {
-            Instantiate((Objectives[i].GetComponent<CollectibleItem>() as CollectibleItem_WeaponPickup).attachedPickup, ObjectiveLocations[i]);
+            Instantiate((Objectives[i].GetComponent<CollectibleItem>() as CollectibleItem_WeaponPickup), ObjectiveLocations[i]);
             (Objectives[i].GetComponent<CollectibleItem>() as CollectibleItem_WeaponPickup).parentCondition = this;
 
         }

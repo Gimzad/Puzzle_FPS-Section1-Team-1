@@ -6,11 +6,20 @@ public class WeaponPickup : MonoBehaviour
 {
     [SerializeField] Weapon weapon;
 
+    [HideInInspector]
+    public CollectibleItem_WeaponPickup parentCollectible;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.PlayerScript().PickupWeapon(weapon);
+
+            if (parentCollectible != null)
+            {
+                Debug.Log("Collected");
+                parentCollectible.Collect();
+            }
             Destroy(gameObject);
         }
     }

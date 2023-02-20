@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class LocationCondition : EventCondition
 {
-    public GameObject Objective;
+    public LocationPlatform Objective;
     public TaskListUI_Location ConditionUI;
 
     public override bool CheckCompletion()
     {
-        if (GameManager.Instance.PlayerScript().transform.position.ToString() == Objective.ToString())
+        if (Objective.locationPathed)
         {
             satisfied = true;
         }
@@ -22,7 +22,7 @@ public class LocationCondition : EventCondition
     public void UpdateLocationUI(LocationCondition locate)
     {
         locate.ConditionUI.ConditionToggle.isOn = satisfied;
-        locate.ConditionUI.ConditionalUIText.text = "Get to: " + locate.Objective.ToString();
+        locate.ConditionUI.ConditionalUIText.text = "Get to: " + locate.Objective.name;
         locate.ConditionUI.LocationText.text = "Current Location: " +
             GameManager.Instance.PlayerScript().transform.position.ToString();
     }
