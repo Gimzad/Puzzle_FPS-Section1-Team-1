@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class CollectionItem : MonoBehaviour, CollectibleItem
 {
+
     public CollectionCondition parentCondition;
     public void Collect()
     {
-        Debug.Log("Item Found");
         parentCondition.FoundObjectives.Add(gameObject);
     }
 }
