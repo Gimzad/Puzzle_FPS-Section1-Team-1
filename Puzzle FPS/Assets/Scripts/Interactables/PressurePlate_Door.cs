@@ -33,23 +33,5 @@ public class PressurePlate_Door : PuzzleButton, Interactable
             doorAction.React(LinkedDoor);
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Weighted Object"))
-        {
-            AnimationReaction plateAction = ScriptableObject.CreateInstance<AnimationReaction>();
-            plateAction.instruction = 1;
-            plateAction.animator = GetComponent<Animator>();
-            plateAction.text = "Activated";
-            plateAction.React(this);
-
-
-            AnimationReaction doorAction = ScriptableObject.CreateInstance<AnimationReaction>();
-            doorAction.instruction = 0;
-            doorAction.animator = LinkedDoor.GetComponent<Animator>();
-            doorAction.text = "Activate";
-            doorAction.React(LinkedDoor);
-        }
-    }
 
 }

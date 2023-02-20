@@ -17,20 +17,9 @@ public class GameEventManager : MonoBehaviour
     {
         Instance = this;
     }
-    public bool HasEvents()
-    {
-        if (GameEvents.Count != 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
     public void GenerateEvents()
     {
-        foreach (GameEvent gameEvent in GameEvents)
+        foreach(GameEvent gameEvent in GameEvents)
         {
             GenerateEventUI(gameEvent);
         }
