@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
+
+    bool zooming;
     public float zoomMax;
     public int zoomInSpeed;
     public int zoomOutSpeed;
@@ -113,7 +115,16 @@ public class PlayerController : MonoBehaviour
         Sprint();
         SelectWeapon();
         ZoomCamera();
+        Debug.Log("move speed is: " + moveSpeed);
+        Debug.Log("original speed is: " + moveSpeedOrig);
 
+        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && moveSpeed == moveSpeedOrig)
+        {
+            zooming = true;
+        } else if (Camera.main.fieldOfView <= zoomOrig)
+        {
+            zooming = false;
+        }
         if (!isShooting && Input.GetButton("Fire") && weaponList.Count > 0)
         {
             StartCoroutine(Shoot());
@@ -273,11 +284,11 @@ public class PlayerController : MonoBehaviour
     }
     void ZoomCamera()
     {
-        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && moveSpeed == moveSpeedOrig)
+        if (zooming)
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
         }
-        else if (Camera.main.fieldOfView <= zoomOrig)
+        else
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomOrig, Time.deltaTime * zoomOutSpeed);
         }
