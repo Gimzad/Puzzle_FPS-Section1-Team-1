@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
     }
     void Crouch()
     {
-        if (Input.GetButton("Crouch"))
+        if (Input.GetButtonDown("Crouch"))
         {
             if (!isCrouching)
             {
