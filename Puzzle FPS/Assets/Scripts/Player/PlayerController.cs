@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
         Crouch();
         Sprint();
         SelectWeapon();
+        ZoomCamera();
 
         if (!isShooting && Input.GetButton("Fire") && weaponList.Count > 0)
         {
