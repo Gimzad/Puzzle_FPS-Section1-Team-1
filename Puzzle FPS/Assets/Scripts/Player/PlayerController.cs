@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
+    [SerializeField] float zoomMax;
+    [SerializeField] int zoomInSpeed;
+    [SerializeField] int zoomOutSpeed;
 
 
     int jumpsCurrent;
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
     bool isCrouching;
     int hpOriginal;
     float normalHeight;
+    float zoomOrig;
+    float moveSpeedOrig;
 
     public int selectedWeapon;
 
@@ -89,10 +94,11 @@ public class PlayerController : MonoBehaviour
         set { shotDamage = value; }
     }
     #endregion
-    // Start is called before the first frame update
     private void Awake()
     {
         capsule = GetComponent<CapsuleCollider>();
+        moveSpeedOrig = moveSpeed;
+        zoomOrig = Camera.main.fieldOfView;
     }
     void Start()
     {
@@ -253,6 +259,7 @@ public class PlayerController : MonoBehaviour
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
+
     public void PlayerRespawn()
     {
         controller.enabled = false;
@@ -262,5 +269,16 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerHPBar();
 
         controller.enabled = true;
+    }
+    void ZoomCamera()
+    {
+        if (Input.GetButton("Zoom") && moveSpeed == moveSpeedOrig)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
+        }
+        else if (Camera.main.fieldOfView <= zoomOrig)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomOrig, Time.deltaTime * zoomOutSpeed);
+        }
     }
 }
