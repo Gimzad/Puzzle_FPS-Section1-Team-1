@@ -121,6 +121,11 @@ public class GameManager : MonoBehaviour
 		playerScript.PlayerForce = PlayerPreferences.Instance.PlayerForceStrength;
 
 
+		playerScript.zoomMax = PlayerPreferences.Instance.ZoomMax;
+		playerScript.zoomInSpeed = PlayerPreferences.Instance.ZoomInSpeed;
+		playerScript.zoomOutSpeed = PlayerPreferences.Instance.ZoomOutSpeed;
+
+
 		playerScript.ShootRate = PlayerPreferences.Instance.ShootRate;
 		playerScript.ShootDistance = PlayerPreferences.Instance.ShootDistance;
 		playerScript.ShotDamage = PlayerPreferences.Instance.ShotDamage;
@@ -219,13 +224,16 @@ public class GameManager : MonoBehaviour
 	}
 	private void ManagePlayerTasks()
 	{
-		//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
-		GameEventManager.Instance.UpdateEvents();
+		if (GameEventManager.Instance.GameEvents.Count > 0)
+		{
+			//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
+			GameEventManager.Instance.UpdateEvents();
 
-		if (GameEventManager.Instance.EventListComplete())
-        {
-			WinGame();
-        }
+			if (GameEventManager.Instance.EventListComplete())
+			{
+				WinGame();
+			}
+		}
 	}
     #endregion
 }

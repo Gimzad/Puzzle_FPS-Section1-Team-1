@@ -35,6 +35,10 @@ public sealed class PlayerPreferences: MonoBehaviour
 	public static float ShootRateDefault = 0.25f;
 	public static int ShootDistanceDefault;
 	public static int ShotDamageDefault;
+
+	public static float ZoomMaxDefault = 35f;
+	public static int ZoomInSpeedDefault = 6;
+	public static int ZoomOutSpeedDefault = 8;
 	#endregion
 	#region Button Code Defaults
 	public static string JumpKeyDefault = "Jump";
@@ -43,6 +47,7 @@ public sealed class PlayerPreferences: MonoBehaviour
 	public static string MenuKeyDefault = "Escape";
 	public static string FireKeyDefault = "Fire";
 	public static string InteractKeyDefault = "Interact";
+	public static string ZoomKeyDefault = "Zoom";
 	#endregion
 
 	[Header("Active Movement Settings")]
@@ -90,6 +95,10 @@ public sealed class PlayerPreferences: MonoBehaviour
 	public int ShootDistance = ShootDistanceDefault;
 	[Range(1, 10)]
 	public int ShotDamage = ShotDamageDefault;
+
+	public float ZoomMax = ZoomMaxDefault;
+	public int ZoomInSpeed = ZoomInSpeedDefault;
+	public int ZoomOutSpeed = ZoomOutSpeedDefault;
 	#endregion
 
 	[Header("Active Buttons")]
@@ -100,5 +109,6 @@ public sealed class PlayerPreferences: MonoBehaviour
 	public string Button_Menu = MenuKeyDefault;
 	public string Button_Fire = FireKeyDefault;
 	public string Button_Interact = InteractKeyDefault;
+	public string Button_Zoom = ZoomKeyDefault;
     #endregion
 }
