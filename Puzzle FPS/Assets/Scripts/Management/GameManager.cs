@@ -219,13 +219,16 @@ public class GameManager : MonoBehaviour
 	}
 	private void ManagePlayerTasks()
 	{
-		//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
-		GameEventManager.Instance.UpdateEvents();
+		if (GameEventManager.Instance.GameEvents.Count > 0)
+		{
+			//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
+			GameEventManager.Instance.UpdateEvents();
 
-		if (GameEventManager.Instance.EventListComplete())
-        {
-			WinGame();
-        }
+			if (GameEventManager.Instance.EventListComplete())
+			{
+				WinGame();
+			}
+		}
 	}
     #endregion
 }

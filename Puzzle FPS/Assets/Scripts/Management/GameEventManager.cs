@@ -65,19 +65,22 @@ public class GameEventManager : MonoBehaviour
     }
     private void UpdateEventUI(GameEvent gEvent)
     {
-        foreach (EventCondition eCondition in gEvent.Conditions)
+        if (gEvent.Conditions.Count > 0)
         {
-            if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
+            foreach (EventCondition eCondition in gEvent.Conditions)
             {
-                (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
-            }
-            if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Interaction)
-            {
-                (eCondition as InteractionCondition).UpdateInteractionUI((InteractionCondition)eCondition);
-            }
-            if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Collection)
-            {
-                (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
+                {
+                    (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
+                }
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Interaction)
+                {
+                    (eCondition as InteractionCondition).UpdateInteractionUI((InteractionCondition)eCondition);
+                }
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Collection)
+                {
+                    (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
+                }
             }
         }
     }
