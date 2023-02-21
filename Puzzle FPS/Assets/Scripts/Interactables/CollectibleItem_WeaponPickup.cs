@@ -6,8 +6,9 @@ public class CollectibleItem_WeaponPickup : CollectionItem
 {
     public WeaponPickup attachedPickup;
 
-    private void OnDestroy()
+    private void Awake()
     {
-        Collect();
+        attachedPickup.parentCollectible = this;
+        Instantiate(attachedPickup, transform);
     }
 }
