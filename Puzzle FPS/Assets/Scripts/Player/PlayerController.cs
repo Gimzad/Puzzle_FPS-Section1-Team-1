@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
 
+    bool zooming;
+    public float zoomMax;
+    public int zoomInSpeed;
+    public int zoomOutSpeed;
+
 
     int jumpsCurrent;
     Vector3 move;
@@ -34,6 +39,8 @@ public class PlayerController : MonoBehaviour
     bool isCrouching;
     int hpOriginal;
     float normalHeight;
+    float zoomOrig;
+    float moveSpeedOrig;
 
     public int selectedWeapon;
 
@@ -89,10 +96,11 @@ public class PlayerController : MonoBehaviour
         set { shotDamage = value; }
     }
     #endregion
-    // Start is called before the first frame update
     private void Awake()
     {
         capsule = GetComponent<CapsuleCollider>();
+        moveSpeedOrig = moveSpeed;
+        zoomOrig = Camera.main.fieldOfView;
     }
     void Start()
     {
@@ -106,7 +114,17 @@ public class PlayerController : MonoBehaviour
         Crouch();
         Sprint();
         SelectWeapon();
+        ZoomCamera();
+        Debug.Log("move speed is: " + moveSpeed);
+        Debug.Log("original speed is: " + moveSpeedOrig);
 
+        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && moveSpeed == moveSpeedOrig)
+        {
+            zooming = true;
+        } else if (Camera.main.fieldOfView <= zoomOrig)
+        {
+            zooming = false;
+        }
         if (!isShooting && Input.GetButton("Fire") && weaponList.Count > 0)
         {
             StartCoroutine(Shoot());
@@ -253,6 +271,7 @@ public class PlayerController : MonoBehaviour
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
+
     public void PlayerRespawn()
     {
         controller.enabled = false;
@@ -262,5 +281,16 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerHPBar();
 
         controller.enabled = true;
+    }
+    void ZoomCamera()
+    {
+        if (zooming)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
+        }
+        else
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomOrig, Time.deltaTime * zoomOutSpeed);
+        }
     }
 }

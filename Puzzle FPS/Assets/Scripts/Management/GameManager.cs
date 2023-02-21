@@ -121,6 +121,11 @@ public class GameManager : MonoBehaviour
 		playerScript.PlayerForce = PlayerPreferences.Instance.PlayerForceStrength;
 
 
+		playerScript.zoomMax = PlayerPreferences.Instance.ZoomMax;
+		playerScript.zoomInSpeed = PlayerPreferences.Instance.ZoomInSpeed;
+		playerScript.zoomOutSpeed = PlayerPreferences.Instance.ZoomOutSpeed;
+
+
 		playerScript.ShootRate = PlayerPreferences.Instance.ShootRate;
 		playerScript.ShootDistance = PlayerPreferences.Instance.ShootDistance;
 		playerScript.ShotDamage = PlayerPreferences.Instance.ShotDamage;
