@@ -13,6 +13,7 @@ public sealed class PlayerPreferences: MonoBehaviour
 
 	#region Movement Defaults
 	public static float MoveSpeedDefault = 6f;
+	public static float CrouchHeightDefault = 0.5f;
 	public static float SprintModDefault = 1.5f;
 	public static int HPDefault = 10;
 
@@ -36,16 +37,20 @@ public sealed class PlayerPreferences: MonoBehaviour
 	public static int ShotDamageDefault;
 	#endregion
 	#region Button Code Defaults
-	public static KeyCode JumpKeyDefault = KeyCode.Space;
-	public static KeyCode SprintKeyDefault = KeyCode.LeftShift;
-	public static KeyCode MenuKeyDefault = KeyCode.Escape;
-	public static KeyCode FireKeyDefault = KeyCode.Mouse0;
+	public static string JumpKeyDefault = "Jump";
+	public static string CrouchKeyDefault = "Crouch";
+	public static string SprintKeyDefault = "Sprint";
+	public static string MenuKeyDefault = "Escape";
+	public static string FireKeyDefault = "Fire";
+	public static string InteractKeyDefault = "Interact";
 	#endregion
 
 	[Header("Active Movement Settings")]
 	#region Active Movement Settings
 	[Range(0f, 50)]
 	public float MoveSpeed = MoveSpeedDefault;
+	[Range(0f, 50)]
+	public float CrouchHeight = CrouchHeightDefault;
 	[Range(1.5f, 2.5f)]
 	public float SprintMod = SprintModDefault;
 	[Range(0f, 5f)]
@@ -89,10 +94,11 @@ public sealed class PlayerPreferences: MonoBehaviour
 
 	[Header("Active Buttons")]
 	#region Button Codes
-	public string Button_Jump = "Jump";
-	public string Button_Sprint = "Sprint";
-	public string Button_Menu = "Cancel";
-	public string Button_Fire = "Fire";
-	public string Button_Interact = "Interact";
+	public string Button_Jump = JumpKeyDefault;
+	public string Button_Crouch = CrouchKeyDefault;
+	public string Button_Sprint = SprintKeyDefault;
+	public string Button_Menu = MenuKeyDefault;
+	public string Button_Fire = FireKeyDefault;
+	public string Button_Interact = InteractKeyDefault;
     #endregion
 }

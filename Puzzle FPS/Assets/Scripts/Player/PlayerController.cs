@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("-----Components-----")]
     [SerializeField] CharacterController controller;
+    [SerializeField] CapsuleCollider capsule;
 
     [Header("-----Player Stats-----")]
     [Range(5, 10)][SerializeField] int hp;
@@ -13,12 +14,13 @@ public class PlayerController : MonoBehaviour
     [Range(1.5f, 5f)][SerializeField] float sprintMod;
     [Range(10, 25)][SerializeField] float jumpSpeed;
     [Range(0, 3)][SerializeField] int jumpTimes;
+    [Range(0, 0.9f)][SerializeField] float crouchHeight;
 
     [Range(15, 45)][SerializeField] float gravity;
     [Range(1, 5)][SerializeField] float playerForce;
 
     [Header("-----Weapon Stats-----")]
-    [SerializeField] List<Weapon> weaponList = new List<Weapon>();
+    [SerializeField] List<Weapon> weaponList = new();
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
@@ -29,7 +31,9 @@ public class PlayerController : MonoBehaviour
     Vector3 move;
     Vector3 playerVelocity;
     bool isShooting;
+    bool isCrouching;
     int hpOriginal;
+    float normalHeight;
 
     public int selectedWeapon;
 
@@ -86,14 +90,20 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
     // Start is called before the first frame update
+    private void Awake()
+    {
+        capsule = GetComponent<CapsuleCollider>();
+    }
     void Start()
     {
+        normalHeight = controller.height;
         hpOriginal = hp;
         UpdatePlayerHPBar();
     }
     void Update()
     {
         Movement();
+        Crouch();
         Sprint();
         SelectWeapon();
 
@@ -138,7 +148,27 @@ public class PlayerController : MonoBehaviour
             rigidBody.AddForceAtPosition(forceDirection * playerForce, transform.position, ForceMode.Impulse);
         }
     }
-        void Sprint()
+    void Crouch()
+    {
+        if (Input.GetButton("Crouch"))
+        {
+            if (!isCrouching)
+            {
+                Debug.Log("CROUCHING");
+                isCrouching = true;
+                controller.height = crouchHeight;
+                capsule.height = crouchHeight;
+
+            } else
+            {
+                Debug.Log("NOT CROUCHING");
+                isCrouching = false;
+                controller.height = normalHeight;
+                capsule.height = normalHeight;
+            }
+        }
+    }
+    void Sprint()
     {
         if (Input.GetButtonDown("Sprint"))
         {
@@ -153,9 +183,7 @@ public class PlayerController : MonoBehaviour
     {
         isShooting = true;
 
-        RaycastHit hit;
-
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDist))
         {
             if (hit.collider.GetComponent<IDamage>() != null)
             {

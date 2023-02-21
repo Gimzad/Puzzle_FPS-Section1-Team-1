@@ -17,7 +17,6 @@ public class WeaponPickup : MonoBehaviour
 
             if (parentCollectible != null)
             {
-                Debug.Log("Collected");
                 parentCollectible.Collect();
             }
             Destroy(gameObject);
