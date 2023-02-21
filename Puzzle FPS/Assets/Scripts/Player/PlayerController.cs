@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
-    [SerializeField] float zoomMax;
-    [SerializeField] int zoomInSpeed;
-    [SerializeField] int zoomOutSpeed;
+    public float zoomMax;
+    public int zoomInSpeed;
+    public int zoomOutSpeed;
 
 
     int jumpsCurrent;
@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour
     }
     void ZoomCamera()
     {
-        if (Input.GetButton("Zoom") && moveSpeed == moveSpeedOrig)
+        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && moveSpeed == moveSpeedOrig)
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
         }
