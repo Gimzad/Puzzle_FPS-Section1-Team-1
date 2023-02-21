@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d005654e2a7890846a598ed3ec45318c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 11d6e33b3229e6149b501fa9f64b8cd5, type: 2}
   parentCollectible: {fileID: 0}
 --- !u!135 &3237177662836153406
 SphereCollider:
