@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectiveButton : PuzzleButton
+public class ObjectiveButton : MonoBehaviour
 {
     public InteractionCondition parentCondition;
-    public override void Interact()
-    {
-        ObjectiveInteraction();
-    }
+    public PuzzleButton childButton;
 
+    private void Awake()
+    {
+        childButton.ObjectiveButton = this;
+    }
     public void ObjectiveInteraction()
     {
-        Interacted = true;
-        parentCondition.CheckCompletion();
+        if (parentCondition != null)
+            parentCondition.CheckCompletion();
     }
 }
