@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
 
+    public bool isDead;
+
     bool zooming;
     public float zoomMax;
     public int zoomInSpeed;
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
     #endregion
     private void Awake()
     {
+        isDead = false;
         capsule = GetComponent<CapsuleCollider>();
         moveSpeedOrig = moveSpeed;
         zoomOrig = Camera.main.fieldOfView;
@@ -219,6 +222,7 @@ public class PlayerController : MonoBehaviour
 
         if (hp <= 0)
         {
+            isDead = true;
             GameManager.Instance.LoseGame();
         }
     }

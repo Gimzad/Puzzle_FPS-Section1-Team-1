@@ -41,7 +41,7 @@ public class CollectionCondition : EventCondition
     {
         for (int i = 0; i < Objectives.Count; i++)
         {
-            CollectibleItem_WeaponPickup pickup = Instantiate((Objectives[i].GetComponent<CollectibleItem>() as CollectibleItem_WeaponPickup), ObjectiveLocations[i]);
+            CollectibleItem_WeaponPickup pickup = Instantiate((Objectives[i].GetComponent<ICollectibleItem>() as CollectibleItem_WeaponPickup), ObjectiveLocations[i]);
             pickup.parentCondition = this;
 
         }

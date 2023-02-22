@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate_Door : PuzzleButton, Interactable
+public class PressurePlate_Door : PuzzleButton, IInteractable
 {
     [SerializeField]
     private Door LinkedDoor;

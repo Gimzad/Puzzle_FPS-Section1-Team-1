@@ -18,9 +18,9 @@ public class InteractablesManager : MonoBehaviour
 			RaycastHit interactingHit;
 			if (Physics.Raycast(inputRay, out interactingHit, ReachDistance, ~interactableLayer))
 			{
-				Interactable currentInteractable;
+				IInteractable currentInteractable;
 				if (interactingHit.collider != null)
-					currentInteractable = interactingHit.collider.GetComponent<Interactable>();
+					currentInteractable = interactingHit.collider.GetComponent<IInteractable>();
 				else
 					currentInteractable = null;
 

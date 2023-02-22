@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PuzzleButton : MonoBehaviour, Interactable
+public abstract class PuzzleButton : MonoBehaviour, IInteractable
 {
     [SerializeField]
     MeshRenderer ButtonRenderer;

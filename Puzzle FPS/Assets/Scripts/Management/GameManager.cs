@@ -188,15 +188,16 @@ PlayerSpawnPos.transform.position.z);
 
 		//Restart a level without going all the way back to the main menu
 		SceneControl.Instance.SceneRestart_CurrentScene();
+		if (playerScript.isDead)
+		{
+			HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);
+			ToggleGameMenu();
+		}
 
 		//reload player and variable settings
-		InitializePlay();
+		LevelSetup();
 
-		ToggleGameMenu();
-		if (HUDManager.Instance.PlayerDamageFlashScreen.activeInHierarchy)
-        {
-			HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);
-		}
+
 
 	}
 	public void RestartGame()
@@ -232,7 +233,6 @@ PlayerSpawnPos.transform.position.z);
 			MenuManager.Instance.CloseGameMenu();
 			UnPause();
 			playerCamera.ToggleCursorVisibility();
-
 		}
 		else
 		{
