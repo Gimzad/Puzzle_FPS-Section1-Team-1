@@ -130,7 +130,10 @@ public class GameManager : MonoBehaviour
     public void LevelSetup()
 	{
 		FetchEvents();
-		PlayerInstance = Instantiate(PlayerPrefab);
+		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
+		Vector3 playerStart = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
+PlayerSpawnPos.transform.position.z);
+		PlayerInstance = Instantiate(PlayerPrefab, playerStart, PlayerSpawnPos.transform.rotation);
 		
 		playerScript = PlayerInstance.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
@@ -143,9 +146,8 @@ public class GameManager : MonoBehaviour
 		MenuManager.Instance.CanToggleGameMenu = true;
 
 		GameEventManager.Instance.GenerateEvents();
-		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
-		PlayerInstance.transform.position = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
-PlayerSpawnPos.transform.position.z);
+		
+
 	}
     public void AssertPlayerPreferencesToScript()
 	{
@@ -181,17 +183,20 @@ PlayerSpawnPos.transform.position.z);
 
 	public void RestartLevel()
 	{
+		UnPause();
 		ClearLevel();
-		Debug.Log("Restarting Level");
+
 		//Restart a level without going all the way back to the main menu
 		SceneControl.Instance.SceneRestart_CurrentScene();
 
 		//reload player and variable settings
 		InitializePlay();
 
-		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
-		PlayerInstance.transform.position = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
-PlayerSpawnPos.transform.position.z);
+		ToggleGameMenu();
+		if (HUDManager.Instance.PlayerDamageFlashScreen.activeInHierarchy)
+        {
+			HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);
+		}
 
 	}
 	public void RestartGame()
@@ -201,9 +206,6 @@ PlayerSpawnPos.transform.position.z);
 
 		//Call to scene control to handle unloading anything we are currently in
 		SceneControl.Instance.SceneRestart_Game();
-		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
-		PlayerInstance.transform.position = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
-	PlayerSpawnPos.transform.position.z);
 
 		//This call loads the main menu scene and menus
 		BeginGame();
@@ -215,6 +217,7 @@ PlayerSpawnPos.transform.position.z);
 		Pause();
 
 		MenuManager.Instance.DisplayLoseMenu();
+		playerCamera.ToggleCursorVisibility();
 	}
 	public void WinGame()
 	{
