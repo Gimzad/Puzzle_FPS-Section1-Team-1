@@ -15,7 +15,7 @@ public class AnimationReaction : DelayedReaction
         }
         else if (instruction == 1)
         {
-            animator.SetBool(text, true);
+            animator.SetBool(text, !animator.GetBool(text));
         }
     }
 }

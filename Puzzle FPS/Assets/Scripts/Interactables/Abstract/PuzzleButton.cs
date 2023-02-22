@@ -11,26 +11,30 @@ public abstract class PuzzleButton : MonoBehaviour, Interactable
     public ObjectiveButton ObjectiveButton;
 
     public bool Interacted;
-    public Color InteractedColor;
-    public Color OriginalColor;
+    public bool PermanentlyOn;
+    public Material InteractedMaterial;
+    public Material OriginalMaterial;
 
     private void Awake()
     {
-        OriginalColor = ButtonRenderer.sharedMaterial.color;
+        OriginalMaterial = ButtonRenderer.sharedMaterial;
     }
     public virtual void Interact()
     {
-        Interacted = true;
+        if (PermanentlyOn)
+            Interacted = true;
+        else
+            Interacted = !Interacted;
     }
 
     public void ChangeColor()
     {
         if (Interacted)
         {
-            ButtonRenderer.sharedMaterial.color = InteractedColor;
+            ButtonRenderer.sharedMaterial = InteractedMaterial;
         } else
         {
-            ButtonRenderer.sharedMaterial.color = OriginalColor;
+            ButtonRenderer.sharedMaterial = OriginalMaterial;
         }
     }
 }

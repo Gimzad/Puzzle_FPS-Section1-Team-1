@@ -115,8 +115,6 @@ public class PlayerController : MonoBehaviour
         Sprint();
         SelectWeapon();
         ZoomCamera();
-        Debug.Log("move speed is: " + moveSpeed);
-        Debug.Log("original speed is: " + moveSpeedOrig);
 
         if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && moveSpeed == moveSpeedOrig)
         {

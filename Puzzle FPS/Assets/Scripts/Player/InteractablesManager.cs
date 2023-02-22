@@ -10,7 +10,7 @@ public class InteractablesManager : MonoBehaviour
 
 	public int interactableLayer;
 
-	public void FixedUpdate()
+	public void Update()
 	{
 		if (GameManager.Instance.PlayStarted())
 		{
@@ -18,16 +18,24 @@ public class InteractablesManager : MonoBehaviour
 			RaycastHit interactingHit;
 			if (Physics.Raycast(inputRay, out interactingHit, ReachDistance, ~interactableLayer))
 			{
-				Interactable currentInteractable = interactingHit.collider.GetComponent<Interactable>();
+				Interactable currentInteractable;
+				if (interactingHit.collider != null)
+					currentInteractable = interactingHit.collider.GetComponent<Interactable>();
+				else
+					currentInteractable = null;
 
 				if (currentInteractable != null)
 				{
 					inputReader.DisplayMessage(interactingHit.collider.gameObject.name); // the line so that the item names appear on screen
-					if (Input.GetButton(PlayerPreferences.Instance.Button_Interact))
+					if (Input.GetButtonDown(PlayerPreferences.Instance.Button_Interact))
 					{
 						currentInteractable.Interact();
 						inputReader.ClearMessage();
 					}
+				}
+				else
+				{
+					inputReader.ClearMessage();
 				}
 			}
 			else

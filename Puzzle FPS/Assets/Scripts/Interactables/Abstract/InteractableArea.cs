@@ -9,12 +9,13 @@ public abstract class InteractableArea : MonoBehaviour
     MeshRenderer areaRenderer;
 
     public bool Interacted;
-    public Color InteractedColor;
-    public Color OriginalColor;
+    public Material InteractedMaterial;
+    public Material OriginalMaterial;
 
     private void Awake()
     {
-        areaRenderer = GetComponent<MeshRenderer>();
+        if (areaRenderer != null)
+            OriginalMaterial = areaRenderer.sharedMaterial;
     }
     public virtual void InteractWithArea()
     {
@@ -32,11 +33,11 @@ public abstract class InteractableArea : MonoBehaviour
     {
         if (Interacted)
         {
-            areaRenderer.sharedMaterial.color = InteractedColor;
+            areaRenderer.sharedMaterial = InteractedMaterial;
         }
         else
         {
-            areaRenderer.sharedMaterial.color = OriginalColor;
+            areaRenderer.sharedMaterial = OriginalMaterial;
         }
     }
 }

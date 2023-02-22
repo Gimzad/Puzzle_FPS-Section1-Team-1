@@ -28,7 +28,6 @@ public abstract class DelayedReaction : Reaction
     protected IEnumerator ReactCoroutine()
     {
         yield return wait;
-
         ImmediateReaction();
     }
 }

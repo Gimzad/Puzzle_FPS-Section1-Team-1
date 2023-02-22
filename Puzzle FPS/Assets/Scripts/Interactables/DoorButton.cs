@@ -7,9 +7,18 @@ public class DoorButton : PuzzleButton
     [SerializeField]
     private Door LinkedDoor;
 
+    private Animator doorAnimator;
+
     public bool onDoor;
+    private void Awake()
+    {
+        doorAnimator = LinkedDoor.GetComponent<Animator>();
+    }
     public override void Interact()
     {
+        if (doorAnimator.IsInTransition(0))
+            return;
+        Debug.Log("INTERACTED");
         base.Interact();
         ActivateDoor();
         if (!onDoor)
@@ -19,9 +28,9 @@ public class DoorButton : PuzzleButton
     public void ActivateDoor()
     {
         AnimationReaction doorAction = ScriptableObject.CreateInstance<AnimationReaction>();
-        doorAction.instruction = 0;
-        doorAction.animator = LinkedDoor.GetComponent<Animator>();
-        doorAction.text = "Activate";
+        doorAction.instruction = 1;
+        doorAction.animator = doorAnimator;
+        doorAction.text = "Activated";
         doorAction.React(LinkedDoor);
     }
 }
