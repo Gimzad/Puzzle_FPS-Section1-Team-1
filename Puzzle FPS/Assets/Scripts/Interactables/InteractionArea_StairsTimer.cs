@@ -9,9 +9,10 @@ public class InteractionArea_StairsTimer : InteractableArea
 
     public override void InteractWithArea()
     {
+        bool wasOn = Interacted;
         base.InteractWithArea();
-        if (staircase != null)
-        {
+        if ((!wasOn && Interacted) && staircase != null) {
+            Debug.Log("Interacting");
             if (staircase.Count > 0)
             {
                 for (int i = 0; i < staircase.Count; i++)
@@ -20,7 +21,7 @@ public class InteractionArea_StairsTimer : InteractableArea
                     activateStairs.animator = staircase[i].GetComponent<Animator>();
                     activateStairs.instruction = 1; //boolean
                     activateStairs.delay =  i;
-                    activateStairs.text = "Active";
+                    activateStairs.text = "Activated";
                     activateStairs.Init(); //needed to set delay
                     activateStairs.React(staircase[i]);
                 }

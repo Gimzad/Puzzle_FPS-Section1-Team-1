@@ -9,6 +9,7 @@ public abstract class InteractableArea : MonoBehaviour
     MeshRenderer areaRenderer;
 
     public bool Interacted;
+    public bool PermanentlyOn;
     public Material InteractedMaterial;
     public Material OriginalMaterial;
 
@@ -19,13 +20,16 @@ public abstract class InteractableArea : MonoBehaviour
     }
     public virtual void InteractWithArea()
     {
+        if (PermanentlyOn)
+            Interacted = true;
+        else
+            Interacted = !Interacted;
         ChangeColor();
     }
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Interacted = true;
             InteractWithArea();
         }
     }

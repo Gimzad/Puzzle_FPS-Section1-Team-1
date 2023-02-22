@@ -19,21 +19,30 @@ public sealed class SceneControl
         SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
     }
 
-    public void LoadFirstLevel()
+    public void LoadLevelOne()
     {
         //Unload Main Menu Scene
         if (SceneManager.GetSceneByName("Main Menu").isLoaded)
         {
             SceneManager.UnloadSceneAsync("Main Menu");
         }
-        SceneManager.LoadSceneAsync("Test Level", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("Level_One", LoadSceneMode.Additive);
+    }
+    public void LoadLevelTwo()
+    {
+        //Unload Main Menu Scene
+        if (SceneManager.GetSceneByName("Level_One").isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("Level_One");
+        }
+        SceneManager.LoadSceneAsync("Level_Two", LoadSceneMode.Additive);
     }
     public void SceneRestart_Game()
     {
-        //If scence currently loaded is a level scene (player with enemies and objectives, which currently is only one test level)
-        if (SceneManager.GetSceneByName("Test Level").isLoaded)
+        //If scence currently loaded is a level scene (player with enemies and objectives)
+        if (!SceneManager.GetSceneByName("Main Menu").isLoaded)
         {
-            SceneManager.UnloadSceneAsync("Test Level");
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1).name);
         }
         //Game manager will make call to BeginGame() again which loads main menu
     }

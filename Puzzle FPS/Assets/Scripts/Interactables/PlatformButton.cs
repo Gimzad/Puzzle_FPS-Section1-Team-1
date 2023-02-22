@@ -14,6 +14,7 @@ public class PlatformButton : PuzzleButton
             ObjectiveButton.ObjectiveInteraction();
         }
         ActivatePlatform();
+        ChangeColor();
     }
 
     public void ActivatePlatform()

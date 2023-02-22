@@ -6,6 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+	public bool EDITORMODE = true;
+
 	[Header("Player")]
 	public GameObject PlayerPrefab;
 	public GameObject PlayerSpawnPos;
@@ -21,6 +24,12 @@ public class GameManager : MonoBehaviour
     [Header("Game State Variables")]
     [SerializeField]
     bool isPaused;
+	[SerializeField]
+	GameEvent LevelOneEvent;
+	[SerializeField]
+	GameEvent LevelTwoEvent;
+	[SerializeField]
+	GameEvent LevelThreeEvent;
 
 	//Bool to determine when a scene with the player in it has started (I.E. Not in the main menu or level selection.
 	//This lets the script know it can start tracking game events like winning or losing.
@@ -61,7 +70,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		//BeginGame();
+		BeginGame();
 		InitializePlay();
 	}
     private void LateUpdate()
@@ -82,12 +91,16 @@ public class GameManager : MonoBehaviour
     #endregion
     public void InitializePlay()
 	{
-		//MenuManager.Instance.DeactivateAllMenus();
-		//SceneControl.Instance.LoadFirstLevel();
+		if (!EDITORMODE)
+		{
+			MenuManager.Instance.DeactivateAllMenus();
+			SceneControl.Instance.LoadLevelOne();
+		}
 
 		SetupPlayerAndCamera();
 		HUDManager.Instance.ShowHUD();
 		playStarted = true;
+
 	}
 	public void SetupPlayerAndCamera()
 	{
@@ -205,17 +218,23 @@ public class GameManager : MonoBehaviour
 	}
 	void BeginGame()
 	{
-		isPaused = true;
-		playStarted = false;
+		if (!EDITORMODE)
+		{
+			isPaused = true;
+			playStarted = false;
 
-		//Deactivate any menus up from a possible last play
-		DeactivateUI();
+			//Deactivate any menus up from a possible last play
+			DeactivateUI();
 
-		SceneControl.Instance.LoadMainMenuScene();
+			SceneControl.Instance.LoadMainMenuScene();
 
-		MenuManager.Instance.InitializeMenusText();
+			MenuManager.Instance.InitializeMenusText();
 
-		MenuManager.Instance.DisplayMainMenu();
+			MenuManager.Instance.DisplayMainMenu();
+		} else
+        {
+			isPaused = false;
+		}
 	}
 	private void DeactivateUI()
     {
@@ -228,6 +247,14 @@ public class GameManager : MonoBehaviour
 		{
 			//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
 			GameEventManager.Instance.UpdateEvents();
+
+			if (LevelOneEvent.ReturnEventCompletion(LevelOneEvent.Conditions))
+            {
+				SceneControl.Instance.LoadLevelTwo();
+				SetupPlayerAndCamera();
+			}
+
+
 
 			if (GameEventManager.Instance.EventListComplete())
 			{

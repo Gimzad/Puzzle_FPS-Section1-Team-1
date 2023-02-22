@@ -15,5 +15,5 @@ MonoBehaviour:
   ShootRate: 0.25
   ShootDist: 60
   ShotDamage: 5
-  WeaponModel: {fileID: 0}
+  WeaponModel: {fileID: 1608319765731420823, guid: bcf7148cdf1193a48a78687d7b1d314e, type: 3}
   WeaponAudio: {fileID: 0}
