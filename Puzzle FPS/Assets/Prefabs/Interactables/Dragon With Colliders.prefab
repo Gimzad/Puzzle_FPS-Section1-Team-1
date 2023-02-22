@@ -52,6 +52,7 @@ MonoBehaviour:
   ButtonRenderer: {fileID: 3959669884401989483}
   Objective: {fileID: 0}
   Interacted: 0
+  InteractedOnce: 0
   PermanentlyOn: 0
   ChangesColor: 1
   InteractedMaterial: {fileID: 2100000, guid: a40e0a24bb21ebe49a48615ec1aad829, type: 2}
@@ -120,8 +121,8 @@ GameObject:
   m_Name: Drugon 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3959669884403758475
 Transform:
@@ -203,8 +204,8 @@ GameObject:
   m_Name: Stoyka
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3959669884403758477
 Transform:
