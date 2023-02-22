@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class DragonInteract : PuzzleButton
 {
-    [SerializeField] Platform platform;
+    [SerializeField] Platform platformActivate;
+    [SerializeField] Platform previousPlatform;
 
     Animator anim;
     public override void Interact()
     {
         base.Interact();
-        anim = platform.GetComponent<Animator>();
+        anim = platformActivate.GetComponent<Animator>();
         DragonActivation();
     }
 
     void DragonActivation()
     {
-        anim.SetBool("Activated", true);
+        AnimationReaction dragonReaction = ScriptableObject.CreateInstance<AnimationReaction>();
+        dragonReaction.instruction = 1;
+        dragonReaction.animator = anim;
+        dragonReaction.text = "Activated";
+        dragonReaction.React(platformActivate);
     }
 }
