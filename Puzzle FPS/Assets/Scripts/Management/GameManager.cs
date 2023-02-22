@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
 	public bool EDITORMODE = true;
 
 	[Header("Player")]
-	public GameObject PlayerPrefab;
+	[SerializeField]
+	GameObject PlayerPrefab;
 	public GameObject PlayerSpawnPos;
 
-	GameObject Player;
+	public GameObject PlayerInstance;
 
     [Header("Game Components")]
     [SerializeField]
@@ -97,11 +98,10 @@ public class GameManager : MonoBehaviour
 			MenuManager.Instance.DeactivateAllMenus();
 			SceneControl.Instance.LoadLevelOne();
 		}
-		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
 		GameEventManager.Instance.FindEvents();
-		FetchEvents();
 
-		SetupPlayerAndCamera();
+
+		LevelSetup();
 		HUDManager.Instance.ShowHUD();
 		playStarted = true;
 		
@@ -127,11 +127,12 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-    public void SetupPlayerAndCamera()
+    public void LevelSetup()
 	{
-		Player = Instantiate(PlayerPrefab,PlayerSpawnPos.transform.position, PlayerSpawnPos.transform.rotation);
+		FetchEvents();
+		PlayerInstance = Instantiate(PlayerPrefab);
 		
-		playerScript = Player.GetComponent<PlayerController>();
+		playerScript = PlayerInstance.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
 
 		AssertPlayerPreferencesToScript();
@@ -177,7 +178,7 @@ public class GameManager : MonoBehaviour
 
 	public void RestartLevel()
 	{
-		Destroy(Player);
+		ClearLevel();
 		Debug.Log("Restarting Level");
 		//Restart a level without going all the way back to the main menu
 		SceneControl.Instance.SceneRestart_CurrentScene();
@@ -188,7 +189,7 @@ public class GameManager : MonoBehaviour
 	public void RestartGame()
 	{
 		playerCamera.ToggleCursorVisibility();
-		Destroy(Player);
+		ClearLevel();
 
 		//Call to scene control to handle unloading anything we are currently in
 		SceneControl.Instance.SceneRestart_Game();
@@ -276,13 +277,11 @@ public class GameManager : MonoBehaviour
 			{
 				if (LevelOneEvent.ReturnEventCompletion(LevelOneEvent.Conditions))
 				{
-					Debug.Log("Loading Level Two...");
-					GameEventManager.Instance.ClearEventListUI();
-					GameEventManager.Instance.GameEvents.Clear();
-					Destroy(Player);
-					SceneControl.Instance.LoadLevelTwo();
-					SetupPlayerAndCamera();
 					GameEventManager.Instance.EventsCompleted++;
+					Debug.Log("Loading Level Two...");
+					ClearLevel();
+					SceneControl.Instance.LoadLevelTwo();
+					LevelSetup();
 				}
 			}
 
@@ -292,6 +291,13 @@ public class GameManager : MonoBehaviour
 				WinGame();
 			}
 		}
+	}
+	private void ClearLevel()
+    {
+		GameEventManager.Instance.ClearEventListUI();
+		GameEventManager.Instance.GameEvents.Clear();
+		Destroy(PlayerInstance);
+		PlayerSpawnPos = null;
 	}
     #endregion
 }

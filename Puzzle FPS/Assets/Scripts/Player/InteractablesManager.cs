@@ -12,7 +12,7 @@ public class InteractablesManager : MonoBehaviour
 
 	public void Update()
 	{
-		if (GameManager.Instance.PlayStarted())
+		if (GameManager.Instance.PlayStarted() && GameManager.Instance.PlayerScript() != null)
 		{
 			Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit interactingHit;
