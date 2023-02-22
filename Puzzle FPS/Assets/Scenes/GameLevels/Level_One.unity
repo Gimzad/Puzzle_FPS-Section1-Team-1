@@ -2968,7 +2968,7 @@ PrefabInstance:
       objectReference: {fileID: 1581143413}
     - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
       propertyPath: JumpSpeed
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
       propertyPath: MoveSpeed
@@ -2988,11 +2988,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
       propertyPath: PlayerForceStrength
-      value: 2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
       propertyPath: SensitivityVertical
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
+      propertyPath: PlayerGravityStrength
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6121965846817805265, guid: b88c3cad322f8034f9e4dff6416ec3bb, type: 3}
       propertyPath: SensitivityHorizontal
