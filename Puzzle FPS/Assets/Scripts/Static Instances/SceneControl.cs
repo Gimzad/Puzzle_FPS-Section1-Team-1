@@ -51,4 +51,8 @@ public sealed class SceneControl
         //Current Scene should be the one loaded after the paersistent one (1)
         SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1));
     }
+    public Scene GetCurrentScene()
+    {
+        return SceneManager.GetActiveScene();
+    }
 }

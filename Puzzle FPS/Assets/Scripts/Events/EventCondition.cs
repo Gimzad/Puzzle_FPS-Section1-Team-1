@@ -6,6 +6,7 @@ public abstract class EventCondition : MonoBehaviour
 {
     public int EventClass;
     public string description;
+    [SerializeField]
     protected bool satisfied;
 
     public bool Satisfied { get => satisfied;}

@@ -8,16 +8,19 @@ public abstract class PuzzleButton : MonoBehaviour, Interactable
     MeshRenderer ButtonRenderer;
 
     [HideInInspector]
-    public ObjectiveButton ObjectiveButton;
+    public ObjectiveButton Objective;
 
     public bool Interacted;
     public bool PermanentlyOn;
+    public bool ChangesColor;
+
     public Material InteractedMaterial;
     public Material OriginalMaterial;
 
     private void Awake()
     {
-        OriginalMaterial = ButtonRenderer.sharedMaterial;
+        if(ChangesColor)
+            OriginalMaterial = ButtonRenderer.sharedMaterial;
     }
     public virtual void Interact()
     {
@@ -29,6 +32,9 @@ public abstract class PuzzleButton : MonoBehaviour, Interactable
 
     public void ChangeColor()
     {
+        if (!ChangesColor)
+            return;
+
         if (Interacted)
         {
             ButtonRenderer.sharedMaterial = InteractedMaterial;

@@ -18,11 +18,15 @@ public class DoorButton : PuzzleButton
     {
         if (doorAnimator.IsInTransition(0))
             return;
-        Debug.Log("INTERACTED");
+
         base.Interact();
         ActivateDoor();
         if (!onDoor)
             ChangeColor();
+        if (Objective != null)
+        {
+            Objective.ObjectiveInteraction();
+        }
     }
 
     public void ActivateDoor()

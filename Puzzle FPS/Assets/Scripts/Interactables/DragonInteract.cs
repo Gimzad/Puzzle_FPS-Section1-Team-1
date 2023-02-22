@@ -16,6 +16,6 @@ public class DragonInteract : PuzzleButton
 
     void DragonActivation()
     {
-        anim.SetBool("Active", true);
+        anim.SetBool("Activated", true);
     }
 }

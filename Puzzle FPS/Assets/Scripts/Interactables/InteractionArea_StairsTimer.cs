@@ -12,7 +12,6 @@ public class InteractionArea_StairsTimer : InteractableArea
         bool wasOn = Interacted;
         base.InteractWithArea();
         if ((!wasOn && Interacted) && staircase != null) {
-            Debug.Log("Interacting");
             if (staircase.Count > 0)
             {
                 for (int i = 0; i < staircase.Count; i++)

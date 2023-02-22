@@ -49,11 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb1caf53fa7c174388817ebd4ff2652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonRenderer: {fileID: 0}
-  ObjectiveButton: {fileID: 0}
+  ButtonRenderer: {fileID: 3959669884401989483}
+  Objective: {fileID: 0}
   Interacted: 0
-  InteractedColor: {r: 0, g: 0, b: 0, a: 0}
-  OriginalColor: {r: 0, g: 0, b: 0, a: 0}
+  PermanentlyOn: 0
+  ChangesColor: 1
+  InteractedMaterial: {fileID: 2100000, guid: a40e0a24bb21ebe49a48615ec1aad829, type: 2}
+  OriginalMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   platform: {fileID: 0}
 --- !u!95 &3959669884394429033
 Animator:

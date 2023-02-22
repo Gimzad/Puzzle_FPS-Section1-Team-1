@@ -27,9 +27,9 @@ public class PressurePlate_Door : PuzzleButton, Interactable
 
 
             AnimationReaction doorAction = ScriptableObject.CreateInstance<AnimationReaction>();
-            doorAction.instruction = 0;
+            doorAction.instruction = 1;
             doorAction.animator = LinkedDoor.GetComponent<Animator>();
-            doorAction.text = "Activate";
+            doorAction.text = "Activated";
             doorAction.React(LinkedDoor);
         }
     }

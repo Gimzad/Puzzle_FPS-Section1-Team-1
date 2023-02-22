@@ -24,11 +24,12 @@ public class GameManager : MonoBehaviour
     [Header("Game State Variables")]
     [SerializeField]
     bool isPaused;
-	[SerializeField]
+	
+
 	GameEvent LevelOneEvent;
-	[SerializeField]
+	
 	GameEvent LevelTwoEvent;
-	[SerializeField]
+	
 	GameEvent LevelThreeEvent;
 
 	//Bool to determine when a scene with the player in it has started (I.E. Not in the main menu or level selection.
@@ -96,13 +97,36 @@ public class GameManager : MonoBehaviour
 			MenuManager.Instance.DeactivateAllMenus();
 			SceneControl.Instance.LoadLevelOne();
 		}
+		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
+		FetchEvents();
 
 		SetupPlayerAndCamera();
 		HUDManager.Instance.ShowHUD();
 		playStarted = true;
+		
 
 	}
-	public void SetupPlayerAndCamera()
+
+    private void FetchEvents()
+    {
+		if (GameEventManager.Instance.HasEvents())
+		{
+			if (SceneControl.Instance.GetCurrentScene().name == "Level_One")
+			{
+				LevelOneEvent = GameEventManager.Instance.GameEvents[0];
+			}
+			else if (SceneControl.Instance.GetCurrentScene().name == "Level_Two")
+			{
+				LevelTwoEvent = GameEventManager.Instance.GameEvents[0];
+			}
+			else if (SceneControl.Instance.GetCurrentScene().name == "Level_Three")
+			{
+				LevelThreeEvent = GameEventManager.Instance.GameEvents[0];
+			}
+		}
+	}
+
+    public void SetupPlayerAndCamera()
 	{
 		Player = Instantiate(PlayerPrefab);
 		Player.transform.position = PlayerSpawnPos.transform.position;
@@ -243,20 +267,23 @@ public class GameManager : MonoBehaviour
 	}
 	private void ManagePlayerTasks()
 	{
+		//could probably only check this when an interaction happens or something
 		if (GameEventManager.Instance.GameEvents.Count > 0)
 		{
 			//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
 			GameEventManager.Instance.UpdateEvents();
-
-			if (LevelOneEvent.ReturnEventCompletion(LevelOneEvent.Conditions))
-            {
-				SceneControl.Instance.LoadLevelTwo();
-				SetupPlayerAndCamera();
+			if (SceneControl.Instance.GetCurrentScene().name == "Level_One")
+			{
+				if (LevelOneEvent.ReturnEventCompletion(LevelOneEvent.Conditions))
+				{
+					SceneControl.Instance.LoadLevelTwo();
+					SetupPlayerAndCamera();
+					GameEventManager.Instance.EventsCompleted++;
+				}
 			}
 
 
-
-			if (GameEventManager.Instance.EventListComplete())
+			if (GameEventManager.Instance.EventsCompleted == 3)
 			{
 				WinGame();
 			}

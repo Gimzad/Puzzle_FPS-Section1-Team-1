@@ -9,9 +9,9 @@ public class PlatformButton : PuzzleButton
     {
         base.Interact();
 
-        if (ObjectiveButton != null)
+        if (Objective != null)
         {
-            ObjectiveButton.ObjectiveInteraction();
+            Objective.ObjectiveInteraction();
         }
         ActivatePlatform();
         ChangeColor();

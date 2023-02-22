@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectiveButton : MonoBehaviour
+public class ObjectiveArea : MonoBehaviour
 {
-    public InteractionCondition parentCondition;
-    public PuzzleButton childButton;
+    public LocationCondition parentCondition;
+    public InteractableArea childArea;
 
     private void Awake()
     {
-        childButton.ObjectiveButton = this;
+        childArea.Objective = this;
     }
     public void ObjectiveInteraction()
     {

@@ -8,5 +8,6 @@ public abstract class CollectionItem : MonoBehaviour, CollectibleItem
     public void Collect()
     {
         parentCondition.FoundObjectives.Add(gameObject);
+        parentCondition.CheckCompletion();
     }
 }

@@ -8,6 +8,9 @@ public abstract class InteractableArea : MonoBehaviour
     [SerializeField] 
     MeshRenderer areaRenderer;
 
+    [HideInInspector]
+    public ObjectiveArea Objective;
+
     public bool Interacted;
     public bool PermanentlyOn;
     public Material InteractedMaterial;

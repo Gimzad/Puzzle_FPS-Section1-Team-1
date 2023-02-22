@@ -8,5 +8,10 @@ public class LocationPlatform : InteractableArea
     public override void InteractWithArea()
     {
         locationPathed = true;
+
+        if (Objective != null)
+        {
+            Objective.ObjectiveInteraction();
+        }
     }
 }

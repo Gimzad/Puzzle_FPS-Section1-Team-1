@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: assault4
-    second: {fileID: 2100000, guid: a3de5fdd82f571f4eb16a3c2530b4303, type: 2}
+    second: {fileID: 2100000, guid: 81c815a03f809694d8edce676ad536b2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

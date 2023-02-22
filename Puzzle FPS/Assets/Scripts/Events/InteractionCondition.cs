@@ -9,6 +9,7 @@ public class InteractionCondition : EventCondition
 
     public override bool CheckCompletion()
     {
+        Debug.Log("Checking Event");
         if (Objective.Interacted)
             satisfied = true;
         else

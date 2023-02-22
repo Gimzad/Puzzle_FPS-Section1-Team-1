@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class GameEventManager : MonoBehaviour
 {
     //A class with a static instance like GameManager to handle the GameEvents that are created and the conditions for each
     public List<GameEvent> GameEvents;
+    public int EventsCompleted;
 
     public static GameEventManager Instance;
 
@@ -16,7 +18,30 @@ public class GameEventManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        FindEventsInScene();
     }
+    public bool HasEvents()
+    {
+        if (GameEvents != null && GameEvents.Count > 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+    private void FindEventsInScene()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Game Event");
+        if (objs.Length > 0)
+        {
+            foreach (GameObject obj in objs)
+            {
+                GameEvents.Add(obj.GetComponent<GameEvent>());
+            }
+        }
+    }
+
     public void GenerateEvents()
     {
         foreach(GameEvent gameEvent in GameEvents)
