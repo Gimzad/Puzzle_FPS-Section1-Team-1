@@ -58,11 +58,11 @@ public sealed class PlayerPreferences: MonoBehaviour
 	public float CrouchHeight = CrouchHeightDefault;
 	[Range(1.5f, 2.5f)]
 	public float SprintMod = SprintModDefault;
-	[Range(0f, 5f)]
+	[Range(0f, 3f)]
 	public int JumpTimes = JumpTimesDefault;
 	[Range(0, 10)]
 	public float JumpSpeed = JumpSpeedDefault;
-	[Range(0, 20f)]
+	[Range(0, 40f)]
 	public float PlayerGravityStrength = PlayerGravityStrengthDefault;
 	[Range(0.01f, 0.1f)]
 	public float PlayerForceStrength = PlayerForceStrengthDefault;
