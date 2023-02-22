@@ -965,7 +965,7 @@ PrefabInstance:
     - target: {fileID: 6234448480441935971, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
       propertyPath: platform
       value: 
-      objectReference: {fileID: 1296748427}
+      objectReference: {fileID: 1498812627}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
 --- !u!114 &649183866 stripped
@@ -1363,8 +1363,12 @@ PrefabInstance:
       value: Initial Spawn
       objectReference: {fileID: 0}
     - target: {fileID: 3501839292565974993, guid: 009455de13bcab847afdc7f5f477e8c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501839292565974993, guid: 009455de13bcab847afdc7f5f477e8c3, type: 3}
       propertyPath: m_TagString
-      value: Initial Spawn
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4215137221577331665, guid: 009455de13bcab847afdc7f5f477e8c3, type: 3}
       propertyPath: m_RootOrder
@@ -1862,7 +1866,7 @@ PrefabInstance:
     - target: {fileID: 6234448480441935971, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
       propertyPath: platform
       value: 
-      objectReference: {fileID: 1498812627}
+      objectReference: {fileID: 1296748427}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
 --- !u!1001 &1219114642
@@ -2448,7 +2452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 921380600298618488, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_RootOrder
-      value: 39
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 921380600298618488, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2492,7 +2496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 926799919166704398, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_Name
-      value: Moving Platform 4
+      value: Moving Platform 3
       objectReference: {fileID: 0}
     - target: {fileID: 3913753558137297875, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_Controller
@@ -2905,7 +2909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8306718806746450048, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
       propertyPath: m_RootOrder
-      value: 38
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 8306718806746450048, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2949,7 +2953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8309886669400260086, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
       propertyPath: m_Name
-      value: Moving Paltform 3
+      value: Moving Paltform 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
@@ -3666,6 +3670,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entry Door
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fab9875d285db6f478ec8c53205ede3a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fab9875d285db6f478ec8c53205ede3a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3885,7 +3893,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8735213364165964336, guid: 0c211445dbe542a47a561922ee1844d8, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8735213364165964339, guid: 0c211445dbe542a47a561922ee1844d8, type: 3}
       propertyPath: m_RootOrder
