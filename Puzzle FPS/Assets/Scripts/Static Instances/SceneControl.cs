@@ -53,6 +53,6 @@ public sealed class SceneControl
     }
     public Scene GetCurrentScene()
     {
-        return SceneManager.GetActiveScene();
+        return SceneManager.GetSceneAt(1);
     }
 }

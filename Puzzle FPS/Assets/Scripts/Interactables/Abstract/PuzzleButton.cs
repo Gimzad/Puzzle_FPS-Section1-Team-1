@@ -11,6 +11,7 @@ public abstract class PuzzleButton : MonoBehaviour, Interactable
     public ObjectiveButton Objective;
 
     public bool Interacted;
+    public bool InteractedOnce;
     public bool PermanentlyOn;
     public bool ChangesColor;
 
@@ -24,10 +25,14 @@ public abstract class PuzzleButton : MonoBehaviour, Interactable
     }
     public virtual void Interact()
     {
-        if (PermanentlyOn)
-            Interacted = true;
+        InteractedOnce = true;
+
+        if (PermanentlyOn && Interacted == true)
+            return;
         else
+        {
             Interacted = !Interacted;
+        }
     }
 
     public void ChangeColor()

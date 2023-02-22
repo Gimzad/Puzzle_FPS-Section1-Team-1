@@ -18,7 +18,6 @@ public class GameEventManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        FindEventsInScene();
     }
     public bool HasEvents()
     {
@@ -30,7 +29,7 @@ public class GameEventManager : MonoBehaviour
             return false;
         }
     }
-    private void FindEventsInScene()
+    public void FindEvents()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Game Event");
         if (objs.Length > 0)
@@ -44,9 +43,12 @@ public class GameEventManager : MonoBehaviour
 
     public void GenerateEvents()
     {
-        foreach(GameEvent gameEvent in GameEvents)
+        if (GameEvents.Count > 0)
         {
-            GenerateEventUI(gameEvent);
+            foreach (GameEvent gameEvent in GameEvents)
+            {
+                GenerateEventUI(gameEvent);
+            }
         }
     }
     private void GenerateEventUI(GameEvent gEvent)
@@ -145,5 +147,12 @@ public class GameEventManager : MonoBehaviour
             }
         }
         return true;
+    }
+    public void ClearEventListUI()
+    {
+        foreach(MonoBehaviour obj in EventTextGroup.GetComponentsInChildren<MonoBehaviour>())
+        {
+            Destroy(obj);
+        }
     }
 }

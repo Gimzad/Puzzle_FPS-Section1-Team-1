@@ -1107,6 +1107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2753030620857503005, guid: 009455de13bcab847afdc7f5f477e8c3, type: 3}
+      propertyPath: m_TagString
+      value: Initial Spawn
+      objectReference: {fileID: 0}
     - target: {fileID: 3501839292565974993, guid: 009455de13bcab847afdc7f5f477e8c3, type: 3}
       propertyPath: m_TagString
       value: Initial Spawn

@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
 			SceneControl.Instance.LoadLevelOne();
 		}
 		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
+		GameEventManager.Instance.FindEvents();
 		FetchEvents();
 
 		SetupPlayerAndCamera();
@@ -128,8 +129,7 @@ public class GameManager : MonoBehaviour
 
     public void SetupPlayerAndCamera()
 	{
-		Player = Instantiate(PlayerPrefab);
-		Player.transform.position = PlayerSpawnPos.transform.position;
+		Player = Instantiate(PlayerPrefab,PlayerSpawnPos.transform.position, PlayerSpawnPos.transform.rotation);
 		
 		playerScript = Player.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
@@ -276,6 +276,10 @@ public class GameManager : MonoBehaviour
 			{
 				if (LevelOneEvent.ReturnEventCompletion(LevelOneEvent.Conditions))
 				{
+					Debug.Log("Loading Level Two...");
+					GameEventManager.Instance.ClearEventListUI();
+					GameEventManager.Instance.GameEvents.Clear();
+					Destroy(Player);
 					SceneControl.Instance.LoadLevelTwo();
 					SetupPlayerAndCamera();
 					GameEventManager.Instance.EventsCompleted++;
