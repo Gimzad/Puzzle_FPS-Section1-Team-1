@@ -11,9 +11,16 @@ public class Spawner : MonoBehaviour
 
     bool isSpawning;
     bool playerInRange;
+
+    public bool AreaSpawner;
+
+    bool locationSpawners;
     int enemiesSpawned;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        enemiesSpawned = 0;
+    }
     void Start()
     {
         GameManager.Instance.UpdateEnemyCount(spawnMaxNum);
@@ -22,15 +29,26 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerInRange && !isSpawning && enemiesSpawned < spawnMaxNum)
+        SpawnEnemies();
+    }
+    public void SpawnEnemies()
+    {
+        if (AreaSpawner)
         {
-            StartCoroutine(spawn());
+            if (playerInRange && !isSpawning && enemiesSpawned < spawnMaxNum)
+            {
+                StartCoroutine(spawn());
+            }
+        } else
+        {
+            if (!isSpawning && enemiesSpawned < spawnMaxNum)
+            {
+                StartCoroutine(spawn());
+            }
         }
     }
-
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("SomethingEntered");
         if(other.CompareTag("Player"))
         {
             playerInRange = true;
@@ -39,9 +57,8 @@ public class Spawner : MonoBehaviour
 
     IEnumerator spawn()
     {
-        Debug.Log("Spawnfunction");
         isSpawning = true;
-        Instantiate(enemy, spawnPos[Random.Range(0, spawnPos.Length)].position, enemy.transform.rotation);
+        Instantiate(enemy, spawnPos[0 + enemiesSpawned].position, enemy.transform.rotation);
         enemiesSpawned++;
         yield return new WaitForSeconds(timer);
         isSpawning = false;

@@ -6,11 +6,13 @@ public class PlayerSpawn : MonoBehaviour
 {
     private void Awake()
     {
-        GameManager.Instance.PlayerSpawnPos = gameObject;
+        if (GameManager.Instance)
+            GameManager.Instance.PlayerSpawnPos = gameObject;
     }
     private void Start()
     {
-        GameManager.Instance.PlayerInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f,
+        if (GameManager.Instance.PlayerInstance)
+            GameManager.Instance.PlayerInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f,
 transform.position.z);
     }
 }

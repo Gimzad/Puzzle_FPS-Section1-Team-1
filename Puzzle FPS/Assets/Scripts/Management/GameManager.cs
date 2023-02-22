@@ -143,6 +143,9 @@ public class GameManager : MonoBehaviour
 		MenuManager.Instance.CanToggleGameMenu = true;
 
 		GameEventManager.Instance.GenerateEvents();
+		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
+		PlayerInstance.transform.position = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
+PlayerSpawnPos.transform.position.z);
 	}
     public void AssertPlayerPreferencesToScript()
 	{
@@ -185,6 +188,11 @@ public class GameManager : MonoBehaviour
 
 		//reload player and variable settings
 		InitializePlay();
+
+		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
+		PlayerInstance.transform.position = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
+PlayerSpawnPos.transform.position.z);
+
 	}
 	public void RestartGame()
 	{
@@ -193,6 +201,9 @@ public class GameManager : MonoBehaviour
 
 		//Call to scene control to handle unloading anything we are currently in
 		SceneControl.Instance.SceneRestart_Game();
+		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
+		PlayerInstance.transform.position = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
+	PlayerSpawnPos.transform.position.z);
 
 		//This call loads the main menu scene and menus
 		BeginGame();
