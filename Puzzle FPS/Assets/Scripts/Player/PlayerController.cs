@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("-----Components-----")]
     [SerializeField] CharacterController controller;
     [SerializeField] CapsuleCollider capsule;
+    [SerializeField] AudioSource Audio;
 
     [Header("-----Player Stats-----")]
     [Range(5, 10)][SerializeField] int hp;
@@ -34,6 +35,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform weaponModelADS;
     [SerializeField] int ADSSpeed;
     [SerializeField] int NotADSSpeed;
+
+    [Header("----- Audio -----")]
+    [SerializeField] AudioClip[] audioSteps;
+    [Range(0, 1)][SerializeField] float audioStepsVol;
+    [SerializeField] AudioClip[] audioJump;
+    [Range(0, 1)][SerializeField] float audioJumpVol;
+
+    bool isPlayingSteps;
 
     public bool isDead;
 
@@ -166,11 +175,34 @@ public class PlayerController : MonoBehaviour
         {
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
+            Audio.PlayOneShot(audioJump[Random.Range(0, audioJump.Length)], audioJumpVol);
         }
 
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
+        {
+            StartCoroutine(playSteps());
+        }
     }
+
+    IEnumerator playSteps()
+    {
+        isPlayingSteps = true;
+        Audio.PlayOneShot(audioSteps[Random.Range(0, audioSteps.Length)], audioStepsVol);
+        if (isSprinting)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isPlayingSteps = false;
+    }
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigidBody = hit.collider.attachedRigidbody;
