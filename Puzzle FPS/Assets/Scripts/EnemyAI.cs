@@ -56,6 +56,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     bool isShooting;
     float angleToPlayer;
     Vector3 startingPos;
+    Vector3 pushback;
     bool destinationChosen;
     float stoppingDistOrig;
 
@@ -256,5 +257,16 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         animator.enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
+    }
+
+    public void PushbackDir(Vector3 dir)
+    {
+        pushback += dir;
+    }
+
+    public void ExplosionForce()
+    {
+        Rigidbody thisBody = GetComponent<Rigidbody>();
+        thisBody.AddForce(pushback);
     }
 }

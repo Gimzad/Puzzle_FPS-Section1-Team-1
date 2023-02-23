@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] int PushbackAmount;
 
-    // Update is called once per frame
-    void Update()
+    GameObject affected;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Enemy"))
+        {
+            affected = other.gameObject;
+            EnemyAI enemyAI = affected.GetComponent<EnemyAI>();
+
+            enemyAI.PushbackDir((enemyAI.transform.position - transform.position).normalized * PushbackAmount);
+        }
     }
 }

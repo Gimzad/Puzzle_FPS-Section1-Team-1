@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.29999948, y: 1.75, z: 0.70000106}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2707259209319085519}
   m_RootOrder: 0
@@ -45,7 +46,7 @@ GameObject:
   - component: {fileID: 4526948158854609429}
   m_Layer: 6
   m_Name: Zombie_Ranged 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,6 +61,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.004117, y: 3.7418268, z: 2.0335014}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2012067199452921487}
   - {fileID: 7497499626245903536}
@@ -83,14 +85,23 @@ MonoBehaviour:
   animator: {fileID: 4534092363001171658}
   hp: 10
   playerFaceSpeed: 50
+  speed: 0
+  viewAngle: 120
   typeSniper: 0
+  typeMelee: 0
   headPos: {fileID: 5146790110653431974}
   bullet: {fileID: 468747528029729963, guid: a033c0d540b8a954ab0efaf48645d091, type: 3}
   shootPos: {fileID: 2012067199452921487}
   shootRate: 1
   bulletSpeed: 10
   shootDist: 5
-  viewAngle: 120
+  shootAngle: 0
+  waitTime: 0
+  roamDist: 0
+  DeathTimer: 0
+  AttackTimer: 0
+  Alive: 0
+  inAttackRange: 0
 --- !u!136 &6217307062349343937
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -213,23 +224,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5b71338a2b343d44babfe16ed97fa72, type: 3}
---- !u!4 &7497499626245903536 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b5b71338a2b343d44babfe16ed97fa72, type: 3}
-  m_PrefabInstance: {fileID: 8036323146120278875}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4534092363001171658 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b5b71338a2b343d44babfe16ed97fa72, type: 3}
   m_PrefabInstance: {fileID: 8036323146120278875}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &8730085154120887817 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1630794972795428178, guid: b5b71338a2b343d44babfe16ed97fa72, type: 3}
-  m_PrefabInstance: {fileID: 8036323146120278875}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5146790110653431974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6274689639290604547, guid: b5b71338a2b343d44babfe16ed97fa72, type: 3}
+  m_PrefabInstance: {fileID: 8036323146120278875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7497499626245903536 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b5b71338a2b343d44babfe16ed97fa72, type: 3}
+  m_PrefabInstance: {fileID: 8036323146120278875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8730085154120887817 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1630794972795428178, guid: b5b71338a2b343d44babfe16ed97fa72, type: 3}
   m_PrefabInstance: {fileID: 8036323146120278875}
   m_PrefabAsset: {fileID: 0}

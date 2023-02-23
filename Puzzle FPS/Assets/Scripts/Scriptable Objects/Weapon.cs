@@ -10,6 +10,7 @@ public class Weapon : ScriptableObject
     public int ShootDist;
     public int ShotDamage;
 
+    public bool ThisIsARocketLauncher;
     public GameObject WeaponModel;
     public AudioClip WeaponAudio;
 }
