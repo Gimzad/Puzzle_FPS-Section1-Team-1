@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8306718806746450048}
   - component: {fileID: 5322815334227389739}
-  - component: {fileID: 7645637663221774880}
   m_Layer: 0
-  m_Name: Moving Paltform S2S
+  m_Name: Moving Platform S2S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,18 +53,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &7645637663221774880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8309886669400260086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e13230c1d03f27e4e9e9cd996a8e1fbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8309912597086109194
 GameObject:
   m_ObjectHideFlags: 0
@@ -4866,6 +4853,7 @@ GameObject:
   - component: {fileID: 8296168284665570066}
   - component: {fileID: 8287822175485627836}
   - component: {fileID: 8340147518312675928}
+  - component: {fileID: 5707432088812839068}
   m_Layer: 0
   m_Name: Platform Mesh
   m_TagString: Untagged
@@ -4955,6 +4943,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.1414216, y: 0.33516958, z: 3.1414216}
   m_Center: {x: 0, y: 0.10241519, z: 0}
+--- !u!114 &5707432088812839068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8309916487293425682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13230c1d03f27e4e9e9cd996a8e1fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8310250318065163420
 GameObject:
   m_ObjectHideFlags: 0
