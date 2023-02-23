@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-
     [SerializeField] int sensHor;
     [SerializeField] int sensVer;
 
@@ -63,7 +62,6 @@ public class CameraControl : MonoBehaviour
         {
             xRotation -= mouseY;
         }
-
 
         //clamp the camera rotation
         xRotation = Mathf.Clamp(xRotation, lockVerMin, lockVerMax);

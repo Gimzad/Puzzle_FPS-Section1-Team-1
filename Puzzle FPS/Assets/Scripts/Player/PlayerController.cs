@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     Quaternion activeLocalPlatformRotation;
     Quaternion activeGlobalPlatformRotation;
 
-    bool zooming;
+    public bool zooming;
 
     int jumpsCurrent;
     bool isShooting;
