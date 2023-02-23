@@ -21,10 +21,6 @@ public class Spawner : MonoBehaviour
     {
         enemiesSpawned = 0;
     }
-    void Start()
-    {
-        GameManager.Instance.UpdateEnemyCount(spawnMaxNum);
-    }
 
     // Update is called once per frame
     void Update()

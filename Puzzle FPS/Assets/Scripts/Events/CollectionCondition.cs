@@ -48,9 +48,12 @@ public class CollectionCondition : EventCondition
     }
     public void UpdateCollectionUI(CollectionCondition collection)
     {
-        collection.ConditionUI.ConditionToggle.isOn = satisfied;
-        collection.ConditionUI.ConditionalUIText.text = "Collect all of: " + CollectionName;
-        collection.ConditionUI.collectiblesText.text = FoundObjectives.Count.ToString() + "   /   " + Objectives.Count.ToString();
+        if (collection.ConditionUI != null)
+        {
+            collection.ConditionUI.ConditionToggle.isOn = satisfied;
+            collection.ConditionUI.ConditionalUIText.text = "Collect all of: " + CollectionName;
+            collection.ConditionUI.collectiblesText.text = FoundObjectives.Count.ToString() + "   /   " + Objectives.Count.ToString();
+        }
     }
 
 }

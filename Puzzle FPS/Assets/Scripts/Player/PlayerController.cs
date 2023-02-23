@@ -410,7 +410,6 @@ public class PlayerController : MonoBehaviour
 
     void ZoomCamera()
     {
-        Debug.Log(zooming);
         ZoomInput();
 
         if (zooming)

@@ -5,6 +5,6 @@ using UnityEngine;
 public static class ProjectUtilities
 {
     #region Global Enums
-    public enum EventClass { Location, Interaction, Collection };
+    public enum EventClass { Location, Interaction, Collection, Kill };
     #endregion
 }

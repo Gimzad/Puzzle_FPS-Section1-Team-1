@@ -21,7 +21,7 @@ public class PlatformButton : PuzzleButton
     {
         AnimationReaction platformReaction = ScriptableObject.CreateInstance<AnimationReaction>();
         platformReaction.instruction = 1;
-        platformReaction.animator = platform.GetComponent<Animator>();
+        platformReaction.animator = platform.GetComponentInParent<Animator>();
         platformReaction.text = "Active";
         platformReaction.React(platform);
     }
