@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3959669884403758473}
   - component: {fileID: 6234448480441935971}
+  - component: {fileID: 9136543082083595973}
   - component: {fileID: 3959669884394429033}
   - component: {fileID: 3959669884149097476}
   - component: {fileID: 3959669884149097483}
@@ -57,7 +58,23 @@ MonoBehaviour:
   ChangesColor: 1
   InteractedMaterial: {fileID: 2100000, guid: a40e0a24bb21ebe49a48615ec1aad829, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
-  platform: {fileID: 0}
+  activePlatform: {fileID: 0}
+  previousPlatform: {fileID: 0}
+  toggleable: 0
+--- !u!114 &9136543082083595973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3959669884403919273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f6fb12daa306649943cf652dd20ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentCondition: {fileID: 0}
+  childButton: {fileID: 0}
 --- !u!95 &3959669884394429033
 Animator:
   serializedVersion: 5

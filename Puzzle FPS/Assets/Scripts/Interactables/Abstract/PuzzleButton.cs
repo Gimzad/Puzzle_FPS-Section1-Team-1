@@ -35,17 +35,11 @@ public abstract class PuzzleButton : MonoBehaviour, IInteractable
         }
     }
 
-    public void ChangeColor()
+    public void ChangeColor(bool colorON = true)
     {
         if (!ChangesColor)
             return;
 
-        if (Interacted)
-        {
-            ButtonRenderer.sharedMaterial = InteractedMaterial;
-        } else
-        {
-            ButtonRenderer.sharedMaterial = OriginalMaterial;
-        }
+        ButtonRenderer.sharedMaterial = colorON ? InteractedMaterial : OriginalMaterial;
     }
 }

@@ -6,19 +6,22 @@ public class DragonInteract : PuzzleButton
 {
     [SerializeField] Platform activePlatform;
     [SerializeField] Platform previousPlatform;
+    [SerializeField] bool toggleable;
 
     Animator anim;
     public override void Interact()
     {
-        anim = activePlatform.GetComponent<Animator>();
+        anim = activePlatform.GetComponentInParent<Animator>();
         DragonActivation();
+        if (toggleable || !InteractedOnce)
+            ChangeColor();
         base.Interact();
     }
 
-    public void DragonActivation(float animSpeed = 1, bool toggle = false)
+    public void DragonActivation(float animSpeed = 1)
     {
 
-        if (!toggle)
+        if (!toggleable)
         {
             if (!InteractedOnce)
             {

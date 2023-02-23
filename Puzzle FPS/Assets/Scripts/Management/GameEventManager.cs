@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameEventManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameEventManager : MonoBehaviour
     public GameObject InteractionEventText;
     public GameObject CollectionEventText;
     public GameObject EventTextGroup;
+    public LayoutElement EventTextLayout;
     private void Awake()
     {
         Instance = this;
