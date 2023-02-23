@@ -499,8 +499,8 @@ MonoBehaviour:
   gravity: 9.8
   playerForce: 0
   zoomMax: 35
-  zoomInSpeed: 10
-  zoomOutSpeed: 6
+  zoomInSpeed: 6
+  zoomOutSpeed: 8
   weaponList: []
   shootRate: 0
   shootDist: 0
