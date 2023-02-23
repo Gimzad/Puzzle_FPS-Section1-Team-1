@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Shoot());
         }
-        
+
     }
 
     void Movement()
@@ -209,15 +209,36 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    void SprintInput()
+    {
+        if (Input.GetButton(PlayerPreferences.Instance.Button_Sprint) && !zooming)
+        {
+            isSprinting = true;
+        }
+        else if (Input.GetButtonUp(PlayerPreferences.Instance.Button_Sprint))
+        {
+            isSprinting = false;
+        }
+    }
+
     void Sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
+        SprintInput();
+
+        if (isSprinting)
         {
-            moveSpeed *= sprintMod;
+            if (moveSpeed < (moveSpeedOrig * sprintMod))
+            {
+                moveSpeed *= sprintMod;
+            }
         }
-        else if (Input.GetButtonUp("Sprint"))
+        else
         {
-            moveSpeed /= sprintMod;
+            if (moveSpeed != moveSpeedOrig)
+            {
+                moveSpeed /= sprintMod;
+            }
         }
     }
     IEnumerator Shoot()
@@ -322,12 +343,8 @@ public class PlayerController : MonoBehaviour
     }
     void ZoomInput()
     {
-        //bool wasSprinting = isSprinting;
-
-        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && isSprinting)
+        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom))
         {
-            MoveSpeed = moveSpeedOrig;
-
             zooming = true;
         }
         else if (Camera.main.fieldOfView <= zoomOrig)
@@ -343,7 +360,10 @@ public class PlayerController : MonoBehaviour
         if (zooming)
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
-
+            if (isSprinting)
+            {
+                isSprinting = false;
+            }
             if (weaponList.Count > 0)
             {
                 weaponModel.transform.position = Vector3.Lerp(weaponModel.transform.position, weaponModelADS.position, Time.deltaTime * ADSSpeed);
@@ -367,7 +387,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 newGlobalPlatformPoint = activePlatform.transform.position;
             Vector3 moveDistance = (newGlobalPlatformPoint - activeGlobalPlatformPoint);
-            
+
             if (moveDistance != Vector3.zero)
                 controller.Move(moveDistance);
             //rotation platforms
