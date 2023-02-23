@@ -238,8 +238,12 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6640111476861537395, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+      propertyPath: MoveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640111476861537395, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
       propertyPath: SprintMod
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7109591344634365115, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
       propertyPath: m_IsActive
