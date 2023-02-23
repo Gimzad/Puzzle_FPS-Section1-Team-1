@@ -16,7 +16,7 @@ MonoBehaviour:
   ShootDist: 100
   ShotDamage: 5
   ThisIsARocketLauncher: 1
-  WeaponModel: {fileID: 249036661193826294, guid: 6d156db1e2fb5004d84cbda62b8944d0, type: 3}
+  WeaponModel: {fileID: 6160337215241339934, guid: 0670ca0124c286c479bdb51b5c7cfa92, type: 3}
   WeaponAudio: {fileID: 0}
   explosion: {fileID: 1073213170034129601, guid: 649ba10cfaaef9244af2d6b141fd2a2f, type: 3}
   explosionDamage: 2
