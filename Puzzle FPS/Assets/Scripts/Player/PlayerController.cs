@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     [Range(15, 45)][SerializeField] float gravity;
     [Range(1, 5)][SerializeField] float playerForce;
 
+    public float zoomMax;
+    public int zoomInSpeed;
+    public int zoomOutSpeed;
+
     [Header("-----Weapon Stats-----")]
     public List<Weapon> weaponList = new();
     [SerializeField] float shootRate;
@@ -26,24 +30,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
     [SerializeField] GameObject explosionObject;
+    [SerializeField] Transform weaponModelDefaultPos;
+    [SerializeField] Transform weaponModelADS;
+    [SerializeField] int ADSSpeed;
+    [SerializeField] int NotADSSpeed;
 
     public bool isDead;
 
     bool zooming;
-    public float zoomMax;
-    public int zoomInSpeed;
-    public int zoomOutSpeed;
-
 
     int jumpsCurrent;
-    Vector3 move;
-    Vector3 playerVelocity;
     bool isShooting;
     bool isCrouching;
     int hpOriginal;
     float normalHeight;
     float zoomOrig;
     float moveSpeedOrig;
+    Vector3 move;
+    Vector3 playerVelocity;
 
     public int selectedWeapon;
 
@@ -105,6 +109,7 @@ public class PlayerController : MonoBehaviour
         capsule = GetComponent<CapsuleCollider>();
         moveSpeedOrig = moveSpeed;
         zoomOrig = Camera.main.fieldOfView;
+        weaponModelDefaultPos.position = weaponModel.transform.position;
     }
     void Start()
     {
@@ -123,7 +128,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && moveSpeed == moveSpeedOrig)
         {
             zooming = true;
-        } else if (Camera.main.fieldOfView <= zoomOrig)
+        }
+        else if (Camera.main.fieldOfView <= zoomOrig)
         {
             zooming = false;
         }
@@ -179,7 +185,8 @@ public class PlayerController : MonoBehaviour
                 controller.height = crouchHeight;
                 capsule.height = crouchHeight;
 
-            } else
+            }
+            else
             {
                 Debug.Log("NOT CROUCHING");
                 isCrouching = false;
@@ -301,13 +308,24 @@ public class PlayerController : MonoBehaviour
     }
     void ZoomCamera()
     {
+        Debug.Log(weaponModel.transform.position);
         if (zooming)
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
+
+            if (weaponList.Count > 0)
+            {
+                weaponModel.transform.position = Vector3.Lerp(weaponModel.transform.position, weaponModelADS.position, Time.deltaTime * ADSSpeed);
+            }
         }
         else
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomOrig, Time.deltaTime * zoomOutSpeed);
+
+            if (weaponList.Count > 0)
+            {
+                weaponModel.transform.position = Vector3.Lerp(weaponModel.transform.position, weaponModelDefaultPos.position, Time.deltaTime * NotADSSpeed);
+            }
         }
     }
 }

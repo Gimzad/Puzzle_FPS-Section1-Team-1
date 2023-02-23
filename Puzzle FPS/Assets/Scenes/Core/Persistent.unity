@@ -182,5 +182,9 @@ PrefabInstance:
       propertyPath: JumpTimes
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7109591344634365115, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
