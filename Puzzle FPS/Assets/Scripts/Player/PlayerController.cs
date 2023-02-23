@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
     [SerializeField] GameObject explosionObject;
-    [SerializeField] Transform weaponModelDefaultPos;
-    [SerializeField] Transform weaponModelADS;
+    public Transform weaponModelDefaultPos;
+    public Transform weaponModelADS;
     public int ADSSpeed;
     public int NotADSSpeed;
 
@@ -133,7 +133,6 @@ public class PlayerController : MonoBehaviour
         activePlatform = null;
         capsule = GetComponent<CapsuleCollider>();
         weaponModel.transform.localPosition = WeaponModel.transform.localPosition;
-        //ResetWeaponPos();
     }
     void Start()
     {
@@ -184,14 +183,15 @@ public class PlayerController : MonoBehaviour
 
         if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
         {
-            StartCoroutine(playSteps());
+            StartCoroutine(PlaySteps());
         }
     }
 
-    IEnumerator playSteps()
+    IEnumerator PlaySteps()
     {
         isPlayingSteps = true;
         Audio.PlayOneShot(audioSteps[Random.Range(0, audioSteps.Length)], audioStepsVol);
+
         if (isSprinting)
         {
             yield return new WaitForSeconds(0.3f);
@@ -343,9 +343,9 @@ public class PlayerController : MonoBehaviour
         weaponModelDefaultPos.localPosition = weapon.weaponModelDefaultPos;
         weaponModel.transform.localPosition = weapon.weaponPosition;
         weaponModelADS.localPosition = weapon.weaponModelADS;
-        shootRate += weapon.ShootRate;
-        shootDist += weapon.ShootDist;
-        shotDamage += weapon.ShotDamage;
+        shootRate = weapon.ShootRate;
+        shootDist = weapon.ShootDist;
+        shotDamage = weapon.ShotDamage;
         //zoomInSpeed += weapon.ZoomInSpeed;
         //zoomOutSpeed += weapon.ZoomOutSpeed;
         //ADSSpeed += weapon.ADSSpeed;
@@ -378,9 +378,9 @@ public class PlayerController : MonoBehaviour
         shootRate = weaponList[selectedWeapon].ShootRate;
         shootDist = weaponList[selectedWeapon].ShootDist;
         shotDamage = weaponList[selectedWeapon].ShotDamage;
-        weaponModelDefaultPos.localPosition += weaponList[selectedWeapon].weaponModelDefaultPos;
-        weaponModel.transform.localPosition += weaponList[selectedWeapon].weaponPosition;
-        weaponModelADS.localPosition += weaponList[selectedWeapon].weaponModelADS;
+        weaponModelDefaultPos.localPosition = weaponList[selectedWeapon].weaponModelDefaultPos;
+        weaponModel.transform.localPosition = weaponList[selectedWeapon].weaponPosition;
+        weaponModelADS.localPosition = weaponList[selectedWeapon].weaponModelADS;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
