@@ -123,6 +123,45 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 7bf9a5b9e43c5a34eabd0f7f4f954b77, type: 2}
+--- !u!1 &920369231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 516775566246575374, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+  m_PrefabInstance: {fileID: 636130929975080298}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &920369236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920369231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 250
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &920369237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920369231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1001 &636130929975080298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +169,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3570952713093523304, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4043246530615662928, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -178,6 +221,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4642761848267883126, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466243506216523384, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+      propertyPath: EventTextLayout
+      value: 
+      objectReference: {fileID: 920369236}
     - target: {fileID: 6640111476861537395, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
       propertyPath: ZoomMax
       value: 45
@@ -193,6 +244,14 @@ PrefabInstance:
     - target: {fileID: 7109591344634365115, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049625942940247589, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9107199328481647667, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68ac9bb42ca5f5e4ba306e04e0d711ba, type: 3}

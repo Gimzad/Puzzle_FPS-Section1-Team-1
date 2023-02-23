@@ -61,7 +61,7 @@ public class GameEventManager : MonoBehaviour
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
                 {
                     TaskListUI_Location locationUI = Instantiate(LocationEventText, EventTextGroup.transform).GetComponent<TaskListUI_Location>();
-                    EventTextLayout.preferredHeight += locationUI.canvasTransform.sizeDelta.y;
+                    EventTextLayout.preferredHeight += 50;
                     locationUI.EventUIText.text = eCondition.description;
                     (eCondition as LocationCondition).ConditionUI = locationUI;
                     (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
@@ -69,15 +69,17 @@ public class GameEventManager : MonoBehaviour
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Interaction)
                 {
                     TaskListUI_Interaction interactionUI = Instantiate(InteractionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Interaction>();
+                    
                     interactionUI.EventUIText.text = eCondition.description;
                     (eCondition as InteractionCondition).ConditionUI = interactionUI;
                     (eCondition as InteractionCondition).UpdateInteractionUI((InteractionCondition)eCondition);
                 }
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Collection)
                 {
-                    TaskListUI_Collection interactionUI = Instantiate(CollectionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Collection>();
-                    interactionUI.EventUIText.text = eCondition.description;
-                    (eCondition as CollectionCondition).ConditionUI = interactionUI;
+                    TaskListUI_Collection collectionUI = Instantiate(CollectionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Collection>();
+                    
+                    collectionUI.EventUIText.text = eCondition.description;
+                    (eCondition as CollectionCondition).ConditionUI = collectionUI;
                     (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
                 }
             }

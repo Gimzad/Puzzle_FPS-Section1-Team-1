@@ -6,7 +6,6 @@ public class DragonInteract : PuzzleButton
 {
     [SerializeField] Platform activePlatform;
     [SerializeField] Platform previousPlatform;
-    [SerializeField] bool toggleable;
 
     Animator anim;
     public override void Interact()
