@@ -301,6 +301,10 @@ public class PlayerController : MonoBehaviour
         shootRate = weapon.ShootRate;
         shootDist = weapon.ShootDist;
         shotDamage = weapon.ShotDamage;
+        zoomInSpeed = weapon.ZoomInSpeed;
+        zoomOutSpeed = weapon.ZoomOutSpeed;
+        ADSSpeed = weapon.adsSpeed;
+        NotADSSpeed = weapon.NotAdsSpeed;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.WeaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapon.WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
