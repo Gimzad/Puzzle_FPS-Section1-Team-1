@@ -147,7 +147,9 @@ public class GameManager : MonoBehaviour
     {
 		playerScript.ResetWeaponPos();
 
-        playerScript.WeaponModel.transform.localPosition = firstWeapon.WeaponModel.transform.localPosition + firstWeapon.weaponPosition;
+        playerScript.weaponModelDefaultPos.localPosition = firstWeapon.weaponModelDefaultPos;
+        playerScript.weaponModelADS.localPosition = firstWeapon.weaponModelADS;
+        playerScript.WeaponModel.transform.localPosition = firstWeapon.weaponPosition;
 		playerScript.ShootRate = firstWeapon.ShootRate;
 		playerScript.ShootDist = firstWeapon.ShootDist;
 		playerScript.ShotDamage = firstWeapon.ShotDamage;
