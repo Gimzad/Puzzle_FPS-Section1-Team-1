@@ -552,6 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6234448480441935971, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
+    - {fileID: 9136543082083595973, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
 --- !u!4 &219738942 stripped
 Transform:
@@ -1791,6 +1792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6234448480441935971, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
+    - {fileID: 9136543082083595973, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
 --- !u!114 &992710640 stripped
 MonoBehaviour:
@@ -2296,6 +2298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6234448480441935971, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
+    - {fileID: 9136543082083595973, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
 --- !u!4 &1360329907 stripped
 Transform:
@@ -2696,6 +2699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6234448480441935971, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
+    - {fileID: 9136543082083595973, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b476a3d17d0a7d14c888e0fc8c2e957b, type: 3}
 --- !u!1 &1451925695
 GameObject:
@@ -4412,11 +4416,11 @@ MonoBehaviour:
   InteractedOnce: 0
   PermanentlyOn: 0
   ChangesColor: 0
+  toggleable: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
   activePlatform: {fileID: 1300962328}
   previousPlatform: {fileID: 0}
-  toggleable: 0
   statue: {fileID: 1102857967}
   ChildDragon: {fileID: 3959669883216979324}
   ChildStatue: {fileID: 3959669883216979322}
@@ -4661,11 +4665,11 @@ MonoBehaviour:
   InteractedOnce: 0
   PermanentlyOn: 0
   ChangesColor: 1
+  toggleable: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
   activePlatform: {fileID: 420447810}
   previousPlatform: {fileID: 0}
-  toggleable: 0
   statue: {fileID: 6234448480341732132}
   ChildDragon: {fileID: 3959669883454562105}
   ChildStatue: {fileID: 3959669883454562111}
@@ -4938,11 +4942,11 @@ MonoBehaviour:
   InteractedOnce: 0
   PermanentlyOn: 0
   ChangesColor: 1
+  toggleable: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
   activePlatform: {fileID: 559175655}
   previousPlatform: {fileID: 0}
-  toggleable: 0
   statue: {fileID: 1581162822}
   ChildDragon: {fileID: 3959669884176035864}
   ChildStatue: {fileID: 3959669884176035870}
@@ -5215,11 +5219,11 @@ MonoBehaviour:
   InteractedOnce: 0
   PermanentlyOn: 0
   ChangesColor: 0
+  toggleable: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
   activePlatform: {fileID: 1016945006}
   previousPlatform: {fileID: 0}
-  toggleable: 0
   statue: {fileID: 1637489351}
   ChildDragon: {fileID: 3959669884862329748}
   ChildStatue: {fileID: 3959669884862329746}

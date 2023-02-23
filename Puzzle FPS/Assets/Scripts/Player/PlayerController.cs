@@ -135,7 +135,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandlePlatforms();
-        Debug.Log(activePlatform);
         Movement();
         Crouch();
         Sprint();
