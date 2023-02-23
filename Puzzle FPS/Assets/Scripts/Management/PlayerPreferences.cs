@@ -10,7 +10,7 @@ public sealed class PlayerPreferences: MonoBehaviour
     {
 		Instance = this;
     }
-
+	public List<Weapon> SavedWeapons = new List<Weapon>();
 	#region Movement Defaults
 	public static float MoveSpeedDefault = 6f;
 	public static float CrouchHeightDefault = 0.5f;

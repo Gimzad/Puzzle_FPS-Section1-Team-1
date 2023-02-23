@@ -9,14 +9,13 @@ public class DragonToggle : DragonInteract
     [SerializeField] GameObject ChildStatue;
 
     bool turnedOn;
+    bool platformStopped;
 
     private void Awake()
     {
         gameObject.layer = 0;
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if(statue.InteractedOnce && turnedOn == false)
@@ -31,11 +30,15 @@ public class DragonToggle : DragonInteract
         ChildDragon.GetComponent<Renderer>().material = InteractedMaterial;
         ChildStatue.GetComponent<Renderer>().material = InteractedMaterial;
     }
+
     public override void Interact()
     {
         if(turnedOn)
         {
-
+            float speed = platformStopped ? 1 : 0;
+            Debug.Log(speed);
+            statue.DragonActivation(speed, true);
         }
+        platformStopped = !platformStopped;
     }
 }
