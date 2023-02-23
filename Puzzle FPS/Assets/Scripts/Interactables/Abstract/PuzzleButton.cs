@@ -14,13 +14,14 @@ public abstract class PuzzleButton : MonoBehaviour, IInteractable
     public bool InteractedOnce;
     public bool PermanentlyOn;
     public bool ChangesColor;
+    public bool toggleable;
 
     public Material InteractedMaterial;
     public Material OriginalMaterial;
 
     private void Awake()
     {
-        if(ChangesColor)
+        if(ChangesColor && toggleable)
             OriginalMaterial = ButtonRenderer.sharedMaterial;
     }
     public virtual void Interact()

@@ -61,6 +61,7 @@ public class GameEventManager : MonoBehaviour
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Location)
                 {
                     TaskListUI_Location locationUI = Instantiate(LocationEventText, EventTextGroup.transform).GetComponent<TaskListUI_Location>();
+                    EventTextLayout.preferredHeight += locationUI.canvasTransform.sizeDelta.y;
                     locationUI.EventUIText.text = eCondition.description;
                     (eCondition as LocationCondition).ConditionUI = locationUI;
                     (eCondition as LocationCondition).UpdateLocationUI((LocationCondition)eCondition);
