@@ -3688,11 +3688,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4016055840071780659, guid: 182f3341e676a134c8285836ce02f331, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4016055840719647000, guid: 182f3341e676a134c8285836ce02f331, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4016055841235095224, guid: 182f3341e676a134c8285836ce02f331, type: 3}
       propertyPath: m_Name

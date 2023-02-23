@@ -10,10 +10,10 @@ public class DragonInteract : PuzzleButton
     Animator anim;
     public override void Interact()
     {
+        anim = activePlatform.GetComponent<Animator>();
         if (anim.GetCurrentAnimatorStateInfo(0).length > 0)
             return;
         base.Interact();
-        anim = activePlatform.GetComponent<Animator>();
         DragonActivation();
     }
 
