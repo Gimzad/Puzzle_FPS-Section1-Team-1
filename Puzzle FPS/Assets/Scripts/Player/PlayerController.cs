@@ -213,12 +213,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            isSprinting = true;
             moveSpeed *= sprintMod;
         }
         else if (Input.GetButtonUp("Sprint"))
         {
-            isSprinting = false;
             moveSpeed /= sprintMod;
         }
     }
@@ -324,23 +322,16 @@ public class PlayerController : MonoBehaviour
     }
     void ZoomInput()
     {
-        bool wasSprinting = isSprinting;
+        //bool wasSprinting = isSprinting;
 
-        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom))
+        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && isSprinting)
         {
-            if (wasSprinting)
-            {
-                isSprinting = false;
-                moveSpeed = moveSpeedOrig;
-            }
+            MoveSpeed = moveSpeedOrig;
+
             zooming = true;
         }
         else if (Camera.main.fieldOfView <= zoomOrig)
         {
-            if (wasSprinting)
-            {
-                isSprinting = true;
-            }
             zooming = false;
         }
     }
