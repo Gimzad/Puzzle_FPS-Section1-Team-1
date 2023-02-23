@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -155,7 +155,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623311191}
-  m_RootOrder: 32
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &10558382
 MeshCollider:
@@ -605,7 +605,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623311191}
-  m_RootOrder: 30
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &181886331
 BoxCollider:
@@ -786,7 +786,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623311191}
-  m_RootOrder: 31
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &245123557
 BoxCollider:
@@ -980,7 +980,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623311191}
-  m_RootOrder: 29
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &369568801
 BoxCollider:
@@ -1329,7 +1329,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623311191}
-  m_RootOrder: 28
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &519252234
 BoxCollider:
@@ -2563,7 +2563,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623311191}
-  m_RootOrder: 26
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1111498707
 BoxCollider:
@@ -3200,7 +3200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 921380600298618488, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 921380600298618488, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3244,7 +3244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 926799919166704398, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_Name
-      value: Moving Platform 4
+      value: Moving Platform 3
       objectReference: {fileID: 0}
     - target: {fileID: 3913753558137297875, guid: c0b8b727e844bef45b9e7a9e75657a36, type: 3}
       propertyPath: m_Controller
@@ -3282,8 +3282,8 @@ Transform:
   m_Children:
   - {fileID: 219738942}
   - {fileID: 572639269}
-  - {fileID: 1610741918}
   - {fileID: 2125749911}
+  - {fileID: 1610741918}
   - {fileID: 491344493}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -3691,7 +3691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8306718806746450048, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8306718806746450048, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3735,7 +3735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8309886669400260086, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
       propertyPath: m_Name
-      value: Moving Platform 3
+      value: Moving Platform 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc9c17d4a7315c043b27ccc58c614096, type: 3}
@@ -4468,7 +4468,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623311191}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1926019174
 BoxCollider:
@@ -5154,7 +5154,7 @@ MonoBehaviour:
   toggleable: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
-  activePlatform: {fileID: 1300962328}
+  activePlatform: {fileID: 1016945006}
   previousPlatform: {fileID: 0}
   statue: {fileID: 1102857967}
   ChildDragon: {fileID: 3959669883216979324}
@@ -5957,7 +5957,7 @@ MonoBehaviour:
   toggleable: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
-  activePlatform: {fileID: 1016945006}
+  activePlatform: {fileID: 1300962328}
   previousPlatform: {fileID: 0}
   statue: {fileID: 1637489351}
   ChildDragon: {fileID: 3959669884862329748}
