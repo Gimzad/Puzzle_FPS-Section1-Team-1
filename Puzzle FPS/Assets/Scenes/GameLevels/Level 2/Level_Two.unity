@@ -4414,7 +4414,7 @@ MonoBehaviour:
   ChangesColor: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
-  activePlatform: {fileID: 0}
+  activePlatform: {fileID: 1300962328}
   previousPlatform: {fileID: 0}
   toggleable: 0
   statue: {fileID: 1102857967}
@@ -4663,7 +4663,7 @@ MonoBehaviour:
   ChangesColor: 1
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
-  activePlatform: {fileID: 0}
+  activePlatform: {fileID: 420447810}
   previousPlatform: {fileID: 0}
   toggleable: 0
   statue: {fileID: 6234448480341732132}
@@ -4940,7 +4940,7 @@ MonoBehaviour:
   ChangesColor: 1
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
-  activePlatform: {fileID: 0}
+  activePlatform: {fileID: 559175655}
   previousPlatform: {fileID: 0}
   toggleable: 0
   statue: {fileID: 1581162822}
@@ -5217,7 +5217,7 @@ MonoBehaviour:
   ChangesColor: 0
   InteractedMaterial: {fileID: 2100000, guid: dac47a9ef102a124b9a64b925cfcb815, type: 2}
   OriginalMaterial: {fileID: 2100000, guid: d52087653c77e3e439f2001f4a8fd3c7, type: 2}
-  activePlatform: {fileID: 0}
+  activePlatform: {fileID: 1016945006}
   previousPlatform: {fileID: 0}
   toggleable: 0
   statue: {fileID: 1637489351}
