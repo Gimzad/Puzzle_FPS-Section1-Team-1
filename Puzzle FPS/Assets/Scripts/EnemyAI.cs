@@ -174,11 +174,17 @@ public class EnemyAI : MonoBehaviour, IDamage
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        StartCoroutine(FlashDamage());
+
         if (hp <= 0)
         {
             Alive = false;
             EnableRagdoll();
+        }
+        else
+        {
+            animator.SetTrigger("damaged");
+            StartCoroutine(FlashDamage());
+            
         }
     }
 
