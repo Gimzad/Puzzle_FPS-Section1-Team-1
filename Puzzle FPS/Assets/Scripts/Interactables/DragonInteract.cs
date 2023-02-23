@@ -26,9 +26,6 @@ public class DragonInteract : PuzzleButton
                 dragonReaction.instruction = 1;
                 dragonReaction.animator = anim;
                 dragonReaction.text = "Activated";
-                Debug.Log("Waiting");
-                PlatformStart();
-                Debug.Log("Waiting Done");
                 dragonReaction.React(activePlatform);
             }
             else
@@ -39,14 +36,5 @@ public class DragonInteract : PuzzleButton
         {
             anim.speed = animSpeed;
         }
-    }
-    IEnumerator PlatformStart()
-    {
-        yield return new WaitForAnimationToStart(anim, "BridgePattern_1", 0);
-    }
-    IEnumerator PlatformFinish()
-    {
-
-        yield return new WaitForAnimationToFinish(anim, "BridgePattern_1", 0);
     }
 }

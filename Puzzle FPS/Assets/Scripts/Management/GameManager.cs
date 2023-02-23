@@ -146,8 +146,6 @@ PlayerSpawnPos.transform.position.z);
 		MenuManager.Instance.CanToggleGameMenu = true;
 
 		GameEventManager.Instance.GenerateEvents();
-		
-
 	}
     public void AssertPlayerPreferencesToScript()
 	{
@@ -155,6 +153,8 @@ PlayerSpawnPos.transform.position.z);
 		//used in the player and camera scripts
 		//Should be called right before the player is dropped in and gains control of the player.
 		//Script values should be assigned from preferences, controls should be enabled and cursor hidden
+		playerScript.weaponList = PlayerPreferences.Instance.SavedWeapons;
+
 		playerScript.HP = PlayerPreferences.Instance.HP;
 		playerScript.MoveSpeed = PlayerPreferences.Instance.MoveSpeed;
 		playerScript.SprintMod = PlayerPreferences.Instance.SprintMod;
@@ -196,9 +196,6 @@ PlayerSpawnPos.transform.position.z);
 
 		//reload player and variable settings
 		LevelSetup();
-
-
-
 	}
 	public void RestartGame()
 	{

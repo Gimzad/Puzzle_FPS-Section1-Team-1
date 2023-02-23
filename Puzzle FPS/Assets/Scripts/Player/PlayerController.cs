@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [Range(1, 5)][SerializeField] float playerForce;
 
     [Header("-----Weapon Stats-----")]
-    [SerializeField] List<Weapon> weaponList = new();
+    public List<Weapon> weaponList = new();
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
