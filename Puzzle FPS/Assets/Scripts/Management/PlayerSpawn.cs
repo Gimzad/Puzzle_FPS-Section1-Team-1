@@ -13,14 +13,13 @@ public class PlayerSpawn : MonoBehaviour
     {
         if (GameManager.Instance.PlayerInstance)
         {
-            SetPlayerPosition();
+            if (!GameManager.Instance.PlayerSpawnPos)
+                GameManager.Instance.PlayerInstance.transform.position = GetPlayerPosition();
         }
     }
-    public Vector3 SetPlayerPosition()
+    public Vector3 GetPlayerPosition()
     {
-        GameManager.Instance.PlayerInstance.transform.rotation = transform.rotation;
-        return new Vector3(transform.position.x, transform.position.y + 1.5f,
-transform.position.z);
+        return new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
 
     }
 }

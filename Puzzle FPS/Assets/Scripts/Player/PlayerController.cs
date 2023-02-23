@@ -37,6 +37,13 @@ public class PlayerController : MonoBehaviour
 
     public bool isDead;
 
+    Platform activePlatform;
+    Vector3 lastPlatformVelocity;
+    Vector3 activeLocalPlatformPoint;
+    Vector3 activeGlobalPlatformPoint;
+    Quaternion activeLocalPlatformRotation;
+    Quaternion activeGlobalPlatformRotation;
+
     bool zooming;
 
     int jumpsCurrent;
@@ -92,7 +99,7 @@ public class PlayerController : MonoBehaviour
         get { return shootRate; }
         set { shootRate = value; }
     }
-    public int ShootDistance
+    public int ShootDist
     {
         get { return shootDist; }
         set { shootDist = value; }
@@ -102,12 +109,19 @@ public class PlayerController : MonoBehaviour
         get { return shotDamage; }
         set { shotDamage = value; }
     }
+    public GameObject WeaponModel
+    {
+        get { return weaponModel; }
+        set { weaponModel = value; }
+    }
     #endregion
     private void Awake()
     {
         isDead = false;
+        activePlatform = null;
         capsule = GetComponent<CapsuleCollider>();
         moveSpeedOrig = moveSpeed;
+
         zoomOrig = Camera.main.fieldOfView;
         weaponModelDefaultPos.position = weaponModel.transform.position;
     }
@@ -118,7 +132,9 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerHPBar();
     }
     void Update()
-    {
+    {  
+        HandlePlatforms();
+        Debug.Log(activePlatform);
         Movement();
         Crouch();
         Sprint();
@@ -172,6 +188,10 @@ public class PlayerController : MonoBehaviour
             forceDirection.Normalize();
 
             rigidBody.AddForceAtPosition(forceDirection * playerForce, transform.position, ForceMode.Impulse);
+        }
+        Platform tempPlat = hit.collider.GetComponentInParent<Platform>();
+        if (tempPlat != null) {
+            activePlatform = tempPlat;
         }
     }
     void Crouch()
@@ -308,7 +328,6 @@ public class PlayerController : MonoBehaviour
     }
     void ZoomCamera()
     {
-        Debug.Log(weaponModel.transform.position);
         if (zooming)
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
@@ -326,6 +345,39 @@ public class PlayerController : MonoBehaviour
             {
                 weaponModel.transform.position = Vector3.Lerp(weaponModel.transform.position, weaponModelDefaultPos.position, Time.deltaTime * NotADSSpeed);
             }
+        }
+    }
+
+    void HandlePlatforms()
+    {
+        GetPlatformInformation();
+        if (activePlatform != null)
+        {
+            activeLocalPlatformPoint = activePlatform.transform.position;
+            Vector3 newGlobalPlatformPoint = activePlatform.transform.TransformPoint(activeLocalPlatformPoint);
+            Vector3 moveDistance = (newGlobalPlatformPoint - activeGlobalPlatformPoint);
+            if (moveDistance != Vector3.zero)
+                controller.Move(moveDistance * Time.deltaTime);
+            //rotation platforms
+            //Quaternion newGlobalPlatformRotation = activePlatform.transform. rotation * activeLocalPlatformRotation;
+            //Quaternion rotationDiff = newGlobalPlatformRotation * Quaternion.Inverse(activeGlobalPlatformRotation);
+            // Prevent rotation of the local up vector
+            //rotationDiff = Quaternion.FromToRotation(rotationDiff * transform.up, transform.up) * rotationDiff;
+            //transform.rotation = rotationDiff * transform.rotation;
+        }
+        else
+        {
+            lastPlatformVelocity = Vector3.zero;
+        }
+    }
+    void GetPlatformInformation()
+    {
+        if (activePlatform != null)
+        {
+            activeGlobalPlatformPoint = transform.position;
+            activeLocalPlatformPoint = activePlatform.transform.InverseTransformPoint(transform.position);
+            //activeGlobalPlatformRotation = transform.rotation;
+            //activeLocalPlatformRotation = Quaternion.Inverse(activePlatform.transform.rotation) * transform.rotation;
         }
     }
 }

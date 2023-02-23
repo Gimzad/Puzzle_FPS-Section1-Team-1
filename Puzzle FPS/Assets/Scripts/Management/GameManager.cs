@@ -131,15 +131,16 @@ public class GameManager : MonoBehaviour
 	{
 		FetchEvents();
 		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
-		Vector3 playerStart = new Vector3(PlayerSpawnPos.transform.position.x, PlayerSpawnPos.transform.position.y + 1.5f,
-PlayerSpawnPos.transform.position.z);
+		Vector3 playerStart = PlayerSpawnPos.GetComponent<PlayerSpawn>().GetPlayerPosition();
+
 		PlayerInstance = Instantiate(PlayerPrefab, playerStart, PlayerSpawnPos.transform.rotation);
 		
 		playerScript = PlayerInstance.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
 
 		AssertPlayerPreferencesToScript();
-
+		if (playerScript.weaponList.Count > 0)
+			EquipPlayer(playerScript.weaponList[0]);
 		Cursor.lockState = CursorLockMode.Locked;
 
 		playerCamera.ToggleCursorVisibility();
@@ -147,6 +148,17 @@ PlayerSpawnPos.transform.position.z);
 
 		GameEventManager.Instance.GenerateEvents();
 	}
+
+    private void EquipPlayer(Weapon firstWeapon)
+    {
+		playerScript.ShootRate = firstWeapon.ShootRate;
+		playerScript.ShootDist = firstWeapon.ShootDist;
+		playerScript.ShotDamage = firstWeapon.ShotDamage;
+
+		playerScript.WeaponModel.GetComponent<MeshFilter>().sharedMesh = firstWeapon.WeaponModel.GetComponent<MeshFilter>().sharedMesh;
+		playerScript.WeaponModel.GetComponent<MeshRenderer>().sharedMaterial = firstWeapon.WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+	}
+
     public void AssertPlayerPreferencesToScript()
 	{
 		//Will take the active values from Player Preferences and assign those settings to the variables
@@ -170,7 +182,7 @@ PlayerSpawnPos.transform.position.z);
 
 
 		playerScript.ShootRate = PlayerPreferences.Instance.ShootRate;
-		playerScript.ShootDistance = PlayerPreferences.Instance.ShootDistance;
+		playerScript.ShootDist = PlayerPreferences.Instance.ShootDistance;
 		playerScript.ShotDamage = PlayerPreferences.Instance.ShotDamage;
 
 		playerCamera.HorizontalSensitivity = PlayerPreferences.Instance.SensitivityHorizontal;
