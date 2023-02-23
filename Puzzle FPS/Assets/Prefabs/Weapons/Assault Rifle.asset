@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e029427f887bed240bc9f23682787802, type: 3}
   m_Name: Assault Rifle
   m_EditorClassIdentifier: 
+  weaponPosition: {x: 1, y: -0.75, z: 1.75}
+  weaponModelADS: {x: 0, y: -0.63, z: 1.25}
+  weaponModelDefaultPos: {x: 1, y: -0.75, z: 1.75}
   ShootRate: 0.25
   ShootDist: 60
   ShotDamage: 5
+  ThisIsARocketLauncher: 0
   WeaponModel: {fileID: 1608319765731420823, guid: bcf7148cdf1193a48a78687d7b1d314e, type: 3}
   WeaponAudio: {fileID: 0}

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d005654e2a7890846a598ed3ec45318c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 1fa9fa41c5d52e04199607fecb55a2bd, type: 2}
+  weapon: {fileID: 11400000, guid: 9222753c5338d4449a6238c3781bbd97, type: 2}
   parentCollectible: {fileID: 0}
 --- !u!33 &8433007005758005416
 MeshFilter:

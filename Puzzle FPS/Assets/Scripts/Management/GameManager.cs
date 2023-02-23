@@ -153,11 +153,19 @@ public class GameManager : MonoBehaviour
 
     private void EquipPlayer(Weapon firstWeapon)
     {
+		playerScript.ResetWeaponPos();
+
+        playerScript.WeaponModel.transform.localPosition = firstWeapon.WeaponModel.transform.localPosition + firstWeapon.weaponPosition;
 		playerScript.ShootRate = firstWeapon.ShootRate;
 		playerScript.ShootDist = firstWeapon.ShootDist;
 		playerScript.ShotDamage = firstWeapon.ShotDamage;
+        //playerScript.zoomInSpeed = firstWeapon.ZoomInSpeed;
+        //playerScript.zoomOutSpeed = firstWeapon.ZoomOutSpeed;
+        //playerScript.ADSSpeed = firstWeapon.ADSSpeed;
+        //playerScript.NotADSSpeed = firstWeapon.NotADSSpeed;
+        //playerScript.zoomMax = firstWeapon.zoomMax;
 
-		playerScript.WeaponModel.GetComponent<MeshFilter>().sharedMesh = firstWeapon.WeaponModel.GetComponent<MeshFilter>().sharedMesh;
+        playerScript.WeaponModel.GetComponent<MeshFilter>().sharedMesh = firstWeapon.WeaponModel.GetComponent<MeshFilter>().sharedMesh;
 		playerScript.WeaponModel.GetComponent<MeshRenderer>().sharedMaterial = firstWeapon.WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
 	}
 
@@ -200,8 +208,8 @@ public class GameManager : MonoBehaviour
 		UnPause();
 		ClearLevel();
 
-		//Restart a level without going all the way back to the main menu
-		SceneControl.Instance.SceneRestart_CurrentScene();
+        //Restart a level without going all the way back to the main menu
+        SceneControl.Instance.SceneRestart_CurrentScene();
 		if (playerScript.isDead)
 		{
 			HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);

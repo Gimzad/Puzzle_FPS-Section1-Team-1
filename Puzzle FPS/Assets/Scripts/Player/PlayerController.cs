@@ -33,8 +33,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject explosionObject;
     [SerializeField] Transform weaponModelDefaultPos;
     [SerializeField] Transform weaponModelADS;
-    [SerializeField] int ADSSpeed;
-    [SerializeField] int NotADSSpeed;
+    public int ADSSpeed;
+    public int NotADSSpeed;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audioSteps;
@@ -132,14 +132,14 @@ public class PlayerController : MonoBehaviour
         isDead = false;
         activePlatform = null;
         capsule = GetComponent<CapsuleCollider>();
-        moveSpeedOrig = moveSpeed;
-
-        zoomOrig = Camera.main.fieldOfView;
-        weaponModelDefaultPos.position = weaponModel.transform.position;
+        weaponModel.transform.localPosition = WeaponModel.transform.localPosition;
+        //ResetWeaponPos();
     }
     void Start()
     {
+        zoomOrig = Camera.main.fieldOfView;
         normalHeight = controller.height;
+        moveSpeedOrig = moveSpeed;
         hpOriginal = hp;
         UpdatePlayerHPBar();
     }
@@ -156,7 +156,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Shoot());
         }
-
     }
 
     void Movement()
@@ -328,17 +327,30 @@ public class PlayerController : MonoBehaviour
     {
         HUDManager.Instance.UpdateHPBarFill((float)hp / (float)hpOriginal);
     }
+
+    public void ResetWeaponPos()
+    {
+        weaponModelDefaultPos.localPosition = new Vector3(0, 0, 0);
+        weaponModel.transform.localPosition = new Vector3(0, 0, 0);
+        weaponModelADS.localPosition = new Vector3(0, 0, 0);
+    }
+
     public void PickupWeapon(Weapon weapon)
     {
         weaponList.Add(weapon);
-
-        shootRate = weapon.ShootRate;
-        shootDist = weapon.ShootDist;
-        shotDamage = weapon.ShotDamage;
-        zoomInSpeed = weapon.ZoomInSpeed;
-        zoomOutSpeed = weapon.ZoomOutSpeed;
-        ADSSpeed = weapon.adsSpeed;
-        NotADSSpeed = weapon.NotAdsSpeed;
+        ResetWeaponPos();
+        
+        weaponModelDefaultPos.localPosition = weapon.weaponModelDefaultPos;
+        weaponModel.transform.localPosition = weapon.weaponPosition;
+        weaponModelADS.localPosition = weapon.weaponModelADS;
+        shootRate += weapon.ShootRate;
+        shootDist += weapon.ShootDist;
+        shotDamage += weapon.ShotDamage;
+        //zoomInSpeed += weapon.ZoomInSpeed;
+        //zoomOutSpeed += weapon.ZoomOutSpeed;
+        //ADSSpeed += weapon.ADSSpeed;
+        //NotADSSpeed += weapon.NotADSSpeed;
+        //zoomMax += weapon.zoomMax;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weapon.WeaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weapon.WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
@@ -361,9 +373,14 @@ public class PlayerController : MonoBehaviour
 
     void ChangeWeapon()
     {
+        ResetWeaponPos();
+
         shootRate = weaponList[selectedWeapon].ShootRate;
         shootDist = weaponList[selectedWeapon].ShootDist;
         shotDamage = weaponList[selectedWeapon].ShotDamage;
+        weaponModelDefaultPos.localPosition += weaponList[selectedWeapon].weaponModelDefaultPos;
+        weaponModel.transform.localPosition += weaponList[selectedWeapon].weaponPosition;
+        weaponModelADS.localPosition += weaponList[selectedWeapon].weaponModelADS;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[selectedWeapon].WeaponModel.GetComponent<MeshRenderer>().sharedMaterial;
@@ -381,11 +398,11 @@ public class PlayerController : MonoBehaviour
     }
     void ZoomInput()
     {
-        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom))
+        if (Input.GetButtonDown(PlayerPreferences.Instance.Button_Zoom))
         {
             zooming = true;
         }
-        else if (Camera.main.fieldOfView <= zoomOrig)
+        else if (Input.GetButtonUp(PlayerPreferences.Instance.Button_Zoom))
         {
             zooming = false;
         }
@@ -393,18 +410,20 @@ public class PlayerController : MonoBehaviour
 
     void ZoomCamera()
     {
+        Debug.Log(zooming);
         ZoomInput();
 
         if (zooming)
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
+
             if (isSprinting)
             {
                 isSprinting = false;
             }
             if (weaponList.Count > 0)
             {
-                weaponModel.transform.position = Vector3.Lerp(weaponModel.transform.position, weaponModelADS.position, Time.deltaTime * ADSSpeed);
+                weaponModel.transform.localPosition = Vector3.Lerp(weaponModel.transform.localPosition, weaponModelADS.localPosition, Time.deltaTime * ADSSpeed);
             }
         }
         else
@@ -413,7 +432,7 @@ public class PlayerController : MonoBehaviour
 
             if (weaponList.Count > 0)
             {
-                weaponModel.transform.position = Vector3.Lerp(weaponModel.transform.position, weaponModelDefaultPos.position, Time.deltaTime * NotADSSpeed);
+                weaponModel.transform.localPosition = Vector3.Lerp(weaponModel.transform.localPosition, weaponModelDefaultPos.localPosition, Time.deltaTime * NotADSSpeed);
             }
         }
     }
