@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     [Range(0, 1)][SerializeField] float audioStepsVol;
     [SerializeField] AudioClip[] audioJump;
     [Range(0, 1)][SerializeField] float audioJumpVol;
+    [SerializeField] AudioClip[] audioHurt;
+    [Range(0, 1)][SerializeField] float audioHurtVol;
 
     bool isPlayingSteps;
 
@@ -307,6 +309,7 @@ public class PlayerController : MonoBehaviour
         hp -= dmg;
         UpdatePlayerHPBar();
         StartCoroutine(FlashDamage());
+        Audio.PlayOneShot(audioHurt[Random.Range(0, audioHurt.Length)], audioHurtVol);
 
         if (hp <= 0)
         {

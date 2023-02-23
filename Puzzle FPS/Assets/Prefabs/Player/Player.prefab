@@ -529,6 +529,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bbabdc50fbc06e5449cc7eab9f8e079c, type: 3}
   - {fileID: 8300000, guid: bc10c6e42be13a84eb6428226cfcc166, type: 3}
   audioJumpVol: 0.25
+  audioHurt:
+  - {fileID: 8300000, guid: 2b55bf0be2e43c6478e3a26e63b968cb, type: 3}
+  - {fileID: 8300000, guid: 81addc557967f4943a4e955adcdf34a7, type: 3}
+  - {fileID: 8300000, guid: 0055a61fa35dc5f46aa75291d571cfbb, type: 3}
+  - {fileID: 8300000, guid: 4c3b03127a4125d469c00cdc9a28e3dd, type: 3}
+  - {fileID: 8300000, guid: 4274ec53e14475948ac93833da71f0fe, type: 3}
+  - {fileID: 8300000, guid: cfa58a10762779e4a83a9584ca33ca60, type: 3}
+  audioHurtVol: 0.15
   isDead: 0
   moveSpeedOrig: 0
   selectedWeapon: 0
