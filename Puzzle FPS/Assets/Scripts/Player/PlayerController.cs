@@ -141,17 +141,17 @@ public class PlayerController : MonoBehaviour
         Sprint();
         SelectWeapon();
         ZoomCamera();
-        
-
 
         if (!isShooting && Input.GetButton("Fire") && weaponList.Count > 0)
         {
             StartCoroutine(Shoot());
         }
+        
     }
 
     void Movement()
     {
+        activePlatform = null;
         if (controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
             rigidBody.AddForceAtPosition(forceDirection * playerForce, transform.position, ForceMode.Impulse);
         }
-        Platform tempPlat = hit.collider.GetComponentInParent<Platform>();
+        Platform tempPlat = hit.collider.GetComponent<Platform>();
         if (tempPlat != null)
         {
             activePlatform = tempPlat;
@@ -374,11 +374,11 @@ public class PlayerController : MonoBehaviour
         GetPlatformInformation();
         if (activePlatform != null)
         {
-            activeLocalPlatformPoint = activePlatform.transform.position;
-            Vector3 newGlobalPlatformPoint = activePlatform.transform.TransformPoint(activeLocalPlatformPoint);
+            Vector3 newGlobalPlatformPoint = activePlatform.transform.position;
             Vector3 moveDistance = (newGlobalPlatformPoint - activeGlobalPlatformPoint);
+            
             if (moveDistance != Vector3.zero)
-                controller.Move(moveDistance * Time.deltaTime);
+                controller.Move(moveDistance);
             //rotation platforms
             //Quaternion newGlobalPlatformRotation = activePlatform.transform. rotation * activeLocalPlatformRotation;
             //Quaternion rotationDiff = newGlobalPlatformRotation * Quaternion.Inverse(activeGlobalPlatformRotation);
@@ -396,7 +396,7 @@ public class PlayerController : MonoBehaviour
         if (activePlatform != null)
         {
             activeGlobalPlatformPoint = transform.position;
-            activeLocalPlatformPoint = activePlatform.transform.InverseTransformPoint(transform.position);
+            activeLocalPlatformPoint = activePlatform.transform.localPosition;
             //activeGlobalPlatformRotation = transform.rotation;
             //activeLocalPlatformRotation = Quaternion.Inverse(activePlatform.transform.rotation) * transform.rotation;
         }

@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
 		
 		AssertPlayerPreferencesToScript();
 		playerScript.moveSpeedOrig = playerScript.MoveSpeed;
+
 		if (playerScript.weaponList.Count > 0)
 			EquipPlayer(playerScript.weaponList[0]);
 		Cursor.lockState = CursorLockMode.Locked;
