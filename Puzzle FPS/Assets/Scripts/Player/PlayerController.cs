@@ -210,8 +210,8 @@ public class PlayerController : MonoBehaviour
                 if (hit.collider.GetComponent<IDamage>() != null)
                 {
                     hit.collider.GetComponent<IDamage>().TakeDamage(shotDamage);
-                    Instantiate(explosionObject, hit.transform);
                 }
+                Instantiate(explosionObject, hit.transform);
             }
         }
         else

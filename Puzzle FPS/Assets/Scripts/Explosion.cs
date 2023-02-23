@@ -6,6 +6,7 @@ public class Explosion : MonoBehaviour
 {
     [SerializeField] int PushbackAmount;
 
+    public int explosionDamage;
     GameObject affected;
 
     private void OnTriggerEnter(Collider other)
@@ -16,6 +17,7 @@ public class Explosion : MonoBehaviour
             EnemyAI enemyAI = affected.GetComponent<EnemyAI>();
 
             enemyAI.PushbackDir((enemyAI.transform.position - transform.position).normalized * PushbackAmount);
+            enemyAI.TakeDamage(explosionDamage);
         }
     }
 
@@ -27,6 +29,7 @@ public class Explosion : MonoBehaviour
             EnemyAI enemyAI = affected.GetComponent<EnemyAI>();
 
             enemyAI.PushbackDir((enemyAI.transform.position - transform.position).normalized * PushbackAmount);
+            enemyAI.TakeDamage(explosionDamage);
         }
     }
 }

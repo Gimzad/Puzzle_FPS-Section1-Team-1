@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d005654e2a7890846a598ed3ec45318c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 74089ff1a7fa7764a9b68c3d9a86be76, type: 2}
+  weapon: {fileID: 11400000, guid: faff35d6ee65daf4d996aeac38aa05cc, type: 2}
   parentCollectible: {fileID: 0}
 --- !u!33 &7239774277909796321
 MeshFilter:
