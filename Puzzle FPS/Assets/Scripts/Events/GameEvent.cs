@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameEvent : MonoBehaviour
 {
-
+    public GameObject playerSpawnPos;
     //Title of event for UI description
     public string description;
     //Each event has a list of EventConditions like Collection, Location, Interaction

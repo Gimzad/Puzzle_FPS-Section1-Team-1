@@ -76,36 +76,38 @@ public class EnemyAI : MonoBehaviour, IDamage
     }
     void Update()
     {
-        if (Alive)
+        if (GameManager.Instance.PlayerScript())
         {
-            if (playerInVisionRange && CanSeePlayer())
+            if (Alive)
             {
-                if (!CanSeePlayer())
+                if (playerInVisionRange && CanSeePlayer())
+                {
+                    if (!CanSeePlayer())
+                    {
+                        StartCoroutine(Roam());
+                    }
+                    if (agent.remainingDistance < agent.stoppingDistance)
+                    {
+                        FacePlayer();
+                    }
+                    if (inAttackRange)
+                    {
+                        if (!isShooting)
+                        {
+                            StartCoroutine(Shoot());
+                        }
+                    }
+                }
+                else if (agent.destination != GameManager.Instance.PlayerScript().transform.position)
                 {
                     StartCoroutine(Roam());
                 }
-                if (agent.remainingDistance < agent.stoppingDistance)
-                {
-                    FacePlayer();
-                }
-                if (inAttackRange)
-                {
-                    if (!isShooting)
-                    {
-                        StartCoroutine(Shoot());
-                    }
-                }
             }
-            else if (agent.destination != GameManager.Instance.PlayerScript().transform.position)
+            else
             {
-                StartCoroutine(Roam());
+                StartCoroutine(DestroyEnemy());
             }
         }
-        else
-        {
-            StartCoroutine(DestroyEnemy());
-        }
-        
     }
     IEnumerator Roam()
     {
@@ -133,39 +135,43 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     bool CanSeePlayer()
     {
-        playerDir = (GameManager.Instance.PlayerScript().transform.position - headPos.position).normalized;
-        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-
-        RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDir, out hit))
+        if (GameManager.Instance.PlayerScript())
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
-            {
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(GameManager.Instance.PlayerScript().transform.position);
-                if (agent.remainingDistance < agent.stoppingDistance)
-                {
-                    FacePlayer();
+            playerDir = (GameManager.Instance.PlayerScript().transform.position - headPos.position).normalized;
+            angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
 
-                }
-                if (!isShooting && angleToPlayer <= shootAngle)
+            RaycastHit hit;
+            if (Physics.Raycast(headPos.position, playerDir, out hit))
+            {
+                if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
                 {
-                    StartCoroutine(Shoot());
+                    agent.stoppingDistance = stoppingDistOrig;
+                    agent.SetDestination(GameManager.Instance.PlayerScript().transform.position);
+                    if (agent.remainingDistance < agent.stoppingDistance)
+                    {
+                        FacePlayer();
+
+                    }
+                    if (!isShooting && angleToPlayer <= shootAngle)
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                    if (Mathf.Abs(playerDir.z) <= shootDist)
+                    {
+                        inAttackRange = true;
+                    }
+                    else
+                    {
+                        inAttackRange = false;
+                    }
+                    return true;
                 }
-                if (Mathf.Abs(playerDir.z) <= shootDist)
-                {
-                    inAttackRange = true;
-                }
-                else
-                {
-                    inAttackRange = false;
-                }
-                return true;
             }
         }
         inAttackRange = false;
         agent.stoppingDistance = 0;
         return false;
+
     }
     private void LateUpdate()
     {

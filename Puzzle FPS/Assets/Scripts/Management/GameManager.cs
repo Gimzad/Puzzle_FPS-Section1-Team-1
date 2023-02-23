@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour
 	GameEvent LevelOneEvent;
 	
 	GameEvent LevelTwoEvent;
-	
-	GameEvent LevelThreeEvent;
 
 	//Bool to determine when a scene with the player in it has started (I.E. Not in the main menu or level selection.
 	//This lets the script know it can start tracking game events like winning or losing.
@@ -98,9 +96,6 @@ public class GameManager : MonoBehaviour
 			MenuManager.Instance.DeactivateAllMenus();
 			SceneControl.Instance.LoadLevelOne();
 		}
-		GameEventManager.Instance.FindEvents();
-
-
 		LevelSetup();
 		HUDManager.Instance.ShowHUD();
 		playStarted = true;
@@ -108,21 +103,20 @@ public class GameManager : MonoBehaviour
 
 	}
 
-    private void FetchEvents()
+    public void FetchEvents()
     {
+		GameEventManager.Instance.FindEvents();
 		if (GameEventManager.Instance.HasEvents())
 		{
 			if (SceneControl.Instance.GetCurrentScene().name == "Level_One")
 			{
 				LevelOneEvent = GameEventManager.Instance.GameEvents[0];
+				PlayerSpawnPos = LevelOneEvent.playerSpawnPos;
 			}
 			else if (SceneControl.Instance.GetCurrentScene().name == "Level_Two")
 			{
 				LevelTwoEvent = GameEventManager.Instance.GameEvents[0];
-			}
-			else if (SceneControl.Instance.GetCurrentScene().name == "Level_Three")
-			{
-				LevelThreeEvent = GameEventManager.Instance.GameEvents[0];
+				PlayerSpawnPos = LevelTwoEvent.playerSpawnPos;
 			}
 		}
 	}
@@ -130,10 +124,8 @@ public class GameManager : MonoBehaviour
     public void LevelSetup()
 	{
 		FetchEvents();
-		PlayerSpawnPos = GameObject.FindGameObjectWithTag("Initial Spawn");
-		Vector3 playerStart = PlayerSpawnPos.GetComponent<PlayerSpawn>().GetPlayerPosition();
 
-		PlayerInstance = Instantiate(PlayerPrefab, playerStart, PlayerSpawnPos.transform.rotation);
+		PlayerInstance = Instantiate(PlayerPrefab, PlayerSpawnPos.transform.position, PlayerSpawnPos.transform.rotation);
 		
 		playerScript = PlayerInstance.GetComponent<PlayerController>();
 		playerCamera = Camera.main.GetComponent<CameraControl>();
@@ -148,7 +140,7 @@ public class GameManager : MonoBehaviour
 		playerCamera.ToggleCursorVisibility();
 		MenuManager.Instance.CanToggleGameMenu = true;
 
-		GameEventManager.Instance.GenerateEvents();
+		GameEventManager.Instance.GenerateEventsUI();
 	}
 
     private void EquipPlayer(Weapon firstWeapon)
@@ -314,23 +306,30 @@ public class GameManager : MonoBehaviour
 					Debug.Log("Loading Level Two...");
 					ClearLevel();
 					SceneControl.Instance.LoadLevelTwo();
-					LevelSetup();
+				}
+			}
+			else if (SceneControl.Instance.GetCurrentScene().name == "Level_Two")
+			{
+				if (LevelTwoEvent.ReturnEventCompletion(LevelTwoEvent.Conditions))
+				{
+					GameEventManager.Instance.EventsCompleted++;
+					Debug.Log("Ending game...");
 				}
 			}
 
 
-			if (GameEventManager.Instance.EventsCompleted == 3)
+			if (GameEventManager.Instance.EventsCompleted == 2)
 			{
 				WinGame();
 			}
 		}
 	}
-	private void ClearLevel()
+
+    private void ClearLevel()
     {
 		GameEventManager.Instance.ClearEventListUI();
 		GameEventManager.Instance.GameEvents.Clear();
 		Destroy(PlayerInstance);
-		PlayerSpawnPos = null;
 	}
     #endregion
 }

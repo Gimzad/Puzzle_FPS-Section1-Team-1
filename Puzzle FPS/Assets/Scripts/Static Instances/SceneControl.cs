@@ -26,16 +26,23 @@ public sealed class SceneControl
         {
             SceneManager.UnloadSceneAsync("Main Menu");
         }
-        SceneManager.LoadSceneAsync("Level_One", LoadSceneMode.Additive);
+        AsyncOperation control = SceneManager.LoadSceneAsync("Level_One", LoadSceneMode.Additive);
+        control.completed += (sceneComplete) => {
+            GameManager.Instance.FetchEvents();
+            GameManager.Instance.LevelSetup();
+        };
     }
     public void LoadLevelTwo()
-    {
-        //Unload Main Menu Scene
+    { 
         if (SceneManager.GetSceneByName("Level_One").isLoaded)
         {
             SceneManager.UnloadSceneAsync("Level_One");
         }
-        SceneManager.LoadSceneAsync("Level_Two", LoadSceneMode.Additive);
+        AsyncOperation control = SceneManager.LoadSceneAsync("Level_Two", LoadSceneMode.Additive);
+        control.completed += (sceneComplete) => {
+            GameManager.Instance.FetchEvents();
+            GameManager.Instance.LevelSetup();
+        };
     }
     public void SceneRestart_Game()
     {

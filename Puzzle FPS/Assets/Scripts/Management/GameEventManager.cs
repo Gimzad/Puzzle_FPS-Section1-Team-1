@@ -43,7 +43,7 @@ public class GameEventManager : MonoBehaviour
         }
     }
 
-    public void GenerateEvents()
+    public void GenerateEventsUI()
     {
         if (GameEvents.Count > 0)
         {
@@ -87,11 +87,14 @@ public class GameEventManager : MonoBehaviour
     }
     public void UpdateEvents()
     {
-        foreach (GameEvent gameEvent in GameEvents)
+        if (GameEvents.Count > 0)
         {
-            if (gameEvent.Conditions != null && gameEvent.Conditions.Count != 0)
+            foreach (GameEvent gameEvent in GameEvents)
             {
-                UpdateEventUI(gameEvent);
+                if (gameEvent.Conditions != null && gameEvent.Conditions.Count != 0)
+                {
+                    UpdateEventUI(gameEvent);
+                }
             }
         }
     }
@@ -155,7 +158,7 @@ public class GameEventManager : MonoBehaviour
     }
     public void ClearEventListUI()
     {
-        foreach(MonoBehaviour obj in EventTextGroup.GetComponentsInChildren<MonoBehaviour>())
+        foreach(TaskListUIElement obj in EventTextGroup.GetComponentsInChildren<TaskListUIElement>())
         {
             Destroy(obj);
         }

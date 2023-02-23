@@ -15,26 +15,33 @@ public class DragonInteract : PuzzleButton
         if (toggleable || !InteractedOnce)
             ChangeColor();
         base.Interact();
+        if (Objective != null)
+        {
+            Objective.ObjectiveInteraction();
+        }
     }
 
-    public void DragonActivation(float animSpeed = 1)
+    public void DragonActivation(float animSpeed = 1, bool toggle = false)
     {
-
-        if (!toggleable)
+        if (!toggle)
         {
-            if (!InteractedOnce)
+            if (!toggleable)
             {
-                AnimationReaction dragonReaction = ScriptableObject.CreateInstance<AnimationReaction>();
-                dragonReaction.instruction = 1;
-                dragonReaction.animator = anim;
-                dragonReaction.text = "Activated";
-                dragonReaction.React(activePlatform);
+                if (!InteractedOnce)
+                {
+                    AnimationReaction dragonReaction = ScriptableObject.CreateInstance<AnimationReaction>();
+                    dragonReaction.instruction = 1;
+                    dragonReaction.animator = anim;
+                    dragonReaction.text = "Activated";
+                    dragonReaction.React(activePlatform);
+                }
+                else
+                {
+                    return;
+                }
             }
-            else
-            {
-                return;
-            }
-        } else
+        }
+        else
         {
             anim.speed = animSpeed;
         }
