@@ -9,12 +9,16 @@ public class ButtonFunctions : MonoBehaviour
     {
         GameManager.Instance.ToggleGameMenu();
     }
+
     public void Restart()
     {
         GameManager.Instance.ToggleGameMenu();
         GameManager.Instance.RestartLevel();
     }
-
+    public void Respawn()
+    {
+        GameManager.Instance.Respawn();
+    }
     public void Quit()
     {
         Application.Quit();

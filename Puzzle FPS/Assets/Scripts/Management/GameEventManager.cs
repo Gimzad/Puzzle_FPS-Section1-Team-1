@@ -15,6 +15,7 @@ public class GameEventManager : MonoBehaviour
     public GameObject LocationEventText;
     public GameObject InteractionEventText;
     public GameObject CollectionEventText;
+    public GameObject KillEventText;
     public GameObject EventTextGroup;
     public LayoutElement EventTextLayout;
     private void Awake()
@@ -82,6 +83,14 @@ public class GameEventManager : MonoBehaviour
                     (eCondition as CollectionCondition).ConditionUI = collectionUI;
                     (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
                 }
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Kill)
+                {
+                    TaskListUI_Kill KillUI = Instantiate(CollectionEventText, EventTextGroup.transform).GetComponent<TaskListUI_Kill>();
+
+                    KillUI.EventUIText.text = eCondition.description;
+                    (eCondition as KillCondition).ConditionUI = KillUI;
+                    (eCondition as KillCondition).UpdateKillUI((KillCondition)eCondition);
+                }
             }
         }
     }
@@ -115,6 +124,10 @@ public class GameEventManager : MonoBehaviour
                 if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Collection)
                 {
                     (eCondition as CollectionCondition).UpdateCollectionUI((CollectionCondition)eCondition);
+                }
+                if (eCondition.EventClass == (int)ProjectUtilities.EventClass.Kill)
+                {
+                    (eCondition as KillCondition).UpdateKillUI((KillCondition)eCondition);
                 }
             }
         }

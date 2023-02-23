@@ -58,7 +58,10 @@ public sealed class SceneControl
         //Current Scene should be the one loaded after the paersistent one (1)
         int currSceneIndex = SceneManager.GetSceneAt(1).buildIndex;
         SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1));
-        SceneManager.LoadSceneAsync(currSceneIndex, LoadSceneMode.Additive);
+        AsyncOperation control = SceneManager.LoadSceneAsync(currSceneIndex, LoadSceneMode.Additive);
+        control.completed += (sceneComplete) => {
+            GameManager.Instance.FetchEvents();
+        };
     }
     public Scene GetCurrentScene()
     {

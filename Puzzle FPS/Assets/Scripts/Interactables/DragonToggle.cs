@@ -35,9 +35,7 @@ public class DragonToggle : DragonInteract
     {
         if(turnedOn)
         {
-            Debug.Log("Should Interact");
             float speed = platformStopped ? 1 : 0;
-            Debug.Log(speed);
             statue.DragonActivation(speed, true);
         }
         platformStopped = !platformStopped;

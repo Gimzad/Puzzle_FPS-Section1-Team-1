@@ -36,10 +36,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	bool playStarted;
 
-    [Header("Event Tracking")]
-    [SerializeField]
-    int enemiesRemaining;
-
 	#region GM Access Methods
 	public PlayerController PlayerScript()
     {
@@ -57,10 +53,6 @@ public class GameManager : MonoBehaviour
 	{
 		return playStarted;
 	}
-	public int EnemiesRemaining()
-    {
-        return enemiesRemaining;
-    }
     #endregion
 	private void Awake()
 	{
@@ -83,20 +75,18 @@ public class GameManager : MonoBehaviour
     }
     #region Public Methods
 
-    #region Game Goal Methods
-	public void UpdateEnemyCount(int amt)
-    {
-		enemiesRemaining += amt;
-    }
-    #endregion
     public void InitializePlay()
 	{
 		if (!EDITORMODE)
 		{
 			MenuManager.Instance.DeactivateAllMenus();
 			SceneControl.Instance.LoadLevelOne();
+		} else
+        {
+			FetchEvents();
+			LevelSetup();
 		}
-		LevelSetup();
+
 		HUDManager.Instance.ShowHUD();
 		playStarted = true;
 		
@@ -123,8 +113,6 @@ public class GameManager : MonoBehaviour
 
     public void LevelSetup()
 	{
-		FetchEvents();
-
 		PlayerInstance = Instantiate(PlayerPrefab, PlayerSpawnPos.transform.position, PlayerSpawnPos.transform.rotation);
 		
 		playerScript = PlayerInstance.GetComponent<PlayerController>();
@@ -197,6 +185,24 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	public void Respawn()
+	{
+		UnPause();
+		if (playerScript.isDead)
+		{
+			playerScript.isDead = false;
+			HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);
+			ToggleGameMenu();
+		}
+
+		AssertPlayerPreferencesToScript();
+		if (playerScript.weaponList.Count > 0)
+			EquipPlayer(playerScript.weaponList[0]);
+		Cursor.lockState = CursorLockMode.Locked;
+
+		playerCamera.ToggleCursorVisibility();
+		MenuManager.Instance.CanToggleGameMenu = true;
+	}
 	public void RestartLevel()
 	{
 		UnPause();
@@ -296,7 +302,7 @@ public class GameManager : MonoBehaviour
 	private void ManagePlayerTasks()
 	{
 		//could probably only check this when an interaction happens or something
-		if (GameEventManager.Instance.GameEvents.Count > 0)
+		if (GameEventManager.Instance.HasEvents())
 		{
 			//Track by highlighting active quest or event, remove or cross out when done, add new tasks as they appear.
 			GameEventManager.Instance.UpdateEvents();
@@ -305,7 +311,6 @@ public class GameManager : MonoBehaviour
 				if (LevelOneEvent.ReturnEventCompletion(LevelOneEvent.Conditions))
 				{
 					GameEventManager.Instance.EventsCompleted++;
-					Debug.Log("Loading Level Two...");
 					ClearLevel();
 					SceneControl.Instance.LoadLevelTwo();
 				}
@@ -315,7 +320,6 @@ public class GameManager : MonoBehaviour
 				if (LevelTwoEvent.ReturnEventCompletion(LevelTwoEvent.Conditions))
 				{
 					GameEventManager.Instance.EventsCompleted++;
-					Debug.Log("Ending game...");
 				}
 			}
 
@@ -331,6 +335,7 @@ public class GameManager : MonoBehaviour
     {
 		GameEventManager.Instance.ClearEventListUI();
 		GameEventManager.Instance.GameEvents.Clear();
+		PlayerPreferences.Instance.SavedWeapons.Clear();
 		Destroy(PlayerInstance);
 	}
     #endregion
