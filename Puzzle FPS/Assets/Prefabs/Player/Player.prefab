@@ -267,6 +267,8 @@ MonoBehaviour:
   shootDist: 0
   shotDamage: 0
   weaponModel: {fileID: 805393820386404573}
+  explosionObject: {fileID: 1073213170034129601, guid: 649ba10cfaaef9244af2d6b141fd2a2f, type: 3}
+  isDead: 0
   zoomMax: 35
   zoomInSpeed: 6
   zoomOutSpeed: 6

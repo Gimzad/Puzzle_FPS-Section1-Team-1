@@ -18,4 +18,15 @@ public class Explosion : MonoBehaviour
             enemyAI.PushbackDir((enemyAI.transform.position - transform.position).normalized * PushbackAmount);
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            affected = other.gameObject;
+            EnemyAI enemyAI = affected.GetComponent<EnemyAI>();
+
+            enemyAI.PushbackDir((enemyAI.transform.position - transform.position).normalized * PushbackAmount);
+        }
+    }
 }

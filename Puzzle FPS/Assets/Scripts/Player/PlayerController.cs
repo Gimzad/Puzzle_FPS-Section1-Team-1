@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] int shotDamage;
     [SerializeField] GameObject weaponModel;
+    [SerializeField] GameObject explosionObject;
 
     public bool isDead;
 
@@ -202,11 +203,25 @@ public class PlayerController : MonoBehaviour
     {
         isShooting = true;
 
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDist))
+        if (weaponList[selectedWeapon].ThisIsARocketLauncher)
         {
-            if (hit.collider.GetComponent<IDamage>() != null)
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDist))
             {
-                hit.collider.GetComponent<IDamage>().TakeDamage(shotDamage);
+                if (hit.collider.GetComponent<IDamage>() != null)
+                {
+                    hit.collider.GetComponent<IDamage>().TakeDamage(shotDamage);
+                    Instantiate(explosionObject, hit.transform);
+                }
+            }
+        }
+        else
+        {
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDist))
+            {
+                if (hit.collider.GetComponent<IDamage>() != null)
+                {
+                    hit.collider.GetComponent<IDamage>().TakeDamage(shotDamage);
+                }
             }
         }
 
