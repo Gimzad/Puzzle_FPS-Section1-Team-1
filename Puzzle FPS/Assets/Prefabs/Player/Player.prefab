@@ -491,16 +491,16 @@ MonoBehaviour:
   controller: {fileID: 7980205201441396445}
   capsule: {fileID: 7986071765041122352}
   hp: 0
-  moveSpeed: 6
+  moveSpeed: 0
   sprintMod: 0
-  jumpSpeed: 4.5
-  jumpTimes: 2
-  crouchHeight: 0.5
-  gravity: 9.8
+  jumpSpeed: 10
+  jumpTimes: 0
+  crouchHeight: 0
+  gravity: 15
   playerForce: 0
-  zoomMax: 35
-  zoomInSpeed: 6
-  zoomOutSpeed: 8
+  zoomMax: 0
+  zoomInSpeed: 0
+  zoomOutSpeed: 0
   weaponList: []
   shootRate: 0
   shootDist: 0

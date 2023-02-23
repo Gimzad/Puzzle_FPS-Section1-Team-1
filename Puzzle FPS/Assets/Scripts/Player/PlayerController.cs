@@ -52,9 +52,10 @@ public class PlayerController : MonoBehaviour
     int hpOriginal;
     float normalHeight;
     float zoomOrig;
-    float moveSpeedOrig;
+    public float moveSpeedOrig;
     Vector3 move;
     Vector3 playerVelocity;
+    bool isSprinting;
 
     public int selectedWeapon;
 
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerHPBar();
     }
     void Update()
-    {  
+    {
         HandlePlatforms();
         Debug.Log(activePlatform);
         Movement();
@@ -140,15 +141,9 @@ public class PlayerController : MonoBehaviour
         Sprint();
         SelectWeapon();
         ZoomCamera();
+        
 
-        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom) && moveSpeed == moveSpeedOrig)
-        {
-            zooming = true;
-        }
-        else if (Camera.main.fieldOfView <= zoomOrig)
-        {
-            zooming = false;
-        }
+
         if (!isShooting && Input.GetButton("Fire") && weaponList.Count > 0)
         {
             StartCoroutine(Shoot());
@@ -190,7 +185,8 @@ public class PlayerController : MonoBehaviour
             rigidBody.AddForceAtPosition(forceDirection * playerForce, transform.position, ForceMode.Impulse);
         }
         Platform tempPlat = hit.collider.GetComponentInParent<Platform>();
-        if (tempPlat != null) {
+        if (tempPlat != null)
+        {
             activePlatform = tempPlat;
         }
     }
@@ -200,7 +196,6 @@ public class PlayerController : MonoBehaviour
         {
             if (!isCrouching)
             {
-                Debug.Log("CROUCHING");
                 isCrouching = true;
                 controller.height = crouchHeight;
                 capsule.height = crouchHeight;
@@ -208,7 +203,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("NOT CROUCHING");
                 isCrouching = false;
                 controller.height = normalHeight;
                 capsule.height = normalHeight;
@@ -219,10 +213,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Sprint"))
         {
+            isSprinting = true;
             moveSpeed *= sprintMod;
         }
         else if (Input.GetButtonUp("Sprint"))
         {
+            isSprinting = false;
             moveSpeed /= sprintMod;
         }
     }
@@ -326,8 +322,33 @@ public class PlayerController : MonoBehaviour
 
         controller.enabled = true;
     }
+    void ZoomInput()
+    {
+        bool wasSprinting = isSprinting;
+
+        if (Input.GetButton(PlayerPreferences.Instance.Button_Zoom))
+        {
+            if (wasSprinting)
+            {
+                isSprinting = false;
+                moveSpeed = moveSpeedOrig;
+            }
+            zooming = true;
+        }
+        else if (Camera.main.fieldOfView <= zoomOrig)
+        {
+            if (wasSprinting)
+            {
+                isSprinting = true;
+            }
+            zooming = false;
+        }
+    }
+
     void ZoomCamera()
     {
+        ZoomInput();
+
         if (zooming)
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * zoomInSpeed);
