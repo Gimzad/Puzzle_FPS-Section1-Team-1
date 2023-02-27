@@ -9,7 +9,10 @@ public class ButtonFunctions : MonoBehaviour
     {
         GameManager.Instance.ToggleGameMenu();
     }
-
+    public void Continue()
+    {
+        GameManager.Instance.ContinueGame();
+    }
     public void Restart()
     {
         GameManager.Instance.ToggleGameMenu();

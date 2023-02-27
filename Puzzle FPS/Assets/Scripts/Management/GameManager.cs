@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		BeginGame();
-		InitializePlay();
+		
 	}
     private void LateUpdate()
     {
@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
 			FetchEvents();
 			LevelSetup();
 		}
-
 		HUDManager.Instance.ShowHUD();
 		playStarted = true;
 		
@@ -193,6 +192,11 @@ public class GameManager : MonoBehaviour
 			playerScript.isDead = false;
 			HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);
 			ToggleGameMenu();
+        }
+        else
+        {
+			PlayerInstance.transform.position = PlayerSpawnPos.transform.position;
+			ToggleGameMenu();
 		}
 
 		AssertPlayerPreferencesToScript();
@@ -207,9 +211,9 @@ public class GameManager : MonoBehaviour
 	{
 		UnPause();
 		ClearLevel();
-
-        //Restart a level without going all the way back to the main menu
-        SceneControl.Instance.SceneRestart_CurrentScene();
+		PlayerPreferences.Instance.SavedWeapons.Clear();
+		//Restart a level without going all the way back to the main menu
+		SceneControl.Instance.SceneRestart_CurrentScene();
 		if (playerScript.isDead)
 		{
 			HUDManager.Instance.PlayerDamageFlashScreen.SetActive(false);
@@ -223,6 +227,7 @@ public class GameManager : MonoBehaviour
 	{
 		playerCamera.ToggleCursorVisibility();
 		ClearLevel();
+		PlayerPreferences.Instance.SavedWeapons.Clear();
 
 		//Call to scene control to handle unloading anything we are currently in
 		SceneControl.Instance.SceneRestart_Game();
@@ -242,8 +247,16 @@ public class GameManager : MonoBehaviour
 	public void WinGame()
 	{
 		Pause();
-
+		playerCamera.ToggleCursorVisibility();
 		MenuManager.Instance.DisplayWinMenu();
+	}
+	public void ContinueGame()
+	{
+		UnPause();
+		playerCamera.ToggleCursorVisibility();
+		MenuManager.Instance.CloseWinMenu();
+		GameObject exit = GameObject.FindWithTag("Exit Door");
+		exit.SetActive(false);
 	}
 	public void ToggleGameMenu()
 	{
@@ -311,6 +324,7 @@ public class GameManager : MonoBehaviour
 				if (LevelOneEvent.ReturnEventCompletion(LevelOneEvent.Conditions))
 				{
 					GameEventManager.Instance.EventsCompleted++;
+					PlayerPreferences.Instance.SavedWeapons = playerScript.weaponList;
 					ClearLevel();
 					SceneControl.Instance.LoadLevelTwo();
 				}
@@ -335,7 +349,6 @@ public class GameManager : MonoBehaviour
     {
 		GameEventManager.Instance.ClearEventListUI();
 		GameEventManager.Instance.GameEvents.Clear();
-		PlayerPreferences.Instance.SavedWeapons.Clear();
 		Destroy(PlayerInstance);
 	}
     #endregion

@@ -201,8 +201,15 @@ public class MenuManager : MonoBehaviour
 	public void DisplayWinMenu()
 	{
 		DisplayMenuPanel(WinMenu);
+
 		//Ensure in-game menu toggling is disabled while main menu is up.
 		canToggleGameMenu = false;
+	}
+	public void CloseWinMenu()
+	{
+		CloseActiveMenuPanel();
+		//Ensure in-game menu toggling is disabled while main menu is up.
+		canToggleGameMenu = true;
 	}
 	public void DisplayLoseMenu()
 	{

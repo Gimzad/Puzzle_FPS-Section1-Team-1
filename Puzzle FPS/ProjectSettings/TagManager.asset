@@ -8,6 +8,7 @@ TagManager:
   - Initial Spawn
   - Game Event
   - Enemy
+  - Exit Door
   layers:
   - Default
   - TransparentFX
