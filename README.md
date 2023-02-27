@@ -2,10 +2,6 @@
 
 Project Repoistory for Team 1 Members:
 
-Burgess, Michael (MikeyBurgess9142)
-
-Gurwell, Alex (AL3XG8)
-
 Pallotta, Nicholas (Gimzad)
 
 Patricelli, John (MrFoxFire)
