@@ -1,6 +1,6 @@
-# Puzzle_FPS-Section1-Team-1
+# The Infection
 
-Project Repoistory for Team 1 Members:
+Project Repoistory for the game project "The Infection"
 
 Pallotta, Nicholas (Gimzad)
 
